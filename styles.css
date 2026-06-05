@@ -1,0 +1,207 @@
+/* --- Variables de Estilo --- */
+:root {
+    --primary-color: #6366f1;
+    --primary-hover: #4f46e5;
+    --bg-color: #0f172a;
+    --card-bg: #1e293b;
+    --text-color: #f8fafc;
+    --text-muted: #94a3b8;
+    --user-msg: #005c4b; /* Actualizado al verde WhatsApp */
+    --char-msg: #202c33; /* Actualizado al gris WhatsApp */
+    --max-width: 1200px;
+}
+
+/* --- Reset y Estilos Base (Celular por defecto) --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Layout Header y Footer --- */
+.main-header {
+    background-color: var(--card-bg);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column; /* Apilado en celular */
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid #334155;
+}
+
+.logo {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.nav-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-item {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+
+.nav-item:hover, .nav-item.active {
+    color: var(--primary-color);
+}
+
+#app {
+    flex: 1;
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.main-footer {
+    background-color: var(--card-bg);
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    border-top: 1px solid #334155;
+}
+
+/* ==========================================
+   INTERFAZ DEL CHAT (Base Mobile-First)
+   ========================================== */
+
+/* El contenedor ocupa todo el espacio central disponible en el celular */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 140px); /* Ajustado para dar más aire en celular */
+    width: 100%;
+    max-width: 100%;
+    background-color: #0b141a; /* Fondo ultra oscuro tipo WhatsApp nocturno */
+    border: 1px solid #222e35;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 10px auto;
+}
+
+/* El área de mensajes con scroll independiente */
+.chat-messages {
+    flex: 1; /* Ocupa todo el espacio intermedio */
+    padding: 16px;
+    overflow-y: auto; /* Activa el scroll vertical solo acá adentro */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #0b141a; 
+}
+
+/* Globitos de mensajes optimizados para pulgar en celular */
+.message {
+    padding: 8px 12px;
+    border-radius: 8px;
+    max-width: 75%; /* Más angosto para que se note el diseño de chat */
+    font-size: 0.95rem;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+}
+
+/* Mensajes del usuario (Vos) -> Estilo WhatsApp Verde */
+.user-message {
+    background-color: var(--user-msg);
+    color: #e9edef;
+    align-self: flex-end;
+    border-top-right-radius: 0px; /* Pico típico de WhatsApp */
+}
+
+/* Mensajes del Personaje -> Gris WhatsApp */
+.character-message {
+    background-color: var(--char-msg);
+    color: #e9edef;
+    align-self: flex-start;
+    border-top-left-radius: 0px;
+}
+
+/* Mensajes del Sistema unificados tipo WhatsApp */
+.system-message {
+    background-color: #182229; /* Un gris azulado sutil que resalta apenas del fondo */
+    color: #8696a0;            /* Color de texto gris claro */
+    align-self: center;        /* Lo centra horizontalmente en el chat */
+    text-align: center;
+    font-size: 0.8rem;         /* Letra un toque más chica */
+    padding: 6px 12px;
+    border-radius: 6px;
+    max-width: 90%;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    margin: 5px 0;
+}
+
+/* Área de entrada fija abajo */
+.chat-input-area {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    background-color: #202c33; /* Barra de abajo de WhatsApp */
+}
+
+.chat-input-area input {
+    flex: 1;
+    padding: 10px 16px;
+    background-color: #2a3942;
+    border: none;
+    border-radius: 20px; /* Bordes redondos tipo WhatsApp */
+    color: #e9edef;
+    font-size: 0.95rem;
+    outline: none;
+    transition: box-shadow 0.2s;
+}
+
+.chat-input-area input:focus {
+    box-shadow: 0 0 0 2px var(--primary-color); /* Indicador visual sin romper el borde */
+}
+
+.chat-input-area .btn-primary {
+    padding: 8px 16px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+}
+
+.chat-input-area .btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+/* ==========================================
+   MEDIA QUERIES (Adaptación a pantallas grandes)
+   ========================================== */
+@media (min-width: 768px) {
+    .main-header {
+        flex-direction: row; /* Horizontal en pantallas grandes */
+        justify-content: space-between;
+        padding: 1rem 2rem;
+    }
+
+    .chat-container {
+        max-width: 700px; /* Se acota para que no quede gigante a lo ancho en PC */
+        height: 70vh;
+    }
+    
+    .message {
+        max-width: 70%; /* En pantallas grandes, el globito es más corto */
+        font-size: 1rem;
+    }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "proyecto-m3-chavez-santiago",
+  "version": "1.0.0",
+  "description": "Proyecto Integrador Módulo 3 - Chat con Inteligencia Artificial",
+  "main": "src/app.js",
+"scripts": {
+    "start": "echo 'El frontend corre directo en Vercel'",
+    "test": "vitest run"
+  },
+
+  "keywords": [],
+  "author": "Santiago Chavez",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "vercel": "^34.7.1",
+    "vitest": "^1.6.0"
+  }
+}
