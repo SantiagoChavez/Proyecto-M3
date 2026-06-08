@@ -3,17 +3,20 @@
   "version": "1.0.0",
   "description": "Proyecto Integrador Módulo 3 - Chat con Inteligencia Artificial",
   "main": "src/app.js",
-"scripts": {
+  "type": "module",
+  "scripts": {
+    "local": "npx vercel@latest dev",
     "start": "echo 'El frontend corre directo en Vercel'",
     "test": "vitest run"
   },
-
   "keywords": [],
   "author": "Santiago Chavez",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1"
+  },
   "devDependencies": {
-    "vercel": "^34.7.1",
+    "vercel": "^34.0.0",
     "vitest": "^1.6.0"
   }
 }

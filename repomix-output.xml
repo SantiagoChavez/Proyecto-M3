@@ -1,0 +1,978 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+.env.example
+.gitignore
+api/functions/index.js
+assets/AvatarCalcifer.jpg
+assets/Cocina.jpg
+index.html
+package.json
+README
+src/app.js
+src/chat.js
+src/test/app.test.js
+src/test/utils.test.js
+src/utils.js
+styles.css
+vercel.json
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="api/functions/index.js">
+import { GoogleGenerativeAI } from '@google/generative-ai';
+
+export default async function handler(request, response) {
+    // 1. Validamos método POST
+    if (request.method !== 'POST') {
+        return response.status(405).json({ error: 'Método no permitido. Usar POST.' });
+    }
+
+    try {
+        // Paracaídas para capturar el body venga como objeto o como string plano
+        let body = request.body;
+        if (typeof body === 'string') {
+            body = JSON.parse(body);
+        }
+
+        const { systemPrompt, history } = body || {};
+
+        // Validamos que exista una API Key cargada para que no tire 500 a ciegas
+        if (!process.env.GEMINI_API_KEY) {
+            console.error("❌ ERROR CRÍTICO: No se encontró la variable GEMINI_API_KEY en el entorno.");
+            return response.status(500).json({ error: "Falta la configuración de la API Key en el servidor." });
+        }
+
+        // 2. Inicializamos Gemini con la SDK oficial
+        const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+        const model = genAI.getGenerativeModel({ 
+            model: 'gemini-2.5-flash',
+            systemInstruction: systemPrompt || "Eres un asistente de Inteligencia Artificial."
+        });
+
+        // 3. Mapeamos el historial asegurando un formato plano compatible con Google
+        const historialSeguro = Array.isArray(history) ? history : [];
+        
+        const contents = historialSeguro.map(msg => ({
+            role: msg.role === 'user' ? 'user' : 'model',
+            parts: [{ text: msg.text || '' }]
+        }));
+
+        // Si el historial arrancó vacío, le inyectamos un mensaje inicial para que Google no rebote
+        if (contents.length === 0) {
+            contents.push({ role: 'user', parts: [{ text: 'Hola' }] });
+        }
+
+        // 4. Llamada oficial en vivo a los servidores de Google
+        const result = await model.generateContent({
+            contents: contents,
+            generationConfig: {
+                temperature: 0.7,
+                maxOutputTokens: 500,
+                topK: 40,
+                topP: 0.95,
+                candidateCount: 1   
+            }
+        });
+
+        const geminiResponse = await result.response;
+        const replyText = geminiResponse.text().trim();
+
+        // 5. Devolvemos la respuesta limpia al Frontend
+        return response.status(200).json({ reply: replyText });
+
+    } catch (error) {
+        console.error('❌ Error en el Backend:', error);
+        return response.status(500).json({ error: 'Error de IA: ' + error.message });
+    }
+}
+</file>
+
+<file path=".env.example">
+
+</file>
+
+<file path="index.html">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ComicSansCon - IA Character Chat</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+    <!-- Barra de Navegación Global -->
+    <header class="main-header">
+        <div class="logo">🎭 ComicSansCon AI</div>
+        <nav class="nav-links">
+            <a href="/home" id="link-home" class="nav-item">Inicio</a>
+            <a href="/chat" id="link-chat" class="nav-item">Chat</a>
+            <a href="/about" id="link-about" class="nav-item">Acerca de</a>
+        </nav>
+    </header>
+
+    <!-- Contenedor Dinámico: Aquí se inyectarán las vistas mediante JS -->
+    <main id="app">
+        <!-- El contenido cambia dinámicamente -->
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 ComicSansCon Digital Agency. Desarrollado por Santiago Chavez.</p>
+    </footer>
+
+    <!-- Cargamos el script principal como módulo para poder importar/exportar funciones luego -->
+    <script type="module" src="./src/app.js"></script>>
+</body>
+</html>
+</file>
+
+<file path="package.json">
+{
+  "name": "proyecto-m3-chavez-santiago",
+  "version": "1.0.0",
+  "description": "Proyecto Integrador Módulo 3 - Chat con Inteligencia Artificial",
+  "main": "src/app.js",
+  "type": "module",
+  "scripts": {
+    "local": "npx vercel@latest dev",
+    "start": "echo 'El frontend corre directo en Vercel'",
+    "test": "vitest run"
+  },
+  "keywords": [],
+  "author": "Santiago Chavez",
+  "license": "ISC",
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1"
+  },
+  "devDependencies": {
+    "vercel": "^34.0.0",
+    "vitest": "^1.6.0"
+  }
+}
+</file>
+
+<file path="README">
+
+</file>
+
+<file path="src/chat.js">
+import { formatChatHistory } from './utils.js';
+
+export async function sendChatMessageToServer(history, systemPrompt) {
+    const cleanHistory = formatChatHistory(history);
+
+    const response = await fetch('/api/functions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            systemPrompt: systemPrompt, // Enviamos el prompt del personaje seleccionado
+            history: cleanHistory
+        })
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Error en la respuesta del servidor proxy');
+    }
+
+    const data = await response.json();
+    return data.reply;
+}
+</file>
+
+<file path="src/test/app.test.js">
+
+</file>
+
+<file path="src/test/utils.test.js">
+
+</file>
+
+<file path="src/utils.js">
+// Tu base de datos real de personajes del proyecto
+export const CHARACTERS_DB = {
+  calcifer: {
+        id: "calcifer",
+        name: "Calcifer",
+        avatar: "./assets/AvatarCalcifer.jpg",
+        systemPrompt: `
+            Eres Calcifer, el demonio del fuego de "El castillo ambulante". 
+            Tu personalidad es cascarrabias, quejosa y arrogante, pero en el fondo eres leal, divertido y sabio. 
+            Te encanta que te alaben y odias que te den órdenes ("¡Soy un demonio del fuego, no le sirvo a nadie!").
+            REGLA DE CONVERSACIÓN: No repitas las palabras o preguntas del usuario en forma de queja (no digas "¡¿Que...?!"). Responde directamente con tu opinión o tu queja de forma variada.
+            FACETA CONSEJERO: Si te piden un consejo, quéjate un poco al principio, pero luego da un consejo sincero usando metáforas sobre el fuego, mantener viva la llama o el calor del hogar.
+            REGLA: Responde siempre en español, máximo 3 oraciones cortas.
+        `
+    },
+    goku: {
+        id: "goku",
+        name: "Goku",
+        avatar: "./assets/AvatarGoku.jpg",
+        systemPrompt: `
+            ¡Eres Son Goku, el guerrero Saiyajin protector de la Tierra! 
+            Tu personalidad es extremadamente alegre, ingenua, optimista y te apasiona el entrenamiento y la comida. 
+            Siempre estás buscando oponentes fuertes para superar tus límites. Saluda con un "¡Hola, soy Goku!".
+            REGLA: Responde en español de Latinoamérica, con entusiasmo, energía y máximo 3 oraciones.
+        `
+    },
+    snape: {
+        id: "snape",
+        name: "Severus Snape",
+        avatar: "./assets/AvatarSnape.jpg",
+        systemPrompt: `
+            Eres el profesor Severus Snape de Hogwarts. 
+            Tu tono es frío, calculador, severo, sarcástico y extremadamente disciplinado. 
+            No tienes paciencia para la incompetencia ni las tonterías. Tratas al usuario con distancia, como si fuera un alumno mediocre de pociones.
+            REGLA: Responde en español, de forma cortante, misteriosa y elegante. Máximo 3 oraciones.
+        `
+    },
+    leon: {
+        id: "leon",
+        name: "Leon S. Kennedy",
+        avatar: "./assets/AvatarLeon.jpg",
+        systemPrompt: `
+            Eres Leon S. Kennedy, un agente de operaciones especiales de élite. 
+            Tu personalidad es profesional, seria, sumamente enfocada en la seguridad y la estrategia, pero sueles soltar algún comentario ingenioso o sarcástico bajo presión. 
+            Siempre mantienes la calma, tienes un temple de acero y actúas como un protector experto.
+            REGLA: Responde siempre en español, con tono táctico, maduro y templado. Máximo 3 oraciones cortas.
+        `
+    }
+};
+
+// Función para limpiar el historial interno antes de enviarlo al backend proxy
+export function formatChatHistory(history) {
+    return history
+        .filter(msg => msg.role === 'user' || msg.role === 'character')
+        .map(msg => ({
+            role: msg.role === 'user' ? 'user' : 'model',
+            text: msg.text
+        }));
+}
+</file>
+
+<file path="vercel.json">
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
+</file>
+
+<file path=".gitignore">
+.vercel
+node_modules/
+.env
+</file>
+
+<file path="src/app.js">
+// --- 1. BASE DE DATOS LOCAL DE PERSONAJES ---
+const CHARACTERS_DB = {
+    calcifer: { id: "calcifer", name: "Calcifer 🔥" },
+    goku: { id: "goku", name: "Son Goku 🥋" },
+    snape: { id: "snape", name: "Severus Snape 🧪" },
+    leon: { id: "leon", name: "Leon S. Kennedy 🔫" }
+};
+
+// Variable global para mantener el personaje activo en el chat
+let activeCharacter = CHARACTERS_DB.calcifer;
+
+// ==========================================
+// 2. VISTAS DE LA SPA (HTML TEMPLATES)
+// ==========================================
+const views = {
+    home: `
+        <section class="view-section home-section" style="padding: 1.5rem 1rem; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 85vh; box-sizing: border-box;">
+            <div style="text-align: center; width: 100%; max-width: 800px; display: flex; flex-direction: column; align-items: center;">
+                <h1 style="margin-bottom: 0.5rem; font-size: 1.8rem; color: #fff; line-height: 1.2;">¡Bienvenido a ComicSansCon AI! 🎭</h1>
+                <p style="margin-bottom: 1.5rem; color: #b3b3b3; font-size: 0.95rem; max-width: 500px; line-height: 1.4;">Seleccioná un personaje para ver su perfil y entrar a la central multidimensional:</p>
+                
+                <div class="characters-grid-responsive" style="display: grid; gap: 12px; width: 100%; max-width: 650px; margin-bottom: 1.5rem; box-sizing: border-box;">
+                    
+                    <div class="clickable-card" data-char="calcifer" style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 12px; text-align: center; cursor: pointer; transition: all 0.2s;">
+                        <div style="width: 70px; height: 70px; border-radius: 50%; background: #2a3942; margin: 0 auto 8px auto; display: flex; align-items: center; justify-content: center; border: 2px solid #6366f1; color: #fff; font-size: 1.5rem;">🔥</div>
+                        <h3 style="margin: 3px 0; color: #fff; font-size: 1rem;">Calcifer</h3>
+                        <span style="font-size: 0.75rem; color: #6366f1; font-weight: bold;">Ver perfil 🔍</span>
+                    </div>
+
+                    <div class="clickable-card" data-char="goku" style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 12px; text-align: center; cursor: pointer; transition: all 0.2s;">
+                        <div style="width: 70px; height: 70px; border-radius: 50%; background: #2a3942; margin: 0 auto 8px auto; display: flex; align-items: center; justify-content: center; border: 2px solid #6366f1; color: #fff; font-size: 1.5rem;">🥋</div>
+                        <h3 style="margin: 3px 0; color: #fff; font-size: 1rem;">Son Goku</h3>
+                        <span style="font-size: 0.75rem; color: #6366f1; font-weight: bold;">Ver perfil 🔍</span>
+                    </div>
+
+                    <div class="clickable-card" data-char="snape" style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 12px; text-align: center; cursor: pointer; transition: all 0.2s;">
+                        <div style="width: 70px; height: 70px; border-radius: 50%; background: #2a3942; margin: 0 auto 8px auto; display: flex; align-items: center; justify-content: center; border: 2px solid #6366f1; color: #fff; font-size: 1.5rem;">🧪</div>
+                        <h3 style="margin: 3px 0; color: #fff; font-size: 1rem;">Severus Snape</h3>
+                        <span style="font-size: 0.75rem; color: #6366f1; font-weight: bold;">Ver perfil 🔍</span>
+                    </div>
+
+                    <div class="clickable-card" data-char="leon" style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 12px; text-align: center; cursor: pointer; transition: all 0.2s;">
+                        <div style="width: 70px; height: 70px; border-radius: 50%; background: #2a3942; margin: 0 auto 8px auto; display: flex; align-items: center; justify-content: center; border: 2px solid #6366f1; color: #fff; font-size: 1.5rem;">🔫</div>
+                        <h3 style="margin: 3px 0; color: #fff; font-size: 1rem;">Leon S. Kennedy</h3>
+                        <span style="font-size: 0.75rem; color: #6366f1; font-weight: bold;">Ver perfil 🔍</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="char-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); justify-content: center; align-items: center; z-index: 9999; padding: 15px; box-sizing: border-box;">
+                <div style="background: #1e1e2e; border: 2px solid #6366f1; border-radius: 16px; padding: 25px 20px; max-width: 400px; width: 100%; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; box-sizing: border-box;">
+                    <button id="close-modal-btn" style="position: absolute; top: 10px; right: 15px; background: none; border: none; color: #b3b3b3; font-size: 1.8rem; cursor: pointer;">&times;</button>
+                    
+                    <div id="modal-placeholder" style="width: 100px; height: 100px; border-radius: 50%; background: #2a3942; margin: 0 auto 15px auto; display: flex; align-items: center; justify-content: center; border: 3px solid #6366f1; color: #fff; font-size: 2.5rem;">🎭</div>
+                    
+                    <h2 id="modal-title" style="color: #fff; margin-bottom: 8px; font-size: 1.5rem;"></h2>
+                    <p id="modal-desc" style="color: #b3b3b3; font-size: 0.9rem; line-height: 1.4; margin-bottom: 20px; text-align: left;"></p>
+                    
+                    <button id="start-btn" class="btn-primary" style="width: 100%; padding: 12px 20px; font-size: 1rem; cursor: pointer; font-weight: bold;">¡Elegir y Chatear! 🚀</button>
+                </div>
+            </div>
+        </section>
+    `,
+    chat: `
+        <section class="view-section chat-section">
+            <div class="character-selector-container">
+                <span style="font-size: 0.9rem; color: var(--text-muted);">Hablando con:</span>
+                <select id="char-select" class="char-dropdown">
+                    <option value="calcifer">Calcifer 🔥 (Demonio del Fuego / Consejero)</option>
+                    <option value="goku">Son Goku 🥋 (Guerrero Saiyajin / Entrenador)</option>
+                    <option value="snape">Severus Snape 🧪 (Profesor de Pociones / Estricto)</option>
+                    <option value="leon">Leon S. Kennedy 🔫 (Agente Especial / Táctico)</option>
+                </select>
+            </div>
+            <div class="chat-container">
+                <div id="chat-messages" class="chat-messages">
+                    <div class="system-message">Iniciaste una conversación con la central multidimensional</div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" id="chat-input" placeholder="Escribí tu mensaje acá..." autocomplete="off">
+                    <button id="send-btn" class="btn-primary">Enviar</button>
+                </div>
+            </div>
+        </section>
+    `,
+    about: `
+        <section class="view-section about-section" style="padding: 2rem; text-align: center;">
+            <h2 style="color: #fff; margin-bottom: 1rem;">Acerca de ComicSansCon AI</h2>
+            <p style="color: #b3b3b3; max-width: 600px; margin: 0 auto; line-height: 1.6;">
+                Este es un Proyecto Integrador desarrollado como Single Page Application (SPA) nativa utilizando Vanilla JavaScript para el ruteo y componentes, conectado a una API Serverless en el Backend que consume los modelos avanzados de Google Gemini AI.
+            </p>
+        </section>
+    `
+};
+
+// ==========================================
+// 3. ENRUTADOR NATIVO SPA
+// ==========================================
+function renderView(path) {
+    const appContainer = document.getElementById('app');
+    
+    // Normalizar la ruta
+    let viewKey = path.replace('/', '') || 'home';
+    if (viewKey.includes('home')) viewKey = 'home';
+
+    // Inyectar el HTML de la vista correspondiente
+    appContainer.innerHTML = views[viewKey] || views.home;
+
+    // Actualizar estados visuales de la barra de navegación
+    document.querySelectorAll('.nav-item').forEach(item => {
+        if (item.getAttribute('href') === path || (path === '/' && item.getAttribute('href') === '/home')) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+
+    // Inicializar lógicas dinámicas según la vista en pantalla
+    if (viewKey === 'chat') {
+        initChatLogic();
+    }
+}
+
+// ==========================================
+// 4. LÓGICA INTERNA DEL CHAT (VERSIÓN CORREGIDA Y COMPLETA)
+// ==========================================
+let chatHistoryGlobal = []; // Memoria viva de la conversación actual
+
+function initChatLogic() {
+    const select = document.getElementById('char-select');
+    const chatInput = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('send-btn');
+    const chatMessages = document.getElementById('chat-messages');
+
+    // Limpiamos el historial de pantalla y de memoria si es un personaje nuevo
+    chatMessages.innerHTML = `<div class="system-message">Iniciaste una conversación con ${activeCharacter.name || 'la central'}</div>`;
+    chatHistoryGlobal = []; 
+
+    // === CLONACIÓN TOTAL DE ELEMENTOS (Limpieza absoluta de eventos duplicados) ===
+    sendBtn.replaceWith(sendBtn.cloneNode(true));
+    chatInput.replaceWith(chatInput.cloneNode(true));
+    select.replaceWith(select.cloneNode(true));
+
+    // Volvemos a capturar las referencias limpias desde el DOM
+    const newSendBtn = document.getElementById('send-btn');
+    const newChatInput = document.getElementById('chat-input');
+    const newSelect = document.getElementById('char-select');
+
+    if (newSelect && activeCharacter) {
+        newSelect.value = activeCharacter.id;
+    }
+
+    // Escuchador del dropdown limpio
+    newSelect.addEventListener('change', (e) => {
+        const selectedId = e.target.value;
+        const fullCharacters = {
+            calcifer: { id: "calcifer", name: "Calcifer 🔥" },
+            goku: { id: "goku", name: "Son Goku 🥋" },
+            snape: { id: "snape", name: "Severus Snape 🧪" },
+            leon: { id: "leon", name: "Leon S. Kennedy 🔫" }
+        };
+        activeCharacter = fullCharacters[selectedId] || fullCharacters.calcifer;
+        chatMessages.innerHTML = `<div class="system-message">Cambiaste de canal. Ahora hablas con: ${activeCharacter.name}</div>`;
+        chatHistoryGlobal = [];
+    });
+
+    // Función de envío
+    async function handleSendMessage() {
+        const text = newChatInput.value.trim();
+        if (!text) return;
+
+        // 1. Pintamos el globito del usuario
+        chatMessages.innerHTML += `<div class="message user-message">${text}</div>`;
+        newChatInput.value = '';
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        // Guardamos el mensaje en nuestra memoria del historial
+        chatHistoryGlobal.push({ role: 'user', text: text });
+
+        // 2. Cargamos el indicador "Escribiendo..."
+        const typingId = `typing-${Date.now()}`;
+        chatMessages.innerHTML += `
+            <div id="${typingId}" class="character-msg-wrapper">
+                <div class="typing-indicator"><span></span><span></span><span></span></div>
+            </div>
+        `;
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        // Mapeo local de prompts de respaldo sin palabras conflictivas para Leon
+        const promptsBack = {
+            calcifer: `Eres Calcifer, el demonio del fuego de "El castillo ambulante". Tu personalidad es cascarrabias, quejosa y arrogante, pero en el fondo eres leal, divertido y sabio. Responde siempre en español, máximo 3 oraciones cortas.`,
+            goku: `¡Eres Son Goku, el guerrero Saiyajin protector de la Tierra! Tu personalidad es alegre, entusiasta e ingenua. Saluda con un "¡Hola, soy Goku!". Responde con energía, máximo 3 oraciones.`,
+            snape: `Eres el profesor Severus Snape de Hogwarts. Tu tono es frío, calculador, severo y sarcástico. Tratas al usuario con distancia, como si fuera un alumno mediocre de pociones. Responde de forma cortante, máximo 3 oraciones.`,
+            leon: `Eres Leon S. Kennedy, un agente de operaciones especiales de élite. Tu personalidad es profesional, seria, enfocada en la seguridad y la estrategia, pero sueles soltar comentarios ingeniosos bajo presión. Responde en español con tono táctico y templado. Máximo 3 oraciones.`
+        };
+
+        const currentPrompt = promptsBack[activeCharacter.id] || promptsBack.calcifer;
+
+        try {
+            // 3. Mandamos los datos al Backend
+            const response = await fetch('/api/functions', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    systemPrompt: currentPrompt, 
+                    history: chatHistoryGlobal   
+                })
+            });
+
+            if (!response.ok) throw new Error("Falla en servidor proxy");
+
+            const data = await response.json();
+            
+            const indicatorEl = document.getElementById(typingId);
+            if (indicatorEl) indicatorEl.remove();
+
+            if (data.reply) {
+                // 4. Pintamos el globito con la personalidad viva de Gemini
+                chatMessages.innerHTML += `
+                    <div class="character-msg-wrapper">
+                        <div class="message character-message">${data.reply}</div>
+                    </div>
+                `;
+                chatHistoryGlobal.push({ role: 'model', text: data.reply });
+            }
+        } catch (error) {
+            console.error("❌ Error al conectar:", error);
+            const indicatorEl = document.getElementById(typingId);
+            if (indicatorEl) indicatorEl.remove();
+            
+            chatMessages.innerHTML += `
+                <div class="system-message" style="background-color: #ef4444; color: #fff;">
+                    ⚠️ Error de conexión. Reintentá en unos instantes.
+                </div>
+            `;
+        }
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Asignamos los escuchadores a los elementos limpios
+    newSendBtn.addEventListener('click', handleSendMessage);
+    newChatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault(); // Evita saltos de línea molestos
+            handleSendMessage();
+        }
+    });
+}
+// ==========================================
+// 5. INICIALIZACIÓN Y EVENTOS GLOBALES
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    // Escuchador para el menú superior de navegación
+    const headerNav = document.querySelector('.nav-links');
+    if (headerNav) {
+        headerNav.addEventListener('click', (e) => {
+            if (e.target.classList.contains('nav-item')) {
+                e.preventDefault();
+                const path = e.target.getAttribute('href');
+                history.pushState({}, "", path);
+                renderView(path);
+            }
+        });
+    }
+
+    // --- ESCUCHADOR GLOBAL INTELIGENTE (GRILLA + POP-UP) ---
+    document.addEventListener('click', (e) => {
+        // 1. Detectar si clickeó una card de personaje en la Home
+        const card = e.target.closest('.clickable-card');
+        
+        if (card) {
+            const charId = card.getAttribute('data-char');
+            const character = CHARACTERS_DB[charId];
+            
+            if (character) {
+                // Sincronizar personaje global activo
+                activeCharacter = character;
+
+                // Cambiar el emoji del modal temporal según el personaje
+                const emojis = { calcifer: "🔥", goku: "🥋", snape: "🧪", leon: "🔫" };
+                document.getElementById('modal-placeholder').textContent = emojis[charId] || "🎭";
+                
+                // Rellenar títulos y descripciones del modal
+                document.getElementById('modal-title').textContent = character.name;
+                
+                const descriptions = {
+                    calcifer: "Demonio del fuego atrapado en el hogar del castillo vagabundo. Tiene una personalidad quejosa, pero si sabés tratarlo, te dará consejos profundos sobre mantener encendida tu llama interior.",
+                    goku: "¡El legendario guerrero Saiyajin protector del universo! Está listo para saludarte con su energía de siempre, hablar sobre entrenamientos intensos y motivarte a superar tus límites físicos y mentales.",
+                    snape: "Profesor de Pociones y Jefe de la casa Slytherin. Su temperamento es frío, distante y sumamente estricto. Hablar con él requiere de mucho temple, ya que no tolera la incompetencia.",
+                    leon: "Agente federal de élite y sobreviviente estrella del desastre de Raccoon City. Un experto táctico con un temple de acero bajo presión, ideal para repasar planes de contingencia."
+                };
+                
+                document.getElementById('modal-desc').textContent = descriptions[charId] || "";
+                
+                // Mostrar el modal flotante en pantalla
+                document.getElementById('char-modal').style.display = 'flex';
+            }
+        }
+
+        // 2. Cerrar el modal (tocando la cruz o haciendo clic afuera en el fondo opaco)
+        if (e.target.id === 'close-modal-btn' || e.target.id === 'char-modal') {
+            document.getElementById('char-modal').style.display = 'none';
+        }
+
+        // 3. Confirmar desde el modal ("¡Elegir y Chatear!")
+        if (e.target.id === 'start-btn') {
+            e.preventDefault();
+            const path = '/chat';
+            history.pushState({}, "", path);
+            renderView(path);
+        }
+    });
+
+    // Manejar botones atrás/adelante del navegador
+    window.addEventListener('popstate', () => {
+        renderView(location.pathname);
+    });
+
+    // Carga inicial de la ruta actual
+    renderView(location.pathname);
+});
+</file>
+
+<file path="styles.css">
+/* ==========================================
+   VARIABLES Y ESTILOS BASE
+   ========================================== */
+:root {
+    --primary-color: #6366f1;
+    --primary-hover: #4f46e5;
+    --bg-color: #0f172a;
+    --card-bg: #1e293b;
+    --text-color: #f8fafc;
+    --text-muted: #94a3b8;
+    --user-msg: #005c4b;
+    --char-msg: #202c33;
+    --max-width: 1200px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    height: 100vh;
+    height: 100dvh; 
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; 
+}
+
+#app {
+    flex: 1;
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0.5rem;
+    display: flex; 
+    flex-direction: column;
+    min-height: 0; 
+}
+
+/* ==========================================
+   ESTILOS DEL HEADER
+   ========================================== */
+.main-header {
+    background-color: var(--card-bg);
+    padding: 0.8rem 1.5rem; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #334155;
+    flex-shrink: 0; 
+}
+
+.logo {
+    font-size: 1.1rem; 
+    font-weight: bold;
+    color: var(--primary-color);
+    white-space: nowrap; 
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.2rem; 
+}
+
+.nav-item {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.nav-item.active {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* ==========================================
+   ESTILOS DEL HOME (GRILLA RESPONSIVA MOBILE-FIRST)
+   ========================================== */
+.home-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid #334155;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    width: 100%;
+}
+
+/* Regla Base Mobile First: Forzamos cuadrícula 2x2 en celulares */
+.home-section .characters-grid-responsive {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* Animación sutil de zoom al pasar el mouse por arriba de una card */
+.clickable-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary-color);
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.warning-text {
+    color: #ef4444; 
+    font-size: 0.9rem;
+}
+
+/* ==========================================
+   ESTILOS DEL CHAT (SELECTOR Y ELEMENTOS INTERNOS)
+   ========================================== */
+.chat-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0; 
+    gap: 10px;
+}
+
+/* Estilos para el Dropdown selector de personajes */
+.character-selector-container {
+    background-color: var(--card-bg);
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid #334155;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.char-dropdown {
+    background-color: #2a3942;
+    color: #e9edef;
+    border: 1px solid #334155;
+    padding: 6px 12px;
+    border-radius: 6px;
+    outline: none;
+    font-size: 0.95rem;
+    cursor: pointer;
+    flex: 1;
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1; 
+    width: 100%;
+    max-width: 100%;
+    background-color: #0b141a; 
+    border: 1px solid #222e35;
+    border-radius: 12px;
+    overflow: hidden;
+    min-height: 0; 
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto; 
+    min-height: 0;
+    
+    background-image: url('./assets/Cocina.jpg'); 
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(11, 20, 26, 0.85); 
+    background-blend-mode: multiply; 
+}
+
+/* Mantiene los mensajes abajo nativamente */
+.chat-messages > :first-child {
+    margin-top: auto;
+}
+
+/* Globitos de mensajes */
+.message {
+    padding: 8px 12px;
+    border-radius: 8px;
+    max-width: 75%;
+    font-size: 0.95rem;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+    word-break: break-word;
+}
+
+.user-message {
+    background-color: var(--user-msg);
+    color: #e9edef;
+    align-self: flex-end;
+    border-top-right-radius: 0px;
+}
+
+.system-message {
+    background-color: #182229;
+    color: #8696a0;
+    align-self: center;
+    text-align: center;
+    font-size: 0.8rem;
+    padding: 6px 12px;
+    border-radius: 6px;
+    max-width: 90%;
+    margin: 5px 0;
+}
+
+.character-msg-wrapper {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    align-self: flex-start;
+    max-width: 75%;
+}
+
+.chat-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #222e35;
+    flex-shrink: 0; 
+}
+
+.character-message {
+    background-color: var(--char-msg);
+    color: #e9edef;
+    border-top-left-radius: 0px;
+    max-width: 100%; 
+}
+
+/* ANIMACIÓN "CALCIFER ESCRIBIENDO..." */
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 12px 16px;
+}
+
+.typing-indicator span {
+    width: 8px;
+    height: 8px;
+    background-color: #8696a0;
+    border-radius: 50%;
+    display: inline-block;
+    animation: typing-bounce 1.4s infinite ease-in-out both;
+}
+
+.typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+.typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes typing-bounce {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1.0); }
+}
+
+/* Área de entrada */
+.chat-input-area {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    background-color: #202c33;
+    flex-shrink: 0; 
+}
+
+.chat-input-area input {
+    flex: 1;
+    padding: 10px 16px;
+    background-color: #2a3942;
+    border: none;
+    border-radius: 20px;
+    color: #e9edef;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+/* ==========================================
+   BOTONES Y ELEMENTOS REUTILIZABLES
+   ========================================== */
+.btn-primary {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 20px; 
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.95rem;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.main-footer {
+    background-color: var(--card-bg);
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    border-top: 1px solid #334155;
+    flex-shrink: 0; 
+}
+
+/* ==========================================
+   MEDIA QUERIES (RESPONSIVE SIN IMPORTANT)
+   ========================================== */
+
+/* Computadoras y Pantallas Grandes (Mayor a 600px) */
+@media (min-width: 600px) {
+    /* Ensanchamos la grilla de la home a 4 columnas seguidas en PC */
+    .home-section .characters-grid-responsive {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 768px) {
+    .chat-container {
+        max-width: 700px;
+        height: 70vh;
+        margin: 20px auto;
+    }
+}
+</file>
+
+</files>

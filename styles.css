@@ -42,11 +42,11 @@ body {
 }
 
 /* ==========================================
-   ESTILOS DEL HEADER (Recupera el aire original sin romperse)
+   ESTILOS DEL HEADER
    ========================================== */
 .main-header {
     background-color: var(--card-bg);
-    padding: 0.8rem 1.5rem; /* Le devolvemos el grosor lindo original */
+    padding: 0.8rem 1.5rem; 
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -55,7 +55,7 @@ body {
 }
 
 .logo {
-    font-size: 1.1rem; /* Tamaño intermedio perfecto para que entre en una línea */
+    font-size: 1.1rem; 
     font-weight: bold;
     color: var(--primary-color);
     white-space: nowrap; 
@@ -63,7 +63,7 @@ body {
 
 .nav-links {
     display: flex;
-    gap: 1.2rem; /* Separación equilibrada */
+    gap: 1.2rem; 
 }
 
 .nav-item {
@@ -79,7 +79,7 @@ body {
 }
 
 /* ==========================================
-   ESTILOS DEL HOME
+   ESTILOS DEL HOME (GRILLA RESPONSIVA MOBILE-FIRST)
    ========================================== */
 .home-section {
     flex: 1;
@@ -100,16 +100,19 @@ body {
     border-radius: 12px;
     border: 1px solid #334155;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    width: 100%;
 }
 
-.home-avatar {
-    width: 120px;       
-    height: 120px;
-    border-radius: 50%; 
-    object-fit: cover;  
-    border: 3px solid var(--primary-color); 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); 
-    margin-bottom: 0.5rem;
+/* Regla Base Mobile First: Forzamos cuadrícula 2x2 en celulares */
+.home-section .characters-grid-responsive {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* Animación sutil de zoom al pasar el mouse por arriba de una card */
+.clickable-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary-color);
+    background-color: rgba(255, 255, 255, 0.08);
 }
 
 .warning-text {
@@ -118,13 +121,37 @@ body {
 }
 
 /* ==========================================
-   INTERFAZ DEL CHAT (Scroll interno perfecto)
+   ESTILOS DEL CHAT (SELECTOR Y ELEMENTOS INTERNOS)
    ========================================== */
 .chat-section {
     flex: 1;
     display: flex;
     flex-direction: column;
     min-height: 0; 
+    gap: 10px;
+}
+
+/* Estilos para el Dropdown selector de personajes */
+.character-selector-container {
+    background-color: var(--card-bg);
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid #334155;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.char-dropdown {
+    background-color: #2a3942;
+    color: #e9edef;
+    border: 1px solid #334155;
+    padding: 6px 12px;
+    border-radius: 6px;
+    outline: none;
+    font-size: 0.95rem;
+    cursor: pointer;
+    flex: 1;
 }
 
 .chat-container {
@@ -159,7 +186,7 @@ body {
 
 /* Mantiene los mensajes abajo nativamente */
 .chat-messages > :first-child {
-    margin-top: auto !important;
+    margin-top: auto;
 }
 
 /* Globitos de mensajes */
@@ -262,14 +289,14 @@ body {
 }
 
 /* ==========================================
-   BOTONES Y ELEMENTOS REUTILIZABLES (RESTAURADOS)
+   BOTONES Y ELEMENTOS REUTILIZABLES
    ========================================== */
 .btn-primary {
     padding: 10px 20px;
     background-color: var(--primary-color);
     color: white;
     border: none;
-    border-radius: 20px; /* Devuelve el redondeado tipo cápsula */
+    border-radius: 20px; 
     cursor: pointer;
     font-weight: bold;
     font-size: 0.95rem;
@@ -288,6 +315,18 @@ body {
     color: var(--text-muted);
     border-top: 1px solid #334155;
     flex-shrink: 0; 
+}
+
+/* ==========================================
+   MEDIA QUERIES (RESPONSIVE SIN IMPORTANT)
+   ========================================== */
+
+/* Computadoras y Pantallas Grandes (Mayor a 600px) */
+@media (min-width: 600px) {
+    /* Ensanchamos la grilla de la home a 4 columnas seguidas en PC */
+    .home-section .characters-grid-responsive {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
 @media (min-width: 768px) {
