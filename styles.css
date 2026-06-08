@@ -242,6 +242,15 @@ body {
     max-width: 100%; 
 }
 
+.character-msg-wrapper img {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.character-msg-wrapper img:hover {
+    transform: scale(1.08); /* Un zoom sutilísimo cuando se posiciona encima */
+}
+
 /* ANIMACIÓN "CALCIFER ESCRIBIENDO..." */
 .typing-indicator {
     display: flex;
@@ -335,4 +344,58 @@ body {
         height: 70vh;
         margin: 20px auto;
     }
+}
+
+/* ==========================================
+   CAMBIOS NUEVOS: INPUT RECTANGULAR Y BOTÓN DEGRADADO
+   ========================================== */
+
+/* 1. Pisamos el estilo del input para hacerlo más rectangular */
+.chat-input-area input {
+    flex: 1;
+    padding: 11px 16px;
+    background-color: #1f2c34;
+    border: 1px solid #2a3942;
+    border-radius: 8px; /* Bordes rectangulares limpios */
+    color: #e9edef;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.chat-input-area input:focus {
+    border-color: var(--primary-color);
+    background-color: #2a3942;
+}
+
+/* 2. Agregamos la clase NUEVA para el botón redondo con degradado tipo WhatsApp */
+.send-arrow-btn {
+    width: 42px;
+    height: 42px;
+    background: linear-gradient(135deg, var(--primary-color), #4f46e5);
+    color: white;
+    border: none;
+    border-radius: 50%; /* Círculo perfecto */
+    cursor: pointer;
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 2px; /* Centra la flechita ➤ */
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); /* Brillo suave */
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); /* Animación elástica */
+    flex-shrink: 0;
+}
+
+/* Efecto cuando pasás el mouse en la compu */
+.send-arrow-btn:hover {
+    background: linear-gradient(135deg, #7577f2, var(--primary-hover));
+    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.45);
+    transform: translateY(-2px) rotate(-5deg);
+}
+
+/* Efecto cuando lo tocás con el dedo en el celu */
+.send-arrow-btn:active {
+    transform: translateY(1px) scale(0.92);
+    box-shadow: 0 2px 6px rgba(99, 102, 241, 0.2);
 }
