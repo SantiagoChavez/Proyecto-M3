@@ -145,17 +145,19 @@ const views = {
 };
 
 // ==========================================
-// 3. ENRUTADOR NATIVO SPA
+// 3. ENRUTADOR NATIVO SPA (REPARADO PARA PRODUCCIÓN)
 // ==========================================
 function renderView(path) {
     const appContainer = document.getElementById('app');
-    let viewKey = path.replace('/', '') || 'home';
+    
+    // 🧹 REPARACIÓN: Limpia TODAS las barras del principio y del final para que Vercel no confunda la ruta
+    let viewKey = path.trim().replace(/^\/+|\/+$/g, '') || 'home';
     if (viewKey.includes('home')) viewKey = 'home';
 
     // Variable para controlar si el usuario se desvió de ruta
     let esRutaInvalida = false;
 
-    // 🚨 EL ESCUDO: Detectamos si la ruta no existe
+    // 🚨 EL ESCUDO: Detectamos si la ruta no existe (ahora sí compara strings limpios)
     if (viewKey !== 'home' && viewKey !== 'chat' && viewKey !== 'about') {
         console.warn(`Ruta inválida detectada: /${viewKey}`);
         esRutaInvalida = true;
@@ -199,6 +201,29 @@ function renderView(path) {
             renderView('/home');
         });
     }
+
+    // Actualización de estilos en la barra de navegación
+    document.querySelectorAll('.nav-item').forEach(item => {
+        if (item.getAttribute('href') === path || (path === '/' && item.getAttribute('href') === '/home')) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+
+    const modalStartBtn = document.getElementById('start-btn');
+    if (modalStartBtn) {
+        if (viewKey === 'chat') {
+            modalStartBtn.style.display = 'none';
+        } else {
+            modalStartBtn.style.display = 'block';
+        }
+    }
+
+    if (viewKey === 'chat') {
+        initChatLogic();
+    }
+}
 
     // Actualización de estilos en la barra de navegación
     document.querySelectorAll('.nav-item').forEach(item => {
