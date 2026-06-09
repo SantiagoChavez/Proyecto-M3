@@ -152,8 +152,55 @@ function renderView(path) {
     let viewKey = path.replace('/', '') || 'home';
     if (viewKey.includes('home')) viewKey = 'home';
 
+    // Variable para controlar si el usuario se desvió de ruta
+    let esRutaInvalida = false;
+
+    // 🚨 EL ESCUDO: Detectamos si la ruta no existe
+    if (viewKey !== 'home' && viewKey !== 'chat' && viewKey !== 'about') {
+        console.warn(`Ruta inválida detectada: /${viewKey}`);
+        esRutaInvalida = true;
+        viewKey = 'home'; // Forzamos a que pinte el Home de fondo
+    }
+
+    // Renderizamos la vista (si era inválida, va a pintar el Home)
     appContainer.innerHTML = views[viewKey] || views.home;
 
+    // 🎭 Si era una ruta inválida, le plantamos el modal estético encima del Home
+    if (esRutaInvalida) {
+        // Creamos el contenedor del modal con el mismo estilo que el de borrar chat
+        const errorModal = document.createElement('div');
+        errorModal.id = 'error-404-modal';
+        errorModal.style = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); display: flex; justify-content: center; align-items: center; z-index: 10000; padding: 15px; box-sizing: border-box;";
+        
+        errorModal.innerHTML = `
+            <div style="background: #1e1e2e; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px; max-width: 360px; width: 100%; text-align: center; box-shadow: 0 8px 24px rgba(0,0,0,0.6);">
+                <div style="font-size: 2.5rem; margin-bottom: 12px;">🎭</div>
+                <h3 style="color: #fff; margin-bottom: 8px; font-size: 1.3rem;">Ups 404 ¡Dimensión Equivocada!</h3>
+                <p style="color: #b3b3b3; font-size: 0.9rem; line-height: 1.4; margin-bottom: 22px;">
+                    La página que buscás no existe en la agencia ComicSansCon. Te reubicamos en la central de inicio.
+                </p>
+                <div style="display: flex; justify-content: center;">
+                    <button id="entendido-404-btn" style="width: 100%; background: #6366f1; color: #fff; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 0.95rem; transition: background 0.2s;">
+                        Entendido
+                    </button>
+                </div>
+            </div>
+        `;
+
+        // Lo metemos en el cuerpo de la página
+        document.body.appendChild(errorModal);
+
+        // Al darle clic al botón, corregimos la URL y removemos el modal de la pantalla
+        document.getElementById('entendido-404-btn').addEventListener('click', () => {
+            history.pushState({}, "", "/home");
+            errorModal.remove();
+            
+            // Re-renderizamos para que se actualicen bien los estilos de la barra de navegación
+            renderView('/home');
+        });
+    }
+
+    // Actualización de estilos en la barra de navegación
     document.querySelectorAll('.nav-item').forEach(item => {
         if (item.getAttribute('href') === path || (path === '/' && item.getAttribute('href') === '/home')) {
             item.classList.add('active');
@@ -175,7 +222,6 @@ function renderView(path) {
         initChatLogic();
     }
 }
-
 // ==========================================
 // 4. LÓGICA INTERNA DEL CHAT (CON PERSISTENCIA)
 // ==========================================
