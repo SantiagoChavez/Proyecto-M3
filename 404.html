@@ -63,14 +63,37 @@
         <h1>404</h1>
         <p>La ruta que estás buscando no existe. Te estamos llevando de vuelta a la central de ComicSansCon.</p>
         <button id="go-home">Ir al inicio</button>
-        <small>Si no haces clic, te redireccionaremos en 5 segundos.</small>
+        <p id="countdown" style="margin-top: 18px; color: #94a3b8;">Te redirigimos en 5 segundos.</p>
     </div>
 
     <script>
         const goHome = () => {
-            window.location.href = '/home';
+            window.location.replace('/home');
         };
-        document.getElementById('go-home').addEventListener('click', goHome);
+
+        const countdownEl = document.getElementById('countdown');
+        const goHomeBtn = document.getElementById('go-home');
+        let timer = 5;
+
+        const tick = () => {
+            timer -= 1;
+            if (countdownEl) {
+                countdownEl.textContent = `Te redirigimos en ${timer} segundo${timer === 1 ? '' : 's'}.`;
+            }
+            if (timer <= 0) {
+                goHomeBtn.disabled = true;
+                goHome();
+            }
+        };
+
+        if (goHomeBtn) {
+            goHomeBtn.addEventListener('click', goHome);
+        }
+
+        setTimeout(tick, 1000);
+        setTimeout(tick, 2000);
+        setTimeout(tick, 3000);
+        setTimeout(tick, 4000);
         setTimeout(goHome, 5000);
     </script>
 </body>
