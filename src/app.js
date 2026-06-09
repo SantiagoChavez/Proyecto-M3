@@ -144,20 +144,17 @@ const views = {
     `
 };
 
-// ==========================================
-// 3. ENRUTADOR NATIVO SPA (REPARADO PARA PRODUCCIÓN)
-// ==========================================
 function renderView(path) {
     const appContainer = document.getElementById('app');
     
-    // 🧹 REPARACIÓN: Limpia TODAS las barras del principio y del final para que Vercel no confunda la ruta
+    // Limpieza segura de barras
     let viewKey = path.trim().replace(/^\/+|\/+$/g, '') || 'home';
     if (viewKey.includes('home')) viewKey = 'home';
 
     // Variable para controlar si el usuario se desvió de ruta
     let esRutaInvalida = false;
 
-    // 🚨 EL ESCUDO: Detectamos si la ruta no existe (ahora sí compara strings limpios)
+    // 🚨 EL ESCUDO: Detectamos si la ruta no existe
     if (viewKey !== 'home' && viewKey !== 'chat' && viewKey !== 'about') {
         console.warn(`Ruta inválida detectada: /${viewKey}`);
         esRutaInvalida = true;
@@ -169,7 +166,6 @@ function renderView(path) {
 
     // 🎭 Si era una ruta inválida, le plantamos el modal estético encima del Home
     if (esRutaInvalida) {
-        // Creamos el contenedor del modal con el mismo estilo que el de borrar chat
         const errorModal = document.createElement('div');
         errorModal.id = 'error-404-modal';
         errorModal.style = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); display: flex; justify-content: center; align-items: center; z-index: 10000; padding: 15px; box-sizing: border-box;";
@@ -189,15 +185,11 @@ function renderView(path) {
             </div>
         `;
 
-        // Lo metemos en el cuerpo de la página
         document.body.appendChild(errorModal);
 
-        // Al darle clic al botón, corregimos la URL y removemos el modal de la pantalla
         document.getElementById('entendido-404-btn').addEventListener('click', () => {
             history.pushState({}, "", "/home");
             errorModal.remove();
-            
-            // Re-renderizamos para que se actualicen bien los estilos de la barra de navegación
             renderView('/home');
         });
     }
@@ -224,7 +216,6 @@ function renderView(path) {
         initChatLogic();
     }
 }
-
     // Actualización de estilos en la barra de navegación
     document.querySelectorAll('.nav-item').forEach(item => {
         if (item.getAttribute('href') === path || (path === '/' && item.getAttribute('href') === '/home')) {
