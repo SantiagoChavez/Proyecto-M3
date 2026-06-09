@@ -58,67 +58,75 @@ Seguí estos pasos para clonar el repositorio e iniciar el entorno de desarrollo
 
 ### 1. Instalar Dependencias
 Asegurate de tener instalados los módulos base requeridos abriendo la terminal en la raíz del proyecto:
+
 ```bash
 npm install
-2. Configurar Variables de Entorno
-Creá un archivo llamado .env en la raíz del proyecto basado en .env.example y agregá tu credencial privada de Google AI Studio:
+```
 
-Fragmento de código
+### 2. Configurar Variables de Entorno
+Creá un archivo llamado `.env` en la raíz del proyecto basado en `.env.example` y agregá tu credencial privada de Google AI Studio:
+
+```bash
 GEMINI_API_KEY=tu_api_key_real_aqui_sin_comillas
-3. Ejecutar Servidor de Desarrollo Local
-Para simular el ruteo de la SPA y las Vercel Serverless Functions de manera integrada, ejecutá el comando configurado en tu package.json:
+```
 
-Bash
+### 3. Ejecutar Servidor de Desarrollo Local
+Para simular el ruteo de la SPA y las Vercel Serverless Functions de manera integrada, ejecutá el comando configurado en tu `package.json`:
+
+```bash
 npm run local
-La aplicación se levantará automáticamente en http://localhost:3000.
+```
 
-🧪 Ejecución de Pruebas Automatizadas
-El proyecto incluye una suite de tests unitarios automatizados mediante Vitest en un entorno simulado de DOM (jsdom), garantizando la integridad de los métodos de transformación del historial y estructuras clave de la SPA:
+La aplicación se levantará automáticamente en `http://localhost:3000`.
 
-Para correr la suite de pruebas en modo ejecución única, corré el script de testing:
+## 🧪 Ejecución de Pruebas Automatizadas
+El proyecto incluye una suite de tests unitarios automatizados mediante Vitest en un entorno simulado de DOM (`jsdom`), garantizando la integridad de los métodos de transformación del historial y estructuras clave de la SPA.
 
-Bash
+Para correr la suite de pruebas en modo ejecución única, ejecutá:
+
+```bash
 npm run test
-☁️ Despliegue en Vercel
+```
+
+## ☁️ Despliegue en Vercel
 Esta POC está estructurada para desplegarse de manera ágil y directa en la infraestructura de Vercel:
 
-Instalá la CLI de Vercel si no la tenés (npm i -g vercel).
+1. Instalá la CLI de Vercel si no la tenés:
 
-Ejecutá el comando vercel en la raíz de tu proyecto para vincularlo a tu cuenta.
+```bash
+npm i -g vercel
+```
 
-Configurá la variable de entorno GEMINI_API_KEY dentro del panel de administración de tu proyecto en la web de Vercel (Settings > Environment Variables).
+2. Ejecutá `vercel` en la raíz de tu proyecto para vincularlo a tu cuenta.
 
-Subí los cambios a producción ejecutando:
+3. Configurá la variable de entorno `GEMINI_API_KEY` dentro del panel de administración de tu proyecto en Vercel (`Settings > Environment Variables`).
 
-Bash
+4. Subí los cambios a producción ejecutando:
+
+```bash
 vercel --prod
-🔗 Enlaces del Proyecto:
+```
 
-Repositorio Oficial: GitHub - https://github.com/SantiagoChavez/Proyecto-M3
+## 🔗 Enlaces del Proyecto
+- Repositorio Oficial: [GitHub](https://github.com/SantiagoChavez/Proyecto-M3)
+- Repositorio para clonar: `https://github.com/SantiagoChavez/Proyecto-M3.git`
+- Aplicación en Producción: [https://proyecto-m3-chavez-santiago.vercel.app/](https://proyecto-m3-chavez-santiago.vercel.app/)
 
-Repositorio para clonar: https://github.com/SantiagoChavez/Proyecto-M3.git
-
-Aplicación en Producción: Visitar ComicSansCon AI en Vercel - https://proyecto-m3-chavez-santiago.vercel.app/
-
-🛠️ Créditos y Rol del Desarrollador
+## 🛠️ Créditos y Rol del Desarrollador
 Esta Prueba de Concepto fue diseñada, maquetada y programada de forma integral por:
 
-Desarrollador: Santiago E. Chavez
+- **Desarrollador:** Santiago E. Chavez
+- **Rol:** Junior Frontend Developer
+- **Bootcamp:** Henry (Full Stack Developer Program)
 
-Rol: Junior Frontend Developer
+Si querés conocer más sobre mi perfil técnico, revisar otros repositorios de arquitectura backend/full-stack o conectar profesionalmente, podés encontrarme en mis canales oficiales.
 
-Bootcamp: Henry (Full Stack Developer Program)
-
-Si querés conocer más sobre mi perfil técnico, revisar otros repositorios de arquitectura backend/full-stack o conectar profesionalmente, podés encontrarme en mis canales oficiales:
-
-🤖 Registro del Uso de AI en el Proyecto
+## 🤖 Registro del Uso de AI en el Proyecto
 En cumplimiento con los lineamientos de la entrega, se detalla el uso estratégico de herramientas de Inteligencia Artificial en el ciclo de vida del desarrollo:
 
-Ingeniería de Prompts (System Instructions): Se utilizaron modelos de IA para diseñar y calibrar de forma estricta las instrucciones del sistema (systemPrompt) de cada personaje en src/utils.js. Esto garantizó que las respuestas se mantuvieran en personaje, acotadas en longitud (máximo 3 oraciones) y con el tono exacto exigido por la narrativa.
-
-Optimización de Algoritmos: Se empleó asistencia de IA para estructurar el modelo de persistencia de datos indexado por ID en src/app.js. Esto permitió resolver la falla de pérdida de historiales durante los cambios de ruta nativos de la SPA sin requerir bases de datos pesadas en la fase de prototipo.
-
-Casos Borde de Testing (Edge Cases): La IA sirvió de apoyo para estructurar escenarios defensivos rigurosos en src/test/utils.test.js, cubriendo el comportamiento del mapeador de flujos ante datos corruptos (null, undefined o estructuras inválidas), garantizando que el sistema sea tolerante a fallas frente a los stakeholders.
-
+- **Ingeniería de Prompts (System Instructions):** Se utilizaron modelos de IA para diseñar y calibrar de forma estricta las instrucciones del sistema (`systemPrompt`) de cada personaje en `src/utils.js`. Esto garantizó que las respuestas se mantuvieran en personaje, acotadas en longitud (máximo 3 oraciones) y con el tono exacto exigido por la narrativa.
+- **Optimización de Algoritmos:** Se empleó asistencia de IA para estructurar el modelo de persistencia de datos indexado por ID en `src/app.js`. Esto permitió resolver la falla de pérdida de historiales durante los cambios de ruta nativos de la SPA sin requerir bases de datos pesadas en la fase de prototipo.
+- **Fallback de Rutas en SPA:** La IA ayudó a validar el manejo de rutas inválidas y la solución del bucle de redirección en Vercel, asegurando que la página 404 caiga en el root de la aplicación y que el botón de regreso funcione de forma confiable.
+- **Casos Borde de Testing (Edge Cases):** La IA sirvió de apoyo para estructurar escenarios defensivos rigurosos en `src/test/utils.test.js`, cubriendo el comportamiento del mapeador de flujos ante datos corruptos (`null`, `undefined` o estructuras inválidas), garantizando que el sistema sea tolerante a fallas frente a los stakeholders.
 
 ---

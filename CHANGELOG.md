@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - **Optimización de Grilla e Interfaz:** Corrección del estiramiento desproporcionado en layouts medianos, forzando un escalado armónico de las tipografías del menú y 4 columnas fluidas en la Home.
 - **Duplicados de Estilos:** Limpieza integral del archivo de estilos unificando la cascada y eliminando parches redundantes para un renderizado nativo óptimo.
+- **Fallback SPA 404 en Vercel:** Ajuste de `vercel.json` y `404.html` para que rutas inválidas carguen `index.html` y el botón/contador de redirección al inicio funcionen sin regresar a un bucle.
 
 ---
 
