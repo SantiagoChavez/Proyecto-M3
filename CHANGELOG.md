@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.2.0] - 2026-06-09
+### Added
+- **Breakpoint Elástico de Alta Densidad:** Incorporación de un punto de quiebre específico (`@media`) enfocado en la visualización equilibrada para tablets grandes y laptops compactas (ej. iPad Pro y Surface 7).
+- **Selector Dropdown Premium (Tuned):** Rediseño estético del componente `<select>` nativo utilizando `appearance: none`, un fondo translúcido integrado al modo oscuro y una flecha vectorial neón inyectada mediante SVG dinámico.
+
+### Fixed
+- **Optimización de Grilla e Interfaz:** Corrección del estiramiento desproporcionado en layouts medianos, forzando un escalado armónico de las tipografías del menú y 4 columnas fluidas en la Home.
+- **Duplicados de Estilos:** Limpieza integral del archivo de estilos unificando la cascada y eliminando parches redundantes para un renderizado nativo óptimo.
+
+---
+
 ## [2.1.0] - 2026-06-08
 ### Added
 - **Persistencia de Canales Independiente:** Arquitectura de memoria indexada por ID de personaje que mantiene los historiales de chat activos de forma aislada al navegar por la SPA.
