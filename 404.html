@@ -62,18 +62,29 @@
         <div style="font-size: 3rem; margin-bottom: 14px;">🚧</div>
         <h1>404</h1>
         <p>La ruta que estás buscando no existe. Te estamos llevando de vuelta a la central de ComicSansCon.</p>
-        <button id="go-home">Ir al inicio</button>
+        <a id="go-home" href="/home" style="display: inline-block; text-decoration: none;">
+            <button type="button">Ir al inicio</button>
+        </a>
         <p id="countdown" style="margin-top: 18px; color: #94a3b8;">Te redirigimos en 5 segundos.</p>
     </div>
 
     <script>
-        const goHome = () => {
-            window.location.replace('/home');
-        };
-
+        const homeUrl = `${window.location.origin}/home`;
         const countdownEl = document.getElementById('countdown');
-        const goHomeBtn = document.getElementById('go-home');
+        const goHomeLink = document.getElementById('go-home');
         let timer = 5;
+        let intervalId = null;
+
+        const goHome = () => {
+            if (intervalId !== null) {
+                clearInterval(intervalId);
+                intervalId = null;
+            }
+            if (goHomeLink) {
+                goHomeLink.classList.add('disabled');
+            }
+            window.location.href = homeUrl;
+        };
 
         const tick = () => {
             timer -= 1;
@@ -81,20 +92,18 @@
                 countdownEl.textContent = `Te redirigimos en ${timer} segundo${timer === 1 ? '' : 's'}.`;
             }
             if (timer <= 0) {
-                goHomeBtn.disabled = true;
                 goHome();
             }
         };
 
-        if (goHomeBtn) {
-            goHomeBtn.addEventListener('click', goHome);
+        if (goHomeLink) {
+            goHomeLink.addEventListener('click', (event) => {
+                event.preventDefault();
+                goHome();
+            });
         }
 
-        setTimeout(tick, 1000);
-        setTimeout(tick, 2000);
-        setTimeout(tick, 3000);
-        setTimeout(tick, 4000);
-        setTimeout(goHome, 5000);
+        intervalId = setInterval(tick, 1000);
     </script>
 </body>
 </html>

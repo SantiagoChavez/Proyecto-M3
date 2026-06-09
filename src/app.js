@@ -2,7 +2,7 @@ import { CHARACTERS_DB, formatChatHistory } from './utils.js';
 
 let activeCharacter = CHARACTERS_DB.calcifer;
 
-// Estructura global indexada por personaje para mantener la persistencia de forma independiente
+// Estructura global indexada por personaje para mantener la persistencia independiente
 let chatHistories = {
     calcifer: [],
     goku: [],
@@ -18,7 +18,7 @@ const views = {
         <section class="view-section home-section" style="padding: 1.5rem 1rem; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; box-sizing: border-box;">
             <div style="text-align: center; width: 100%; max-width: 800px; display: flex; flex-direction: column; align-items: center;">
                 <h1 style="margin-bottom: 0.5rem; font-size: 1.8rem; color: #fff; line-height: 1.2;">¡Bienvenido a ComicSansCon AI! 🎭</h1>
-                <p style="margin-bottom: 1.5rem; color: #b3b3b3; font-size: 0.95rem; max-width: 500px; line-height: 1.4;">Seleccioná un personaje para ver su perfil and entrar a la central multidimensional:</p>
+                <p style="margin-bottom: 1.5rem; color: #b3b3b3; font-size: 0.95rem; max-width: 500px; line-height: 1.4;">Seleccioná un personaje para ver su perfil y entrar a la central multidimensional:</p>
                 
                 <div class="characters-grid-responsive" style="display: grid; gap: 16px; width: 100%; max-width: 650px; margin-bottom: 1.5rem; box-sizing: border-box;">
                     <div class="clickable-card" data-char="calcifer">
@@ -94,33 +94,22 @@ const views = {
     `,
     about: `
         <section class="view-section about-section" style="padding: 2rem 1rem; color: #fff; max-width: 650px; margin: 0 auto; box-sizing: border-box;">
-            
             <div style="text-align: center; margin-bottom: 2.5rem;">
-                <div style="display: inline-flex; align-items: center; justify-content: center; width: 75px; height: 75px; background: linear-gradient(135deg, #6366f1, #4f46e5); border-radius: 18px; box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3); margin-bottom: 1rem; font-size: 2rem;">
-                    🎭
-                </div>
-                <h2 style="font-size: 1.8rem; font-weight: 800; margin: 0; background: linear-gradient(to right, #fff, #a5b4fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                    ComicSansCon Digital Agency
-                </h2>
+                <div style="display: inline-flex; align-items: center; justify-content: center; width: 75px; height: 75px; background: linear-gradient(135deg, #6366f1, #4f46e5); border-radius: 18px; box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3); margin-bottom: 1rem; font-size: 2rem;">🎭</div>
+                <h2 style="font-size: 1.8rem; font-weight: 800; margin: 0; background: linear-gradient(to right, #fff, #a5b4fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">ComicSansCon Digital Agency</h2>
                 <p style="color: #8696a0; font-size: 0.9rem; margin-top: 4px; letter-spacing: 0.5px;">EXPERIENCIAS INTERACTIVAS PARA FANS</p>
             </div>
 
             <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 14px; padding: 22px; margin-bottom: 1.5rem; box-sizing: border-box;">
-                <h3 style="margin-top: 0; color: #6366f1; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
-                    🎯 Propósito del Proyecto
-                </h3>
+                <h3 style="margin-top: 0; color: #6366f1; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">🎯 Propósito del Proyecto</h3>
                 <p style="color: #e9edef; font-size: 0.9rem; line-height: 1.6; margin: 0;">
                     Esta aplicación web es una <strong>Prueba de Concepto (POC)</strong> diseñada para evaluar la viabilidad de lanzar una plataforma interactiva que permita a comunidades de fans chatear en tiempo real con personajes icónicos de videojuegos, películas y series de televisión. El objetivo principal es demostrar la fluidez de las conversaciones asincrónicas y la capacidad de adaptabilidad del entorno digital antes de expandir el proyecto a producción masiva.
                 </p>
             </div>
 
             <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 14px; padding: 22px; margin-bottom: 1.5rem; box-sizing: border-box;">
-                <h3 style="margin-top: 0; color: #6366f1; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
-                    ⚙️ Ficha Técnica y Seguridad
-                </h3>
-                <p style="color: #b3b3b3; font-size: 0.85rem; line-height: 1.5; margin-bottom: 12px;">
-                    Para garantizar los estándares exigidos por el equipo de producto, el prototipo fue estruturado bajo los siguientes pilares de desarrollo:
-                </p>
+                <h3 style="margin-top: 0; color: #6366f1; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">⚙️ Ficha Técnica y Seguridad</h3>
+                <p style="color: #b3b3b3; font-size: 0.85rem; line-height: 1.5; margin-bottom: 12px;">Para garantizar los estándares exigidos por el equipo de producto, el prototipo fue estruturado bajo los siguientes pilares de desarrollo:</p>
                 <ul style="padding-left: 18px; margin: 0; color: #e9edef; font-size: 0.85rem; display: flex; flex-direction: column; gap: 8px;">
                     <li><strong>Routing e Interfaz SPA Nativos:</strong> Transiciones inmediatas entre secciones mediante Vanilla JavaScript, optimizando la velocidad de carga sin necesidad de librerías pesadas.</li>
                     <li><strong>Persistencia de Canales:</strong> Arquitectura de memoria indexada que mantiene los historiales de chat activos de forma independiente para cada personaje durante la navegación.</li>
@@ -130,15 +119,11 @@ const views = {
 
             <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
                 <div style="font-size: 0.85rem; color: #8696a0;">
-                    Creado por: <strong style="color: #fff;">Santiago E. Chavez</strong>
-                    <br>
+                    Creado por: <strong style="color: #fff;">Santiago E. Chavez</strong><br>
                     Rol: <span style="color: #6366f1; font-weight: 600;">Junior Frontend Developer</span>
                 </div>
-                <div style="font-size: 0.8rem; background: rgba(99, 102, 241, 0.06); border: 1px solid rgba(99, 102, 241, 0.2); padding: 6px 12px; border-radius: 20px; color: #a5b4fc;">
-                    Proyecto Integrador • Henry 🚀
-                </div>
+                <div style="font-size: 0.8rem; background: rgba(99, 102, 241, 0.06); border: 1px solid rgba(99, 102, 241, 0.2); padding: 6px 12px; border-radius: 20px; color: #a5b4fc;">Proyecto Integrador • Henry 🚀</div>
             </div>
-
         </section>
     `
 };
@@ -149,23 +134,19 @@ const views = {
 function renderView(path) {
     const appContainer = document.getElementById('app');
     
-    // Limpieza segura de barras para procesar la key
     let viewKey = path.trim().replace(/^\/+|\/+$/g, '') || 'home';
     if (viewKey.includes('home')) viewKey = 'home';
 
     let esRutaInvalida = false;
 
-    // El escudo defensivo contra rutas rotas
     if (viewKey !== 'home' && viewKey !== 'chat' && viewKey !== 'about') {
         console.warn(`Ruta inválida detectada: /${viewKey}`);
         esRutaInvalida = true;
-        viewKey = 'home'; // Forzamos la base visual del Home
+        viewKey = 'home';
     }
 
-    // Inyección segura del HTML de la vista correspondiente
     appContainer.innerHTML = views[viewKey] || views.home;
 
-    // Si la ruta no existía, montamos el modal flotante sobre el Home de fondo
     if (esRutaInvalida) {
         const modalViejo = document.getElementById('error-404-modal');
         if (modalViejo) modalViejo.remove();
@@ -178,13 +159,9 @@ function renderView(path) {
             <div style="background: #1e1e2e; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px; max-width: 360px; width: 100%; text-align: center; box-shadow: 0 8px 24px rgba(0,0,0,0.6);">
                 <div style="font-size: 2.5rem; margin-bottom: 12px;">🎭</div>
                 <h3 style="color: #fff; margin-bottom: 8px; font-size: 1.3rem;">Ups 404 ¡Dimensión Equivocada!</h3>
-                <p style="color: #b3b3b3; font-size: 0.9rem; line-height: 1.4; margin-bottom: 22px;">
-                    La página que buscás no existe en la agencia ComicSansCon. Te reubicamos en la central de inicio.
-                </p>
+                <p style="color: #b3b3b3; font-size: 0.9rem; line-height: 1.4; margin-bottom: 22px;">La página que buscás no existe en la agencia ComicSansCon. Te reubicamos en la central de inicio.</p>
                 <div style="display: flex; justify-content: center;">
-                    <button id="entendido-404-btn" style="width: 100%; background: #6366f1; color: #fff; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 0.95rem; transition: background 0.2s;">
-                        Entendido
-                    </button>
+                    <button id="entendido-404-btn" style="width: 100%; background: #6366f1; color: #fff; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 0.95rem; transition: background 0.2s;">Entendido</button>
                 </div>
             </div>
         `;
@@ -198,7 +175,6 @@ function renderView(path) {
         });
     }
 
-    // Sincronización de clases estéticas en los nav-links
     document.querySelectorAll('.nav-item').forEach(item => {
         const href = item.getAttribute('href');
         if (href === path || (path === '/' && href === '/home') || (path === '/home' && href === '/home')) {
@@ -308,8 +284,7 @@ function initChatLogic() {
     if (dotsBtn && dropdownOptions) {
         dotsBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            const isVisible = dropdownOptions.style.display === 'block';
-            dropdownOptions.style.display = isVisible ? 'none' : 'block';
+            dropdownOptions.style.display = (dropdownOptions.style.display === 'block') ? 'none' : 'block';
         });
         document.addEventListener('click', () => {
             if (dropdownOptions) dropdownOptions.style.display = 'none';
@@ -321,17 +296,11 @@ function initChatLogic() {
     const cancelDeleteBtn = document.getElementById('cancel-delete-btn');
 
     if (clearBtn && deleteModal) {
-        clearBtn.addEventListener('click', () => {
-            deleteModal.style.display = 'flex';
-        });
+        clearBtn.addEventListener('click', () => { deleteModal.style.display = 'flex'; });
     }
-
     if (cancelDeleteBtn && deleteModal) {
-        cancelDeleteBtn.addEventListener('click', () => {
-            deleteModal.style.display = 'none';
-        });
+        cancelDeleteBtn.addEventListener('click', () => { deleteModal.style.display = 'none'; });
     }
-
     if (confirmDeleteBtn && deleteModal) {
         confirmDeleteBtn.addEventListener('click', () => {
             chatHistories[activeCharacter.id] = [];
@@ -344,13 +313,8 @@ function initChatLogic() {
     if (copyAllBtn) {
         copyAllBtn.addEventListener('click', () => {
             const history = chatHistories[activeCharacter.id];
-            if (history.length === 0) {
-                alert("No hay mensajes para copiar.");
-                return;
-            }
-            const textToCopy = history
-                .map(msg => `${msg.role === 'user' ? 'Tú' : activeCharacter.name}: ${msg.text}`)
-                .join('\n');
+            if (history.length === 0) return;
+            const textToCopy = history.map(msg => `${msg.role === 'user' ? 'Tú' : activeCharacter.name}: ${msg.text}`).join('\n');
             navigator.clipboard.writeText(textToCopy);
             copyAllBtn.textContent = "✅ ¡Copiado!";
             setTimeout(() => { copyAllBtn.textContent = "📋 Copiar Chat"; }, 2000);
@@ -358,8 +322,7 @@ function initChatLogic() {
     }
 
     function getCleanTimestamp() {
-        const now = new Date();
-        return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     }
 
     async function handleSendMessage() {
@@ -367,7 +330,6 @@ function initChatLogic() {
         if (!text) return;
 
         const userTime = getCleanTimestamp();
-
         chatMessages.innerHTML += `
             <div class="user-msg-wrapper" style="display: flex; align-items: flex-start; justify-content: flex-end; gap: 8px; margin-bottom: 12px; width: 100%;">
                 <div class="message user-message" style="position: relative; max-width: 70%; display: flex; flex-direction: column;">
@@ -384,28 +346,28 @@ function initChatLogic() {
         const typingId = `typing-${Date.now()}`;
         chatMessages.innerHTML += `
             <div id="${typingId}" class="character-msg-wrapper" style="margin-bottom: 12px; display: flex; align-items: flex-start; gap: 8px; width: 100%;">
-                <img src="${activeCharacter.chatAvatar}" class="avatar-clickeable-chat" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 1px solid #6366f1; flex-shrink: 0; cursor: pointer;">
+                <img src="${activeCharacter.chatAvatar}" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 1px solid #6366f1; flex-shrink: 0;">
                 <div class="typing-indicator"><span></span><span></span><span></span></div>
             </div>
         `;
         chatMessages.scrollTop = chatMessages.scrollHeight;
 
         try {
-            const currentHistoryMapped = formatChatHistory(chatHistories[activeCharacter.id]);
+            // 🛠️ RECUPERADO: Volvemos al fetch exacto del XML que andaba e interactuaba perfecto con tu API
             const response = await fetch('/api/functions', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     systemPrompt: activeCharacter.systemPrompt,
-                    history: currentHistoryMapped
+                    history: formatChatHistory(chatHistories[activeCharacter.id])
                 })
             });
 
-            if (!response.ok) throw new Error("Falla backend");
-            const data = await response.json();
-
             const indicatorEl = document.getElementById(typingId);
             if (indicatorEl) indicatorEl.remove();
+
+            if (!response.ok) throw new Error("Falla backend");
+            const data = await response.json();
 
             if (data.reply) {
                 const botTime = getCleanTimestamp();
@@ -444,10 +406,7 @@ function initChatLogic() {
 
     newSendBtn.addEventListener('click', handleSendMessage);
     newChatInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            handleSendMessage();
-        }
+        if (e.key === 'Enter') { e.preventDefault(); handleSendMessage(); }
     });
 }
 
@@ -484,13 +443,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const descriptions = {
                     calcifer: "Demonio del fuego atrapado en el hogar del castillo vagabundo. Tiene una personalidad quejosa, pero si sabés tratarlo, te dará consejos profundos sobre mantener encendida tu llama interior.",
-                    goku: "¡El legendario guerrero Saiyajin protector del universo! Está listo para saludarte con su energía de siempre, hablar sobre entrenamientos intensos y motivarte a superar tus límites físicos y mentalmente.",
-                    snape: "Profesor de Pociones y Jefe de la casa Slytherin. Su temperamento es frío, distante y sumamente estricto. Hablar con él requiere de mucho temple, ya que no tolera la incompetencia.",
+                    goku: "¡El legendary guerrero Saiyajin protector del universo! Está listo para saludarte con su energía de siempre, hablar sobre entrenamientos intensos y motivarte a superar tus límites físicos y mentalmente.",
+                    snape: "Profesor de Pociones y Jefe de la casa Slytherin. Su temperamento es frío, distante y sumamente estricto. Hablar con él requiere de mucho de temple, ya que no tolera la incompetencia.",
                     sheriff: "El primer héroe con nombre propio en la historia de Nintendo (1979). Un rudo e histórico vaquero pixelado diseñado por Shigeru Miyamoto para arcade."
                 };
 
                 const modalDescEl = document.getElementById('modal-desc');
                 if (modalDescEl) modalDescEl.textContent = descriptions[character.id] || "";
+
+                // ==========================================
+                // 🔥 SOLUCIÓN QUIRÚRGICA DIRECTA SOBRE EL XML:
+                // ==========================================
+                const modalStartBtn = document.getElementById('start-btn');
+                if (modalStartBtn) {
+                    // Si el click es en la burbuja del chat, el botón start-btn se oculta. Si es en la tarjeta del Home, se muestra.
+                    modalStartBtn.style.display = chatAvatarClick ? 'none' : 'block';
+                }
 
                 const charModalEl = document.getElementById('char-modal');
                 if (charModalEl) charModalEl.style.display = 'flex';
