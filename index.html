@@ -1,35 +1,49 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ComicSansCon - IA Character Chat</title>
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="/styles.css">
 </head>
+
 <body>
 
     <header class="main-header">
-        <div class="logo">🎭 ComicSansCon AI</div>
-        <nav class="nav-links">
-            <a href="/home" id="link-home" class="nav-item">Inicio</a>
-            <a href="/chat" id="link-chat" class="nav-item">Chat</a>
-            <a href="/about" id="link-about" class="nav-item">Acerca de</a>
-        </nav>
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-emoji">🎭</span>
+                <span class="logo-text">ComicSansCon AI</span>
+            </div>
+            <nav class="nav-links">
+                <a href="/home" id="link-home" class="nav-item">Inicio</a>
+                <a href="/chat" id="link-chat" class="nav-item">Chat</a>
+                <a href="/about" id="link-about" class="nav-item">Acerca de</a>
+            </nav>
+        </div>
     </header>
 
     <main id="app">
-        </main>
+    </main>
 
-    <div id="char-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); justify-content: center; align-items: center; z-index: 9999; padding: 15px; box-sizing: border-box;">
-        <div style="background: #1e1e2e; border: 2px solid #6366f1; border-radius: 16px; padding: 25px 20px; max-width: 400px; width: 100%; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; box-sizing: border-box;">
-            <button id="close-modal-btn" style="position: absolute; top: 10px; right: 15px; background: none; border: none; color: #b3b3b3; font-size: 1.8rem; cursor: pointer;">&times;</button>
-            
-            <img id="modal-avatar" src="" style="width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 3px solid #6366f1; margin: 0 auto 15px auto; display: block;">
-            
+    <div id="char-modal"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); justify-content: center; align-items: center; z-index: 9999; padding: 15px; box-sizing: border-box;">
+        <div
+            style="background: #1e1e2e; border: 2px solid #6366f1; border-radius: 16px; padding: 25px 20px; max-width: 400px; width: 100%; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; box-sizing: border-box;">
+            <button id="close-modal-btn"
+                style="position: absolute; top: 10px; right: 15px; background: none; border: none; color: #b3b3b3; font-size: 1.8rem; cursor: pointer;">&times;</button>
+
+            <img id="modal-avatar" src=""
+                style="width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 3px solid #6366f1; margin: 0 auto 15px auto; display: block;">
+
             <h2 id="modal-title" style="color: #fff; margin-bottom: 8px; font-size: 1.5rem;"></h2>
-            <p id="modal-desc" style="color: #b3b3b3; font-size: 0.9rem; line-height: 1.4; margin-bottom: 20px; text-align: left;"></p>
-            
-            <button id="start-btn" class="btn-primary" style="width: 100%; padding: 12px 20px; font-size: 1rem; cursor: pointer; font-weight: bold;">¡Elegir y Chatear! 🚀</button>
+            <p id="modal-desc"
+                style="color: #b3b3b3; font-size: 0.9rem; line-height: 1.4; margin-bottom: 20px; text-align: left;"></p>
+
+            <button id="start-btn" class="btn-primary"
+                style="width: 100%; padding: 12px 20px; font-size: 1rem; cursor: pointer; font-weight: bold;">¡Elegir y
+                Chatear! 🚀</button>
         </div>
     </div>
 
@@ -37,6 +51,7 @@
         <p>&copy; 2026 ComicSansCon Digital Agency. Desarrollado por Santiago Chavez.</p>
     </footer>
 
-    <script type="module" src="./src/app.js"></script>
+    <script type="module" src="/src/app.js"></script>
 </body>
+
 </html>

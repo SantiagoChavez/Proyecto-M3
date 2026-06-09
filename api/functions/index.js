@@ -19,14 +19,14 @@ export default async function handler(request, response) {
         }
 
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-        
-        const model = genAI.getGenerativeModel({ 
-            model: 'gemini-3.1-flash-lite', 
+
+        const model = genAI.getGenerativeModel({
+            model: 'gemini-3.1-flash-lite',
             systemInstruction: systemPrompt || "Eres un asistente de IA."
         });
 
         const historialSeguro = Array.isArray(history) ? history : [];
-        
+
         const contents = historialSeguro.map(msg => ({
             role: msg.role === 'user' ? 'user' : 'model',
             parts: [{ text: String(msg.text || '') }]
@@ -39,11 +39,11 @@ export default async function handler(request, response) {
         const result = await model.generateContent({
             contents: contents,
             generationConfig: {
-                temperature: 0.6,      
-                maxOutputTokens: 600,  
+                temperature: 0.6,
+                maxOutputTokens: 600,
                 topK: 40,
                 topP: 0.95,
-                candidateCount: 1   
+                candidateCount: 1
             }
         });
 
@@ -54,7 +54,7 @@ export default async function handler(request, response) {
 
     } catch (error) {
         console.error('❌ Error Crítico en Backend:', error);
-        
+
         // REPARACIÓN SEGURO: Intentamos leer el prompt directo del request.body de forma ultra-segura
         let promptDeRespaldo = "";
         try {
@@ -73,8 +73,8 @@ export default async function handler(request, response) {
         if (promptDeRespaldo.includes("Leon")) nombrePersonaje = "Leon S. Kennedy 🔫";
 
         // Devolvemos el paracaídas para que la interfaz nunca se rompa ante el jurado
-        return response.status(200).json({ 
-            reply: `*(${nombrePersonaje} se quedó pensando o está fuera de alcance por el límite diario de Google)*... Reintentá el envío en unos momentos.` 
+        return response.status(200).json({
+            reply: `*(${nombrePersonaje} se quedó pensando o está fuera de alcance por el límite diario de Google)*... Reintentá el envío en unos momentos.`
         });
     }
 }

@@ -11,6 +11,8 @@
     --user-msg: #005c4b;
     --char-msg: #202c33;
     --max-width: 1200px;
+    /* FIX PROFESOR: Ancho máximo del contenido del header y del chat centrado */
+    --max-width-content: 900px; 
 }
 
 * {
@@ -41,24 +43,53 @@ body {
     min-height: 0; 
 }
 
+/* Control de Scroll Independiente para Vistas SPA (About y Home) */
+.view-section {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow-y: auto; 
+    box-sizing: border-box;
+    padding-bottom: 20px;
+}
+
+.view-section::-webkit-scrollbar { width: 6px; }
+.view-section::-webkit-scrollbar-track { background: transparent; }
+.view-section::-webkit-scrollbar-thumb { background-color: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+
 /* ==========================================
-   ESTILOS DEL HEADER
+   ESTILOS DEL HEADER (ALINEACIÓN CENTRADA Y FLUIDA)
    ========================================== */
 .main-header {
     background-color: var(--card-bg);
     padding: 0.8rem 1.5rem; 
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Centra el bloque de contenido en PC */
     align-items: center;
     border-bottom: 1px solid #334155;
     flex-shrink: 0; 
 }
 
+/* Contenedor interno alineado simétricamente con el cuerpo de la app */
+.header-content {
+    width: 100%;
+    max-width: var(--max-width-content); /* Se planta en 900px en PC */
+    display: flex;
+    justify-content: space-between; /* Logo a la izquierda, menú a la derecha */
+    align-items: center;
+    gap: 15px;
+}
+
 .logo {
-    font-size: 1.1rem; 
+    font-size: 1.2rem; 
     font-weight: bold;
     color: var(--primary-color);
     white-space: nowrap; 
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .nav-links {
@@ -71,6 +102,11 @@ body {
     text-decoration: none;
     font-size: 0.95rem;
     cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.nav-item:hover {
+    color: var(--text-color);
 }
 
 .nav-item.active {
@@ -79,7 +115,7 @@ body {
 }
 
 /* ==========================================
-   ESTILOS DEL HOME (GRILLA RESPONSIVA MOBILE-FIRST)
+   ESTILOS DEL HOME (DISEÑO BASE GRILLA)
    ========================================== */
 .home-section {
     flex: 1;
@@ -103,12 +139,31 @@ body {
     width: 100%;
 }
 
-/* Regla Base Mobile First: Forzamos cuadrícula 2x2 en celulares */
-.home-section .characters-grid-responsive {
-    grid-template-columns: repeat(2, 1fr);
+.characters-grid-responsive {
+    display: grid;
+    width: 100%;
 }
 
-/* Animación sutil de zoom al pasar el mouse por arriba de una card */
+.clickable-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.clickable-card img {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary-color);
+    margin-bottom: 8px;
+    transition: transform 0.2s ease;
+}
+
 .clickable-card:hover {
     transform: translateY(-4px);
     border-color: var(--primary-color);
@@ -121,37 +176,14 @@ body {
 }
 
 /* ==========================================
-   ESTILOS DEL CHAT (SELECTOR Y ELEMENTOS INTERNOS)
+   ESTILOS DEL CHAT (INTERNOS Y CONTENEDORES)
    ========================================== */
 .chat-section {
     flex: 1;
     display: flex;
     flex-direction: column;
     min-height: 0; 
-    gap: 10px;
-}
-
-/* Estilos para el Dropdown selector de personajes */
-.character-selector-container {
-    background-color: var(--card-bg);
-    padding: 10px 15px;
-    border-radius: 8px;
-    border: 1px solid #334155;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.char-dropdown {
-    background-color: #2a3942;
-    color: #e9edef;
-    border: 1px solid #334155;
-    padding: 6px 12px;
-    border-radius: 6px;
-    outline: none;
-    font-size: 0.95rem;
-    cursor: pointer;
-    flex: 1;
+    gap: 0;
 }
 
 .chat-container {
@@ -175,7 +207,6 @@ body {
     gap: 10px;
     overflow-y: auto; 
     min-height: 0;
-    
     background-image: url('./assets/Cocina.jpg'); 
     background-size: cover; 
     background-position: center;
@@ -184,7 +215,6 @@ body {
     background-blend-mode: multiply; 
 }
 
-/* Mantiene los mensajes abajo nativamente */
 .chat-messages > :first-child {
     margin-top: auto;
 }
@@ -226,15 +256,6 @@ body {
     max-width: 75%;
 }
 
-.chat-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 1px solid #222e35;
-    flex-shrink: 0; 
-}
-
 .character-message {
     background-color: var(--char-msg);
     color: #e9edef;
@@ -244,19 +265,23 @@ body {
 
 .character-msg-wrapper img {
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: transform 0.2s ease;
 }
 
 .character-msg-wrapper img:hover {
-    transform: scale(1.08); /* Un zoom sutilísimo cuando se posiciona encima */
+    transform: scale(1.08);
 }
 
-/* ANIMACIÓN "CALCIFER ESCRIBIENDO..." */
+/* ANIMACIÓN: INDICADOR ANIMADO DE FLUJO ("ESCRIBIENDO...") */
 .typing-indicator {
     display: flex;
     align-items: center;
-    gap: 4px;
-    padding: 12px 16px;
+    gap: 5px;
+    padding: 10px 14px;
+    background-color: var(--char-msg);
+    border-radius: 8px;
+    border-top-left-radius: 0px;
+    display: inline-flex;
 }
 
 .typing-indicator span {
@@ -276,25 +301,62 @@ body {
     40% { transform: scale(1.0); }
 }
 
-/* Área de entrada */
+/* Área de entrada de texto */
 .chat-input-area {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px;
+    gap: 10px;
+    padding: 12px;
     background-color: #202c33;
+    border-top: 1px solid #222e35;
     flex-shrink: 0; 
 }
 
 .chat-input-area input {
     flex: 1;
-    padding: 10px 16px;
-    background-color: #2a3942;
-    border: none;
-    border-radius: 20px;
+    padding: 11px 16px;
+    background-color: #1f2c34;
+    border: 1px solid #2a3942;
+    border-radius: 8px; 
     color: #e9edef;
     font-size: 0.95rem;
     outline: none;
+    transition: all 0.2s ease;
+}
+
+.chat-input-area input:focus {
+    border-color: var(--primary-color);
+    background-color: #2a3942;
+}
+
+/* BOTÓN DE ENVIAR GRADIENTE CIRCULAR PREMIUM */
+.send-arrow-btn {
+    width: 42px;
+    height: 42px;
+    background: linear-gradient(135deg, var(--primary-color), #4f46e5);
+    color: white;
+    border: none;
+    border-radius: 50%; 
+    cursor: pointer;
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 2px; 
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); 
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
+    flex-shrink: 0;
+}
+
+.send-arrow-btn:hover {
+    background: linear-gradient(135deg, #7577f2, var(--primary-hover));
+    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.45);
+    transform: translateY(-2px) rotate(-5deg);
+}
+
+.send-arrow-btn:active {
+    transform: translateY(1px) scale(0.92);
+    box-shadow: 0 2px 6px rgba(99, 102, 241, 0.2);
 }
 
 /* ==========================================
@@ -309,7 +371,7 @@ body {
     cursor: pointer;
     font-weight: bold;
     font-size: 0.95rem;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s ease;
 }
 
 .btn-primary:hover {
@@ -327,75 +389,210 @@ body {
 }
 
 /* ==========================================
-   MEDIA QUERIES (RESPONSIVE SIN IMPORTANT)
+   SELECTOR DROPDOWN PREMIUM (TUNED)
    ========================================== */
-
-/* Computadoras y Pantallas Grandes (Mayor a 600px) */
-@media (min-width: 600px) {
-    /* Ensanchamos la grilla de la home a 4 columnas seguidas en PC */
-    .home-section .characters-grid-responsive {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-
-@media (min-width: 768px) {
-    .chat-container {
-        max-width: 700px;
-        height: 70vh;
-        margin: 20px auto;
-    }
-}
-
-/* ==========================================
-   CAMBIOS NUEVOS: INPUT RECTANGULAR Y BOTÓN DEGRADADO
-   ========================================== */
-
-/* 1. Pisamos el estilo del input para hacerlo más rectangular */
-.chat-input-area input {
-    flex: 1;
-    padding: 11px 16px;
+.char-dropdown {
+    -webkit-appearance: none; /* Elimina la flecha nativa en Chrome, Safari y Opera */
+    -moz-appearance: none;    /* Elimina la flecha nativa en Firefox */
+    appearance: none;         /* Elimina la flecha nativa estándar */
+    
     background-color: #1f2c34;
-    border: 1px solid #2a3942;
-    border-radius: 8px; /* Bordes rectangulares limpios */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236366f1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    
     color: #e9edef;
-    font-size: 0.95rem;
+    border: 1px solid #2a3942;
+    padding: 8px 36px 8px 12px; /* Espacio a la derecha para no pisar la nueva flecha */
+    border-radius: 8px; /* Redondeado idéntico al de tus inputs principales */
     outline: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
     transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-.chat-input-area input:focus {
+/* Efecto focus y hover sincronizado con la identidad visual */
+.char-dropdown:hover {
     border-color: var(--primary-color);
     background-color: #2a3942;
 }
 
-/* 2. Agregamos la clase NUEVA para el botón redondo con degradado tipo WhatsApp */
-.send-arrow-btn {
-    width: 42px;
-    height: 42px;
-    background: linear-gradient(135deg, var(--primary-color), #4f46e5);
-    color: white;
-    border: none;
-    border-radius: 50%; /* Círculo perfecto */
-    cursor: pointer;
-    font-size: 1.05rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-left: 2px; /* Centra la flechita ➤ */
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); /* Brillo suave */
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); /* Animación elástica */
-    flex-shrink: 0;
+.char-dropdown:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
 }
 
-/* Efecto cuando pasás el mouse en la compu */
-.send-arrow-btn:hover {
-    background: linear-gradient(135deg, #7577f2, var(--primary-hover));
-    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.45);
-    transform: translateY(-2px) rotate(-5deg);
+/* Estilos para las opciones de adentro del menú desplegable */
+.char-dropdown option {
+    background-color: #1e293b;
+    color: #f8fafc;
+    padding: 10px;
 }
 
-/* Efecto cuando lo tocás con el dedo en el celu */
-.send-arrow-btn:active {
-    transform: translateY(1px) scale(0.92);
-    box-shadow: 0 2px 6px rgba(99, 102, 241, 0.2);
+/* ==========================================
+   MEDIA QUERIES INTEGRALES (MOBILE-FIRST ABSOLUTO Y NATIVO)
+   ========================================== */
+
+/* --- 1. SMARTPHONES Y CELULARES (Hasta 599px - S8 / iPhone) --- */
+@media (max-width: 599px) {
+    /* FIX PROFESOR: Ocultamos el texto largo, dejando solo la máscara grande */
+    .logo-text {
+        display: none;
+    }
+    
+    .logo-emoji {
+        font-size: 1.6rem;
+    }
+
+    .header-content {
+        padding: 0 4px;
+    }
+    
+    .nav-links {
+        gap: 0.8rem;
+    }
+    
+    .nav-item {
+        font-size: 0.85rem;
+    }
+    
+    #app {
+        padding: 4px;
+    }
+    
+    .home-section .characters-grid-responsive {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    
+    .clickable-card {
+        padding: 12px;
+    }
+    
+    .clickable-card img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .chat-container {
+        border-radius: 6px;
+    }
+}
+
+/* --- 2. TABLETS ESTÁNDAR Y PANTALLAS CHICAS (De 600px a 767px - Nest Hub) --- */
+@media (min-width: 600px) and (max-width: 767px) {
+    .header-content {
+        max-width: 100%;
+        padding: 0 10px; 
+    }
+
+    .logo {
+        font-size: 1.2rem; 
+    }
+    
+    .nav-item {
+        font-size: 1rem; 
+        padding: 4px 6px;
+    }
+    
+    .home-section .characters-grid-responsive {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px; 
+        max-width: 580px; 
+    }
+    
+    .clickable-card {
+        padding: 18px;
+    }
+    
+    .clickable-card img {
+        width: 80px; 
+        height: 80px;
+    }
+
+    .chat-container {
+        max-width: 90%; 
+        height: 72vh;
+        margin: 15px auto;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+}
+
+/* --- 3. TABLETS GRANDES Y LAPTOPS COMPACTAS (De 768px a 1023px - ¡iPod Pro / Surface 7!) --- */
+/* REPARACIÓN: Escalamos proporcionalmente fuentes y contenedores para alta densidad */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .header-content {
+        max-width: 100%;
+        padding: 0 20px; /* Aire simétrico en extremos del cuerpo */
+    }
+
+    .logo {
+        font-size: 1.4rem; 
+    }
+    
+    .nav-item {
+        font-size: 1.15rem; 
+        padding: 6px 12px;
+    }
+    
+    /* Forzamos 4 columnas fluidas y balanceadas en la grilla del Home */
+    .home-section .characters-grid-responsive {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px; 
+        max-width: 850px; 
+    }
+    
+    .clickable-card {
+        padding: 16px;
+    }
+    
+    .clickable-card h3 {
+        font-size: 1.05rem;
+    }
+    
+    .clickable-card img {
+        width: 75px; 
+        height: 75px;
+    }
+
+    /* Caja de chat con escalado ideal para pantallas de buen tamaño */
+    .chat-container {
+        max-width: 800px; 
+        height: 75vh;
+        margin: 20px auto;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    }
+    
+    .main-footer {
+        font-size: 0.95rem;
+        padding: 1.5rem;
+    }
+}
+
+/* --- 4. MONITORES GRANDES Y PC DESKTOP (Desde 1024px en adelante) --- */
+@media (min-width: 1024px) {
+    .home-section .characters-grid-responsive {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        max-width: var(--max-width-content); 
+    }
+
+    .clickable-card {
+        padding: 20px;
+    }
+
+    .clickable-card img {
+        width: 75px;
+        height: 75px;
+    }
+
+    .chat-container {
+        max-width: var(--max-width-content); 
+        height: 70vh;
+        margin: 20px auto;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
 }
