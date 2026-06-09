@@ -62,16 +62,14 @@
         <div style="font-size: 3rem; margin-bottom: 14px;">🚧</div>
         <h1>404</h1>
         <p>La ruta que estás buscando no existe. Te estamos llevando de vuelta a la central de ComicSansCon.</p>
-        <a id="go-home" href="/home" style="display: inline-block; text-decoration: none;">
-            <button type="button">Ir al inicio</button>
-        </a>
+        <button id="go-home" type="button">Ir al inicio</button>
         <p id="countdown" style="margin-top: 18px; color: #94a3b8;">Te redirigimos en 5 segundos.</p>
     </div>
 
     <script>
-        const homeUrl = `${window.location.origin}/home`;
+        const homeUrl = `${window.location.origin}/`;
         const countdownEl = document.getElementById('countdown');
-        const goHomeLink = document.getElementById('go-home');
+        const goHomeBtn = document.getElementById('go-home');
         let timer = 5;
         let intervalId = null;
 
@@ -80,10 +78,10 @@
                 clearInterval(intervalId);
                 intervalId = null;
             }
-            if (goHomeLink) {
-                goHomeLink.classList.add('disabled');
+            if (goHomeBtn) {
+                goHomeBtn.disabled = true;
             }
-            window.location.href = homeUrl;
+            window.location.replace(homeUrl);
         };
 
         const tick = () => {
@@ -96,8 +94,8 @@
             }
         };
 
-        if (goHomeLink) {
-            goHomeLink.addEventListener('click', (event) => {
+        if (goHomeBtn) {
+            goHomeBtn.addEventListener('click', (event) => {
                 event.preventDefault();
                 goHome();
             });
