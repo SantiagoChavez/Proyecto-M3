@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Página no encontrada</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #090b10;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        }
+        .error-card {
+            width: min(100%, 520px);
+            padding: 32px;
+            border-radius: 24px;
+            background: rgba(16, 24, 39, 0.95);
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 24px 80px rgba(0,0,0,0.35);
+            text-align: center;
+        }
+        .error-card h1 {
+            margin: 0 0 16px;
+            font-size: 3rem;
+            line-height: 1;
+        }
+        .error-card p {
+            margin: 0 0 24px;
+            color: #c3c8d4;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        .error-card button {
+            border: none;
+            background: #6366f1;
+            color: #fff;
+            padding: 14px 22px;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+        .error-card button:hover {
+            transform: translateY(-1px);
+            background: #4f46e5;
+        }
+        .error-card small {
+            display: block;
+            margin-top: 18px;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-card">
+        <div style="font-size: 3rem; margin-bottom: 14px;">🚧</div>
+        <h1>404</h1>
+        <p>La ruta que estás buscando no existe. Te estamos llevando de vuelta a la central de ComicSansCon.</p>
+        <button id="go-home">Ir al inicio</button>
+        <small>Si no haces clic, te redireccionaremos en 5 segundos.</small>
+    </div>
+
+    <script>
+        const goHome = () => {
+            window.location.href = '/home';
+        };
+        document.getElementById('go-home').addEventListener('click', goHome);
+        setTimeout(goHome, 5000);
+    </script>
+</body>
+</html>
