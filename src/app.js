@@ -1,4 +1,3 @@
-
 import { CHARACTERS_DB, formatChatHistory } from './utils.js';
 
 let activeCharacter = CHARACTERS_DB.calcifer;
@@ -19,7 +18,7 @@ const views = {
         <section class="view-section home-section" style="padding: 1.5rem 1rem; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; box-sizing: border-box;">
             <div style="text-align: center; width: 100%; max-width: 800px; display: flex; flex-direction: column; align-items: center;">
                 <h1 style="margin-bottom: 0.5rem; font-size: 1.8rem; color: #fff; line-height: 1.2;">¡Bienvenido a ComicSansCon AI! 🎭</h1>
-                <p style="margin-bottom: 1.5rem; color: #b3b3b3; font-size: 0.95rem; max-width: 500px; line-height: 1.4;">Seleccioná un personaje para ver su perfil y entrar a la central multidimensional:</p>
+                <p style="margin-bottom: 1.5rem; color: #b3b3b3; font-size: 0.95rem; max-width: 500px; line-height: 1.4;">Seleccioná un personaje para ver su perfil and entrar a la central multidimensional:</p>
                 
                 <div class="characters-grid-responsive" style="display: grid; gap: 16px; width: 100%; max-width: 650px; margin-bottom: 1.5rem; box-sizing: border-box;">
                     <div class="clickable-card" data-char="calcifer">
@@ -144,28 +143,33 @@ const views = {
     `
 };
 
+// ==========================================
+// 3. ENRUTADOR NATIVO SPA
+// ==========================================
 function renderView(path) {
     const appContainer = document.getElementById('app');
     
-    // Limpieza segura de barras
+    // Limpieza segura de barras para procesar la key
     let viewKey = path.trim().replace(/^\/+|\/+$/g, '') || 'home';
     if (viewKey.includes('home')) viewKey = 'home';
 
-    // Variable para controlar si el usuario se desvió de ruta
     let esRutaInvalida = false;
 
-    // 🚨 EL ESCUDO: Detectamos si la ruta no existe
+    // El escudo defensivo contra rutas rotas
     if (viewKey !== 'home' && viewKey !== 'chat' && viewKey !== 'about') {
         console.warn(`Ruta inválida detectada: /${viewKey}`);
         esRutaInvalida = true;
-        viewKey = 'home'; // Forzamos a que pinte el Home de fondo
+        viewKey = 'home'; // Forzamos la base visual del Home
     }
 
-    // Renderizamos la vista (si era inválida, va a pintar el Home)
+    // Inyección segura del HTML de la vista correspondiente
     appContainer.innerHTML = views[viewKey] || views.home;
 
-    // 🎭 Si era una ruta inválida, le plantamos el modal estético encima del Home
+    // Si la ruta no existía, montamos el modal flotante sobre el Home de fondo
     if (esRutaInvalida) {
+        const modalViejo = document.getElementById('error-404-modal');
+        if (modalViejo) modalViejo.remove();
+
         const errorModal = document.createElement('div');
         errorModal.id = 'error-404-modal';
         errorModal.style = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); display: flex; justify-content: center; align-items: center; z-index: 10000; padding: 15px; box-sizing: border-box;";
@@ -194,50 +198,21 @@ function renderView(path) {
         });
     }
 
-    // Actualización de estilos en la barra de navegación
+    // Sincronización de clases estéticas en los nav-links
     document.querySelectorAll('.nav-item').forEach(item => {
-        if (item.getAttribute('href') === path || (path === '/' && item.getAttribute('href') === '/home')) {
+        const href = item.getAttribute('href');
+        if (href === path || (path === '/' && href === '/home') || (path === '/home' && href === '/home')) {
             item.classList.add('active');
         } else {
             item.classList.remove('active');
         }
     });
 
-    const modalStartBtn = document.getElementById('start-btn');
-    if (modalStartBtn) {
-        if (viewKey === 'chat') {
-            modalStartBtn.style.display = 'none';
-        } else {
-            modalStartBtn.style.display = 'block';
-        }
-    }
-
     if (viewKey === 'chat') {
         initChatLogic();
     }
 }
-    // Actualización de estilos en la barra de navegación
-    document.querySelectorAll('.nav-item').forEach(item => {
-        if (item.getAttribute('href') === path || (path === '/' && item.getAttribute('href') === '/home')) {
-            item.classList.add('active');
-        } else {
-            item.classList.remove('active');
-        }
-    });
 
-    const modalStartBtn = document.getElementById('start-btn');
-    if (modalStartBtn) {
-        if (viewKey === 'chat') {
-            modalStartBtn.style.display = 'none';
-        } else {
-            modalStartBtn.style.display = 'block';
-        }
-    }
-
-    if (viewKey === 'chat') {
-        initChatLogic();
-    }
-}
 // ==========================================
 // 4. LÓGICA INTERNA DEL CHAT (CON PERSISTENCIA)
 // ==========================================
@@ -260,7 +235,6 @@ function repopulateMessages(container) {
     container.innerHTML = '';
     history.forEach(msg => {
         if (msg.role === 'user') {
-            // REPARACIÓN COMPLETA: Eliminamos la etiqueta <img> del usuario para limpiar el flujo derecho
             container.innerHTML += `
                 <div class="user-msg-wrapper" style="display: flex; align-items: flex-start; justify-content: flex-end; gap: 8px; margin-bottom: 12px; width: 100%;">
                     <div class="message user-message" style="position: relative; max-width: 70%; display: flex; flex-direction: column;">
@@ -394,7 +368,6 @@ function initChatLogic() {
 
         const userTime = getCleanTimestamp();
 
-        // REPARACIÓN COMPLETA: Eliminamos la etiqueta <img> del usuario para limpiar el flujo derecho
         chatMessages.innerHTML += `
             <div class="user-msg-wrapper" style="display: flex; align-items: flex-start; justify-content: flex-end; gap: 8px; margin-bottom: 12px; width: 100%;">
                 <div class="message user-message" style="position: relative; max-width: 70%; display: flex; flex-direction: column;">
@@ -511,7 +484,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const descriptions = {
                     calcifer: "Demonio del fuego atrapado en el hogar del castillo vagabundo. Tiene una personalidad quejosa, pero si sabés tratarlo, te dará consejos profundos sobre mantener encendida tu llama interior.",
-                    goku: "¡El legendario guerrero Saiyajin protector del universo! Está listo para saludarte con su energía de siempre, hablar sobre entrenamientos intensos and motivarte a superar tus límites físicos y mentalmente.",
+                    goku: "¡El legendario guerrero Saiyajin protector del universo! Está listo para saludarte con su energía de siempre, hablar sobre entrenamientos intensos y motivarte a superar tus límites físicos y mentalmente.",
                     snape: "Profesor de Pociones y Jefe de la casa Slytherin. Su temperamento es frío, distante y sumamente estricto. Hablar con él requiere de mucho temple, ya que no tolera la incompetencia.",
                     sheriff: "El primer héroe con nombre propio en la historia de Nintendo (1979). Un rudo e histórico vaquero pixelado diseñado por Shigeru Miyamoto para arcade."
                 };

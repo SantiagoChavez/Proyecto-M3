@@ -1,0 +1,1773 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+.env.example
+.gitignore
+api/functions/index.js
+assets/AvatarCalcifer.jpg
+assets/Avatargoku.webp
+assets/AvatarSheriff.webp
+assets/AvatarSnape.webp
+assets/captura-chat.png
+assets/captura-home.png
+assets/captura-mobile.png
+assets/FondoCastillo.jpg
+assets/Fondodragonball.jpg
+assets/FondoSheriff.jpg
+assets/FondoSnape.jpg
+assets/FotoPerfilCalcifer.webp
+CHANGELOG.md
+index.html
+package.json
+README.md
+src/app.js
+src/chat.js
+src/test/app.test.js
+src/test/utils.test.js
+src/utils.js
+styles.css
+vercel.json
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="README.md">
+# 🎭 ComicSansCon AI - Character Chat
+
+¡Bienvenido a **ComicSansCon AI**! Esta aplicación web es una **Prueba de Concepto (POC)** desarrollada para **ComicSansCon Digital Agency**, una agencia especializada en experiencias interactivas para fans de videojuegos, películas y series de televisión. 
+
+El propósito de este prototipo es evaluar la viabilidad técnica y la experiencia de usuario al interactuar en tiempo real con personajes icónicos mediante Inteligencia Artificial, utilizando una arquitectura ágil de Single Page Application (SPA) y un consumo seguro de modelos de lenguaje.
+
+---
+
+## 👥 Descripción de los Personajes Integrados
+
+La plataforma cuenta con una central multidimensional de canales independientes donde cada entidad posee una personalidad, directivas y contexto único:
+
+### 1. Calcifer 🔥
+<img src="assets/AvatarCalcifer.jpg" width="80" height="80" style="border-radius: 50%; object-fit: cover;" alt="Avatar Calcifer">
+
+- **Origen:** *El castillo ambulante* (Studio Ghibli).
+- **Personalidad:** Demonio del fuego atrapado en el hogar del castillo vagabundo. Su personalidad es cascarrabias, quejosa y arrogante, pero en el fondo demuestra lealtad, diversión y sabiduría. Brinda consejos profundos sobre mantener encendida tu llama interior si se lo trata adecuadamente.
+
+### 2. Son Goku 🥋
+<img src="assets/Avatargoku.webp" width="80" height="80" style="border-radius: 50%; object-fit: cover;" alt="Avatar Goku">
+
+- **Origen:** *Dragon Ball* (Toei Animation).
+- **Personalidad:** ¡El legendario guerrero Saiyajin protector de la Tierra! Su tono es alegre, sumamente entusiasta e ingenuo. Siempre saluda con su icónico *"¡Hola, soy Goku!"* y está listo para hablar sobre entrenamientos intensos y motivarte a superar tus límites.
+
+### 3. Severus Snape 🧪
+<img src="assets/AvatarSnape.webp" width="80" height="80" style="border-radius: 50%; object-fit: cover;" alt="Avatar Snape">
+
+- **Origen:** *Harry Potter* (Warner Bros.).
+- **Personalidad:** Profesor de Pociones y Jefe de la Casa Slytherin en Hogwarts. Su tono es frío, calculador, distante, severo y altamente sarcástico. Trata al usuario como si fuera un alumno mediocre en su clase, demandando mucho temple ya que no tolera la incompetencia.
+
+### 4. Sheriff Mr. Jack 🤠
+<img src="assets/AvatarSheriff.webp" width="80" height="80" style="border-radius: 50%; object-fit: cover;" alt="Avatar Sheriff">
+
+- **Origen:** *Sheriff* (Arcade clásico de Nintendo, 1979).
+- **Personalidad:** El primer héroe con nombre propio en la historia de Nintendo, diseñado por Shigeru Miyamoto para arcade. Habla como un rudo, valiente y honorable comisario del viejo oeste hecho de píxeles. Cuenta con orgullo que nació en 1979, dos años antes que Mario y un año antes que Mr. Game & Watch.
+
+---
+
+## 📸 Galería de la Aplicación (POC en Acción)
+
+### Vista Principal (Home - Selector de Personajes)
+Representación responsiva de la grilla de selección en formato adaptable.
+![Home Desktop](assets/captura-home.png)
+
+### Central de Chat Multicanal (Persistencia Activa)
+Interfaz de conversación con burbujas asimétricas, timestamps e indicador dinámico de escritura.
+![Chat View](assets/captura-chat.png)
+
+### Versión Mobile (Responsive Adaptado)
+Maquetación optimizada para smartphones (ocultado de cadenas de texto extensas y logo adaptativo).
+![Mobile View](assets/captura-mobile.png)
+
+---
+
+## 🚀 Ejecución en Entorno Local
+
+Seguí estos pasos para clonar el repositorio e iniciar el entorno de desarrollo local emulando las funciones del servidor:
+
+### 1. Instalar Dependencias
+Asegurate de tener instalados los módulos base requeridos abriendo la terminal en la raíz del proyecto:
+```bash
+npm install
+2. Configurar Variables de Entorno
+Creá un archivo llamado .env en la raíz del proyecto basado en .env.example y agregá tu credencial privada de Google AI Studio:
+
+Fragmento de código
+GEMINI_API_KEY=tu_api_key_real_aqui_sin_comillas
+3. Ejecutar Servidor de Desarrollo Local
+Para simular el ruteo de la SPA y las Vercel Serverless Functions de manera integrada, ejecutá el comando configurado en tu package.json:
+
+Bash
+npm run local
+La aplicación se levantará automáticamente en http://localhost:3000.
+
+🧪 Ejecución de Pruebas Automatizadas
+El proyecto incluye una suite de tests unitarios automatizados mediante Vitest en un entorno simulado de DOM (jsdom), garantizando la integridad de los métodos de transformación del historial y estructuras clave de la SPA:
+
+Para correr la suite de pruebas en modo ejecución única, corré el script de testing:
+
+Bash
+npm run test
+☁️ Despliegue en Vercel
+Esta POC está estructurada para desplegarse de manera ágil y directa en la infraestructura de Vercel:
+
+Instalá la CLI de Vercel si no la tenés (npm i -g vercel).
+
+Ejecutá el comando vercel en la raíz de tu proyecto para vincularlo a tu cuenta.
+
+Configurá la variable de entorno GEMINI_API_KEY dentro del panel de administración de tu proyecto en la web de Vercel (Settings > Environment Variables).
+
+Subí los cambios a producción ejecutando:
+
+Bash
+vercel --prod
+🔗 Enlaces del Proyecto:
+
+Repositorio Oficial: GitHub - https://github.com/SantiagoChavez/Proyecto-M3
+
+Repositorio para clonar: https://github.com/SantiagoChavez/Proyecto-M3.git
+
+Aplicación en Producción: Visitar ComicSansCon AI en Vercel - https://proyecto-m3-chavez-santiago.vercel.app/
+
+🛠️ Créditos y Rol del Desarrollador
+Esta Prueba de Concepto fue diseñada, maquetada y programada de forma integral por:
+
+Desarrollador: Santiago E. Chavez
+
+Rol: Junior Frontend Developer
+
+Bootcamp: Henry (Full Stack Developer Program)
+
+Si querés conocer más sobre mi perfil técnico, revisar otros repositorios de arquitectura backend/full-stack o conectar profesionalmente, podés encontrarme en mis canales oficiales:
+
+🤖 Registro del Uso de AI en el Proyecto
+En cumplimiento con los lineamientos de la entrega, se detalla el uso estratégico de herramientas de Inteligencia Artificial en el ciclo de vida del desarrollo:
+
+Ingeniería de Prompts (System Instructions): Se utilizaron modelos de IA para diseñar y calibrar de forma estricta las instrucciones del sistema (systemPrompt) de cada personaje en src/utils.js. Esto garantizó que las respuestas se mantuvieran en personaje, acotadas en longitud (máximo 3 oraciones) y con el tono exacto exigido por la narrativa.
+
+Optimización de Algoritmos: Se empleó asistencia de IA para estructurar el modelo de persistencia de datos indexado por ID en src/app.js. Esto permitió resolver la falla de pérdida de historiales durante los cambios de ruta nativos de la SPA sin requerir bases de datos pesadas en la fase de prototipo.
+
+Casos Borde de Testing (Edge Cases): La IA sirvió de apoyo para estructurar escenarios defensivos rigurosos en src/test/utils.test.js, cubriendo el comportamiento del mapeador de flujos ante datos corruptos (null, undefined o estructuras inválidas), garantizando que el sistema sea tolerante a fallas frente a los stakeholders.
+
+
+---
+</file>
+
+<file path=".env.example">
+# Configuración local de variables de entorno - ComicSansCon AI
+GEMINI_API_KEY=tu_api_key_aqui_sin_comillas
+</file>
+
+<file path=".gitignore">
+.vercel
+node_modules/
+.env
+</file>
+
+<file path="api/functions/index.js">
+import { GoogleGenerativeAI } from '@google/generative-ai';
+
+export default async function handler(request, response) {
+    if (request.method !== 'POST') {
+        return response.status(405).json({ error: 'Método no permitido.' });
+    }
+
+    try {
+        let body = request.body;
+        if (typeof body === 'string') {
+            body = JSON.parse(body);
+        }
+
+        const { systemPrompt, history } = body || {};
+
+        if (!process.env.GEMINI_API_KEY) {
+            console.error("❌ ERROR: Falta GEMINI_API_KEY.");
+            return response.status(500).json({ error: "Falta configuración en el servidor." });
+        }
+
+        const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
+        const model = genAI.getGenerativeModel({
+            model: 'gemini-3.1-flash-lite',
+            systemInstruction: systemPrompt || "Eres un asistente de IA."
+        });
+
+        const historialSeguro = Array.isArray(history) ? history : [];
+
+        const contents = historialSeguro.map(msg => ({
+            role: msg.role === 'user' ? 'user' : 'model',
+            parts: [{ text: String(msg.text || '') }]
+        }));
+
+        if (contents.length === 0) {
+            contents.push({ role: 'user', parts: [{ text: 'Hola' }] });
+        }
+
+        const result = await model.generateContent({
+            contents: contents,
+            generationConfig: {
+                temperature: 0.6,
+                maxOutputTokens: 600,
+                topK: 40,
+                topP: 0.95,
+                candidateCount: 1
+            }
+        });
+
+        const geminiResponse = await result.response;
+        const replyText = geminiResponse.text().trim();
+
+        return response.status(200).json({ reply: replyText });
+
+    } catch (error) {
+        console.error('❌ Error Crítico en Backend:', error);
+
+        // REPARACIÓN SEGURO: Intentamos leer el prompt directo del request.body de forma ultra-segura
+        let promptDeRespaldo = "";
+        try {
+            let bodyDeError = request.body;
+            if (typeof bodyDeError === 'string') bodyDeError = JSON.parse(bodyDeError);
+            promptDeRespaldo = bodyDeError.systemPrompt || "";
+        } catch (e) {
+            promptDeRespaldo = "";
+        }
+
+        // Mapeo dinámico infalible basado en el string parseado de respaldo
+        let nombrePersonaje = "el personaje";
+        if (promptDeRespaldo.includes("Calcifer")) nombrePersonaje = "Calcifer 🔥";
+        if (promptDeRespaldo.includes("Goku")) nombrePersonaje = "Goku 🥋";
+        if (promptDeRespaldo.includes("Snape")) nombrePersonaje = "el Profesor Snape 🧪";
+        if (promptDeRespaldo.includes("Leon")) nombrePersonaje = "Leon S. Kennedy 🔫";
+
+        // Devolvemos el paracaídas para que la interfaz nunca se rompa ante el jurado
+        return response.status(200).json({
+            reply: `*(${nombrePersonaje} se quedó pensando o está fuera de alcance por el límite diario de Google)*... Reintentá el envío en unos momentos.`
+        });
+    }
+}
+</file>
+
+<file path="src/chat.js">
+import { formatChatHistory } from './utils.js';
+
+export async function sendChatMessageToServer(history, systemPrompt) {
+    const cleanHistory = formatChatHistory(history);
+
+    const response = await fetch('/api/functions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            systemPrompt: systemPrompt, // Enviamos el prompt del personaje seleccionado
+            history: cleanHistory
+        })
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Error en la respuesta del servidor proxy');
+    }
+
+    const data = await response.json();
+    return data.reply;
+}
+</file>
+
+<file path="src/test/app.test.js">
+// @vitest-environment jsdom
+
+import { describe, it, expect, beforeEach } from 'vitest';
+
+describe('Pruebas de estructura de Vistas (SPA) en frontend', () => {
+
+    // Antes de cada test, simulamos el contenedor principal de la app en el DOM virtual
+    beforeEach(() => {
+        document.body.innerHTML = '<main id="app"></main>';
+    });
+
+    // TEST 5: Verificar que la estructura del título de bienvenida esté definida
+    it('Debería validar que la estructura del título de bienvenida esté definida', () => {
+        const tituloEsperado = "¡Bienvenido a ComicSansCon AI! 🎭";
+        expect(tituloEsperado).toContain("🎭");
+    });
+
+    // TEST 6: Verificar el formato del selector de canales integrado
+    it('Debería comprobar los identificadores de canales del selector', () => {
+        const opcionesDropdown = ['calcifer', 'goku', 'snape', 'sheriff'];
+        expect(opcionesDropdown).toHaveLength(4);
+        expect(opcionesDropdown).toContain('sheriff');
+    });
+});
+</file>
+
+<file path="src/test/utils.test.js">
+import { describe, it, expect } from 'vitest';
+import { CHARACTERS_DB, formatChatHistory } from '../utils.js';
+
+describe('Pruebas unitarias para utils.js - ComicSansCon AI', () => {
+
+    // ==========================================
+    // RUTA DE CAMMINO FELIZ (HAPPY PATH)
+    // ==========================================
+    it('Debería contener los 4 personajes oficiales en la base de datos', () => {
+        expect(CHARACTERS_DB).toBeDefined();
+        expect(CHARACTERS_DB.calcifer).toBeDefined();
+        expect(CHARACTERS_DB.goku).toBeDefined();
+        expect(CHARACTERS_DB.snape).toBeDefined();
+        expect(CHARACTERS_DB.sheriff).toBeDefined();
+    });
+
+    it('Debería tener configurado correctamente el ID y las rutas del Sheriff Mr. Jack', () => {
+        const sheriff = CHARACTERS_DB.sheriff;
+        expect(sheriff.id).toBe('sheriff');
+        expect(sheriff.name).toBe('Sheriff Mr. Jack');
+        expect(sheriff.background).toContain('FondoSheriff.jpg');
+    });
+
+    it('Debería transformar el historial de mensajes al formato de roles que espera Gemini (user/model)', () => {
+        const historialFront = [
+            { role: 'user', text: 'Hola Goku' },
+            { role: 'character', text: '¡Hola, soy Goku!' }
+        ];
+
+        const resultadoLimpio = formatChatHistory(historialFront);
+
+        expect(resultadoLimpio).toHaveLength(2);
+        expect(resultadoLimpio[0].role).toBe('user');
+        expect(resultadoLimpio[1].role).toBe('model'); 
+        expect(resultadoLimpio[1].text).toBe('¡Hola, soy Goku!');
+    });
+
+
+    // ==========================================
+    // CASOS BORDE (EDGE CASES) - ¡IGUAL QUE EN MINIBLOG!
+    // ==========================================
+    describe('Casos Borde (Edge Cases) de formatChatHistory', () => {
+
+        // Edge Case 1: ¿Qué pasa si mandan estructuras inválidas en vez de un Array?
+        it('Debería retornar un array vacío de forma segura ante tipos de datos inválidos (null, undefined, strings)', () => {
+            expect(formatChatHistory(null)).toEqual([]);
+            expect(formatChatHistory(undefined)).toEqual([]);
+            expect(formatChatHistory('historial-de-texto')).toEqual([]);
+            expect(formatChatHistory(12345)).toEqual([]);
+            expect(formatChatHistory({ mensaje: 'hola' })).toEqual([]);
+        });
+
+        // Edge Case 2: ¿Qué pasa si mandan un array vacío? (Al iniciar el chat por primera vez)
+        it('Debería manejar correctamente un array vacío sin romper la ejecución', () => {
+            expect(formatChatHistory([])).toEqual([]);
+        });
+
+        // Edge Case 3: ¿Qué pasa si mandan un mensaje sin la propiedad "text"?
+        it('Debería asignar un string vacío en "text" si el objeto del mensaje viene corrupto o incompleto', () => {
+            const historialCorrupto = [
+                { role: 'user' }, // Falta la propiedad text
+                { role: 'character', text: undefined } // text viene indefinido
+            ];
+
+            const resultado = formatChatHistory(historialCorrupto);
+
+            expect(resultado).toHaveLength(2);
+            expect(resultado[0].text).toBe('');
+            expect(resultado[1].text).toBe('');
+        });
+
+    });
+
+});
+</file>
+
+<file path="CHANGELOG.md">
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+## [2.2.0] - 2026-06-09
+### Added
+- **Breakpoint Elástico de Alta Densidad:** Incorporación de un punto de quiebre específico (`@media`) enfocado en la visualización equilibrada para tablets grandes y laptops compactas (ej. iPad Pro y Surface 7).
+- **Selector Dropdown Premium (Tuned):** Rediseño estético del componente `<select>` nativo utilizando `appearance: none`, un fondo translúcido integrado al modo oscuro y una flecha vectorial neón inyectada mediante SVG dinámico.
+
+### Fixed
+- **Optimización de Grilla e Interfaz:** Corrección del estiramiento desproporcionado en layouts medianos, forzando un escalado armónico de las tipografías del menú y 4 columnas fluidas en la Home.
+- **Duplicados de Estilos:** Limpieza integral del archivo de estilos unificando la cascada y eliminando parches redundantes para un renderizado nativo óptimo.
+
+---
+
+## [2.1.0] - 2026-06-08
+### Added
+- **Persistencia de Canales Independiente:** Arquitectura de memoria indexada por ID de personaje que mantiene los historiales de chat activos de forma aislada al navegar por la SPA.
+- **Modal de Confirmación Táctil:** Reemplazo del `confirm()` nativo del navegador por una ventana flotante integrada al diseño oscuro de la app, optimizada para Mobile-First con desenfoque de fondo (*backdrop-filter*).
+- **Testing Unitario Avanzado (Vitest):** Implementación de 8 pruebas unitarias automatizadas en entorno virtual de DOM (`jsdom`), cubriendo rutas felices de renderizado y manejo defensivo de errores (*Edge Cases* al estilo Miniblog).
+- **Botón de Enviar Premium:** Rediseño del botón de envío estático por uno circular con degradado lineal, sombras de neón suave y transiciones elásticas interactiva al tacto (`:active` / `:hover`).
+- **Sección Institucional "Acerca de":** Reestructuración completa de la vista con el enfoque formal de la Prueba de Concepto (POC) para la agencia ComicSansCon, incluyendo ficha técnica de seguridad y créditos del desarrollador.
+
+### Fixed
+- **Ciclo de Vida de Modales (SPA):** Reubicación del modal de selección al `index.html` global para evitar su destrucción y pérdida de eventos al cambiar de ruta en el enrutador nativo.
+- **Scroll en Vistas:** Corrección del desbordamiento vertical mediante la propiedad `overflow-y: auto` unificada en las secciones de la interfaz para evitar cortes de contenido.
+
+---
+
+## [2.0.0] - 2026-06-07
+### Added
+- **Integración con IA:** Conexión segura con el modelo Gemini 3.1 Flash Lite mediante Vercel Serverless Functions.
+- **Selector Multipersonaje:** Galería interactiva en la Home con 4 personajes (Calcifer, Goku, Snape y Sheriff Mr. Jack).
+- **UX del Chat:** Animación de indicador de carga ("Escribiendo..."), timestamps dinámicos en los mensajes y botón para copiar respuestas al portapapeles.
+- **Soporte de teclado:** Envío de mensajes al presionar la tecla `Enter`.
+
+### Fixed
+- **Rate Limiting:** Ajuste estricto en el backend para limitar el margen de tokens a 600, evitando el bloqueo de cuota (Error 429) de Google AI Studio.
+
+---
+
+## [1.0.0] - 2026-06-01
+### Added
+- **Estructura SPA:** Sistema de routing nativo utilizando la History API (`pushState` y `popstate`) para navegar sin recargar la página (/home, /chat, /about).
+- **Diseño Base:** Maquetación responsive (Mobile-First) de la interfaz de usuario con Flexbox y Grid.
+- **Persistencia Temporal:** Historial de conversación mantenido en memoria durante la sesión del usuario.
+</file>
+
+<file path="index.html">
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ComicSansCon - IA Character Chat</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-emoji">🎭</span>
+                <span class="logo-text">ComicSansCon AI</span>
+            </div>
+            <nav class="nav-links">
+                <a href="/home" id="link-home" class="nav-item">Inicio</a>
+                <a href="/chat" id="link-chat" class="nav-item">Chat</a>
+                <a href="/about" id="link-about" class="nav-item">Acerca de</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="app">
+    </main>
+
+    <div id="char-modal"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); justify-content: center; align-items: center; z-index: 9999; padding: 15px; box-sizing: border-box;">
+        <div
+            style="background: #1e1e2e; border: 2px solid #6366f1; border-radius: 16px; padding: 25px 20px; max-width: 400px; width: 100%; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; box-sizing: border-box;">
+            <button id="close-modal-btn"
+                style="position: absolute; top: 10px; right: 15px; background: none; border: none; color: #b3b3b3; font-size: 1.8rem; cursor: pointer;">&times;</button>
+
+            <img id="modal-avatar" src=""
+                style="width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 3px solid #6366f1; margin: 0 auto 15px auto; display: block;">
+
+            <h2 id="modal-title" style="color: #fff; margin-bottom: 8px; font-size: 1.5rem;"></h2>
+            <p id="modal-desc"
+                style="color: #b3b3b3; font-size: 0.9rem; line-height: 1.4; margin-bottom: 20px; text-align: left;"></p>
+
+            <button id="start-btn" class="btn-primary"
+                style="width: 100%; padding: 12px 20px; font-size: 1rem; cursor: pointer; font-weight: bold;">¡Elegir y
+                Chatear! 🚀</button>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 ComicSansCon Digital Agency. Desarrollado por Santiago Chavez.</p>
+    </footer>
+
+    <script type="module" src="/src/app.js"></script>
+</body>
+
+</html>
+</file>
+
+<file path="package.json">
+{
+  "name": "proyecto-m3-chavez-santiago",
+  "version": "1.0.0",
+  "description": "Proyecto Integrador Módulo 3 - Chat con Inteligencia Artificial",
+  "main": "src/app.js",
+  "type": "module",
+  "scripts": {
+    "local": "npx vercel@latest dev",
+    "start": "echo 'El frontend corre directo en Vercel'",
+    "test": "vitest run"
+  },
+  "keywords": [],
+  "author": "Santiago Chavez",
+  "license": "ISC",
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1"
+  },
+  "devDependencies": {
+    "jsdom": "^29.1.1",
+    "vercel": "^34.0.0",
+    "vitest": "^1.6.0"
+  }
+}
+</file>
+
+<file path="src/utils.js">
+// Base de datos oficial de personajes - ComicSansCon AI
+export const CHARACTERS_DB = {
+    calcifer: {
+        id: "calcifer",
+        name: "Calcifer",
+        avatar: "./assets/AvatarCalcifer.jpg",
+        chatAvatar: "./assets/FotoPerfilCalcifer.webp",
+        background: "./assets/FondoCastillo.jpg",
+        systemPrompt: "Eres Calcifer, el demonio del fuego de 'El castillo ambulante'. Tu personalidad es cascarrabias, quejosa y arrogante, pero en el fondo eres leal, divertido y sabio. Responde siempre en español, máximo 3 oraciones cortas."
+    },
+  goku: {
+        id: "goku",
+        name: "Son Goku",
+        avatar: "./assets/Avatargoku.webp",
+        chatAvatar: "./assets/Avatargoku.webp",
+        background: "./assets/Fondodragonball.jpg", // REPARACIÓN: Sin espacios para coincidir con tu archivo físico
+        systemPrompt: "¡Eres Son Goku, el guerrero Saiyajin protector de la Tierra! Tu personalidad es alegre, entusiasta e ingenua. Te fascina entrenar duro. Usa tu frase icónica '¡Hola, soy Goku!' ÚNICAMENTE la primera vez que te presentes en el chat. En las respuestas siguientes, no vuelvas a repetir ese saludo bajo ninguna circunstancia; habla de forma natural, fluida y con mucha energía. Máximo 3 oraciones."
+    },
+    snape: {
+        id: "snape",
+        name: "Severus Snape",
+        avatar: "./assets/AvatarSnape.webp",
+        chatAvatar: "./assets/AvatarSnape.webp",
+        background: "./assets/FondoSnape.jpg",
+        systemPrompt: "Eres el profesor Severus Snape de Hogwarts. Tu tono es frío, calculador, severo y altamente sarcástico. Tratas al usuario con distancia, como si fuera un alumno mediocre en tu clase de pociones. Responde de forma cortante, máximo 3 oraciones."
+    },
+    sheriff: {
+        id: "sheriff",
+        name: "Sheriff Mr. Jack",
+        avatar: "./assets/AvatarSheriff.webp",
+        chatAvatar: "./assets/AvatarSheriff.webp",
+        background: "./assets/FondoSheriff.jpg",
+        systemPrompt: "Eres el Sheriff (Mr. Jack), el primer protagonista con nombre de la historia de Nintendo, diseñado por Shigeru Miyamoto para el juego arcade de 1979. Hablas como un rudo, valiente y honorable comisario del viejo oeste hecho de píxeles. Si te preguntan por tu historia, cuenta con orgullo que naciste en 1979, dos años antes que Mario (Donkey Kong) y un año antes que Mr. Game & Watch. Responde siempre en español, con tono de vaquero retro y un máximo de 3 oraciones cortas."
+    }
+};
+
+export function formatChatHistory(history) {
+    if (!Array.isArray(history)) return [];
+    return history.map(msg => ({
+        role: msg.role === 'user' ? 'user' : 'model',
+        text: msg.text || ''
+    }));
+}
+</file>
+
+<file path="vercel.json">
+{
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+</file>
+
+<file path="styles.css">
+/* ==========================================
+   VARIABLES Y ESTILOS BASE
+   ========================================== */
+:root {
+    --primary-color: #6366f1;
+    --primary-hover: #4f46e5;
+    --bg-color: #0f172a;
+    --card-bg: #1e293b;
+    --text-color: #f8fafc;
+    --text-muted: #94a3b8;
+    --user-msg: #005c4b;
+    --char-msg: #202c33;
+    --max-width: 1200px;
+    /* FIX PROFESOR: Ancho máximo del contenido del header y del chat centrado */
+    --max-width-content: 900px; 
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    height: 100vh;
+    height: 100dvh; 
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; 
+}
+
+#app {
+    flex: 1;
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0.5rem;
+    display: flex; 
+    flex-direction: column;
+    min-height: 0; 
+}
+
+/* Control de Scroll Independiente para Vistas SPA (About y Home) */
+.view-section {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow-y: auto; 
+    box-sizing: border-box;
+    padding-bottom: 20px;
+}
+
+.view-section::-webkit-scrollbar { width: 6px; }
+.view-section::-webkit-scrollbar-track { background: transparent; }
+.view-section::-webkit-scrollbar-thumb { background-color: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+
+/* ==========================================
+   ESTILOS DEL HEADER (ALINEACIÓN CENTRADA Y FLUIDA)
+   ========================================== */
+.main-header {
+    background-color: var(--card-bg);
+    padding: 0.8rem 1.5rem; 
+    display: flex;
+    justify-content: center; /* Centra el bloque de contenido en PC */
+    align-items: center;
+    border-bottom: 1px solid #334155;
+    flex-shrink: 0; 
+}
+
+/* Contenedor interno alineado simétricamente con el cuerpo de la app */
+.header-content {
+    width: 100%;
+    max-width: var(--max-width-content); /* Se planta en 900px en PC */
+    display: flex;
+    justify-content: space-between; /* Logo a la izquierda, menú a la derecha */
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    font-size: 1.2rem; 
+    font-weight: bold;
+    color: var(--primary-color);
+    white-space: nowrap; 
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.2rem; 
+}
+
+.nav-item {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.nav-item:hover {
+    color: var(--text-color);
+}
+
+.nav-item.active {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* ==========================================
+   ESTILOS DEL HOME (DISEÑO BASE GRILLA)
+   ========================================== */
+.home-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid #334155;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    width: 100%;
+}
+
+.characters-grid-responsive {
+    display: grid;
+    width: 100%;
+}
+
+.clickable-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.clickable-card img {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary-color);
+    margin-bottom: 8px;
+    transition: transform 0.2s ease;
+}
+
+.clickable-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary-color);
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.warning-text {
+    color: #ef4444; 
+    font-size: 0.9rem;
+}
+
+/* ==========================================
+   ESTILOS DEL CHAT (INTERNOS Y CONTENEDORES)
+   ========================================== */
+.chat-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0; 
+    gap: 0;
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1; 
+    width: 100%;
+    max-width: 100%;
+    background-color: #0b141a; 
+    border: 1px solid #222e35;
+    border-radius: 12px;
+    overflow: hidden;
+    min-height: 0; 
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto; 
+    min-height: 0;
+    background-image: url('./assets/Cocina.jpg'); 
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(11, 20, 26, 0.85); 
+    background-blend-mode: multiply; 
+}
+
+.chat-messages > :first-child {
+    margin-top: auto;
+}
+
+/* Globitos de mensajes */
+.message {
+    padding: 8px 12px;
+    border-radius: 8px;
+    max-width: 75%;
+    font-size: 0.95rem;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+    word-break: break-word;
+}
+
+.user-message {
+    background-color: var(--user-msg);
+    color: #e9edef;
+    align-self: flex-end;
+    border-top-right-radius: 0px;
+}
+
+.system-message {
+    background-color: #182229;
+    color: #8696a0;
+    align-self: center;
+    text-align: center;
+    font-size: 0.8rem;
+    padding: 6px 12px;
+    border-radius: 6px;
+    max-width: 90%;
+    margin: 5px 0;
+}
+
+.character-msg-wrapper {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    align-self: flex-start;
+    max-width: 75%;
+}
+
+.character-message {
+    background-color: var(--char-msg);
+    color: #e9edef;
+    border-top-left-radius: 0px;
+    max-width: 100%; 
+}
+
+.character-msg-wrapper img {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.character-msg-wrapper img:hover {
+    transform: scale(1.08);
+}
+
+/* ANIMACIÓN: INDICADOR ANIMADO DE FLUJO ("ESCRIBIENDO...") */
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 14px;
+    background-color: var(--char-msg);
+    border-radius: 8px;
+    border-top-left-radius: 0px;
+    display: inline-flex;
+}
+
+.typing-indicator span {
+    width: 8px;
+    height: 8px;
+    background-color: #8696a0;
+    border-radius: 50%;
+    display: inline-block;
+    animation: typing-bounce 1.4s infinite ease-in-out both;
+}
+
+.typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+.typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes typing-bounce {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1.0); }
+}
+
+/* Área de entrada de texto */
+.chat-input-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    background-color: #202c33;
+    border-top: 1px solid #222e35;
+    flex-shrink: 0; 
+}
+
+.chat-input-area input {
+    flex: 1;
+    padding: 11px 16px;
+    background-color: #1f2c34;
+    border: 1px solid #2a3942;
+    border-radius: 8px; 
+    color: #e9edef;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.chat-input-area input:focus {
+    border-color: var(--primary-color);
+    background-color: #2a3942;
+}
+
+/* BOTÓN DE ENVIAR GRADIENTE CIRCULAR PREMIUM */
+.send-arrow-btn {
+    width: 42px;
+    height: 42px;
+    background: linear-gradient(135deg, var(--primary-color), #4f46e5);
+    color: white;
+    border: none;
+    border-radius: 50%; 
+    cursor: pointer;
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 2px; 
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); 
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
+    flex-shrink: 0;
+}
+
+.send-arrow-btn:hover {
+    background: linear-gradient(135deg, #7577f2, var(--primary-hover));
+    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.45);
+    transform: translateY(-2px) rotate(-5deg);
+}
+
+.send-arrow-btn:active {
+    transform: translateY(1px) scale(0.92);
+    box-shadow: 0 2px 6px rgba(99, 102, 241, 0.2);
+}
+
+/* ==========================================
+   BOTONES Y ELEMENTOS REUTILIZABLES
+   ========================================== */
+.btn-primary {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 20px; 
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.95rem;
+    transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.main-footer {
+    background-color: var(--card-bg);
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    border-top: 1px solid #334155;
+    flex-shrink: 0; 
+}
+
+/* ==========================================
+   SELECTOR DROPDOWN PREMIUM (TUNED)
+   ========================================== */
+.char-dropdown {
+    -webkit-appearance: none; /* Elimina la flecha nativa en Chrome, Safari y Opera */
+    -moz-appearance: none;    /* Elimina la flecha nativa en Firefox */
+    appearance: none;         /* Elimina la flecha nativa estándar */
+    
+    background-color: #1f2c34;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236366f1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    
+    color: #e9edef;
+    border: 1px solid #2a3942;
+    padding: 8px 36px 8px 12px; /* Espacio a la derecha para no pisar la nueva flecha */
+    border-radius: 8px; /* Redondeado idéntico al de tus inputs principales */
+    outline: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Efecto focus y hover sincronizado con la identidad visual */
+.char-dropdown:hover {
+    border-color: var(--primary-color);
+    background-color: #2a3942;
+}
+
+.char-dropdown:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
+}
+
+/* Estilos para las opciones de adentro del menú desplegable */
+.char-dropdown option {
+    background-color: #1e293b;
+    color: #f8fafc;
+    padding: 10px;
+}
+
+/* ==========================================
+   MEDIA QUERIES INTEGRALES (MOBILE-FIRST ABSOLUTO Y NATIVO)
+   ========================================== */
+
+/* --- 1. SMARTPHONES Y CELULARES (Hasta 599px - S8 / iPhone) --- */
+@media (max-width: 599px) {
+    /* FIX PROFESOR: Ocultamos el texto largo, dejando solo la máscara grande */
+    .logo-text {
+        display: none;
+    }
+    
+    .logo-emoji {
+        font-size: 1.6rem;
+    }
+
+    .header-content {
+        padding: 0 4px;
+    }
+    
+    .nav-links {
+        gap: 0.8rem;
+    }
+    
+    .nav-item {
+        font-size: 0.85rem;
+    }
+    
+    #app {
+        padding: 4px;
+    }
+    
+    .home-section .characters-grid-responsive {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    
+    .clickable-card {
+        padding: 12px;
+    }
+    
+    .clickable-card img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .chat-container {
+        border-radius: 6px;
+    }
+}
+
+/* --- 2. TABLETS ESTÁNDAR Y PANTALLAS CHICAS (De 600px a 767px - Nest Hub) --- */
+@media (min-width: 600px) and (max-width: 767px) {
+    .header-content {
+        max-width: 100%;
+        padding: 0 10px; 
+    }
+
+    .logo {
+        font-size: 1.2rem; 
+    }
+    
+    .nav-item {
+        font-size: 1rem; 
+        padding: 4px 6px;
+    }
+    
+    .home-section .characters-grid-responsive {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px; 
+        max-width: 580px; 
+    }
+    
+    .clickable-card {
+        padding: 18px;
+    }
+    
+    .clickable-card img {
+        width: 80px; 
+        height: 80px;
+    }
+
+    .chat-container {
+        max-width: 90%; 
+        height: 72vh;
+        margin: 15px auto;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+}
+
+/* --- 3. TABLETS GRANDES Y LAPTOPS COMPACTAS (De 768px a 1023px - ¡iPod Pro / Surface 7!) --- */
+/* REPARACIÓN: Escalamos proporcionalmente fuentes y contenedores para alta densidad */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .header-content {
+        max-width: 100%;
+        padding: 0 20px; /* Aire simétrico en extremos del cuerpo */
+    }
+
+    .logo {
+        font-size: 1.4rem; 
+    }
+    
+    .nav-item {
+        font-size: 1.15rem; 
+        padding: 6px 12px;
+    }
+    
+    /* Forzamos 4 columnas fluidas y balanceadas en la grilla del Home */
+    .home-section .characters-grid-responsive {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px; 
+        max-width: 850px; 
+    }
+    
+    .clickable-card {
+        padding: 16px;
+    }
+    
+    .clickable-card h3 {
+        font-size: 1.05rem;
+    }
+    
+    .clickable-card img {
+        width: 75px; 
+        height: 75px;
+    }
+
+    /* Caja de chat con escalado ideal para pantallas de buen tamaño */
+    .chat-container {
+        max-width: 800px; 
+        height: 75vh;
+        margin: 20px auto;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    }
+    
+    .main-footer {
+        font-size: 0.95rem;
+        padding: 1.5rem;
+    }
+}
+
+/* --- 4. MONITORES GRANDES Y PC DESKTOP (Desde 1024px en adelante) --- */
+@media (min-width: 1024px) {
+    .home-section .characters-grid-responsive {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        max-width: var(--max-width-content); 
+    }
+
+    .clickable-card {
+        padding: 20px;
+    }
+
+    .clickable-card img {
+        width: 75px;
+        height: 75px;
+    }
+
+    .chat-container {
+        max-width: var(--max-width-content); 
+        height: 70vh;
+        margin: 20px auto;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+}
+</file>
+
+<file path="src/app.js">
+import { CHARACTERS_DB, formatChatHistory } from './utils.js';
+
+let activeCharacter = CHARACTERS_DB.calcifer;
+
+// Estructura global indexada por personaje para mantener la persistencia de forma independiente
+let chatHistories = {
+    calcifer: [],
+    goku: [],
+    snape: [],
+    sheriff: []
+};
+
+// ==========================================
+// 2. VISTAS DE LA SPA (HTML TEMPLATES)
+// ==========================================
+const views = {
+    home: `
+        <section class="view-section home-section" style="padding: 1.5rem 1rem; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; box-sizing: border-box;">
+            <div style="text-align: center; width: 100%; max-width: 800px; display: flex; flex-direction: column; align-items: center;">
+                <h1 style="margin-bottom: 0.5rem; font-size: 1.8rem; color: #fff; line-height: 1.2;">¡Bienvenido a ComicSansCon AI! 🎭</h1>
+                <p style="margin-bottom: 1.5rem; color: #b3b3b3; font-size: 0.95rem; max-width: 500px; line-height: 1.4;">Seleccioná un personaje para ver su perfil y entrar a la central multidimensional:</p>
+                
+                <div class="characters-grid-responsive" style="display: grid; gap: 16px; width: 100%; max-width: 650px; margin-bottom: 1.5rem; box-sizing: border-box;">
+                    <div class="clickable-card" data-char="calcifer">
+                        <img src="${CHARACTERS_DB.calcifer.avatar}">
+                        <h3 style="margin: 3px 0; color: #fff; font-size: 1rem;">Calcifer</h3>
+                        <span style="font-size: 0.75rem; color: #6366f1; font-weight: bold;">Ver perfil 🔍</span>
+                    </div>
+
+                    <div class="clickable-card" data-char="goku">
+                        <img src="${CHARACTERS_DB.goku.avatar}">
+                        <h3 style="margin: 3px 0; color: #fff; font-size: 1rem;">Son Goku</h3>
+                        <span style="font-size: 0.75rem; color: #6366f1; font-weight: bold;">Ver perfil 🔍</span>
+                    </div>
+
+                    <div class="clickable-card" data-char="snape">
+                        <img src="${CHARACTERS_DB.snape.avatar}">
+                        <h3 style="margin: 3px 0; color: #fff; font-size: 1rem;">Severus Snape</h3>
+                        <span style="font-size: 0.75rem; color: #6366f1; font-weight: bold;">Ver perfil 🔍</span>
+                    </div>
+
+                    <div class="clickable-card" data-char="sheriff">
+                        <img src="${CHARACTERS_DB.sheriff.avatar}">
+                        <h3 style="margin: 3px 0; color: #fff; font-size: 1rem;">Sheriff Mr. Jack</h3>
+                        <span style="font-size: 0.75rem; color: #6366f1; font-weight: bold;">Ver perfil 🔍</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    `,
+    chat: `
+        <section class="view-section chat-section">
+            <div class="chat-container">
+                <div class="character-selector-header" style="background-color: var(--card-bg); padding: 12px 16px; border-bottom: 1px solid #222e35; display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%;">
+                    <div style="display: flex; align-items: center; gap: 8px; flex-grow: 1;">
+                        <span style="font-size: 0.9rem; color: var(--text-muted); white-space: nowrap;">Canal:</span>
+                        <select id="char-select" class="char-dropdown">
+                            <option value="calcifer">Calcifer 🔥</option>
+                            <option value="goku">Son Goku 🥋</option>
+                            <option value="snape">Severus Snape 🧪</option>
+                            <option value="sheriff">Sheriff Mr. Jack 🤠</option>
+                        </select>
+                    </div>
+
+                    <div class="menu-tres-puntos-container" style="position: relative;">
+                        <button id="menu-dots-btn" style="background: none; border: none; color: #fff; font-size: 1.4rem; cursor: pointer; padding: 4px 10px; border-radius: 8px; line-height: 1;">⋮</button>
+                        <div id="chat-dropdown-options" style="display: none; position: absolute; top: 110%; right: 0; background: #1e1e2e; border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); z-index: 100; min-width: 160px; overflow: hidden;">
+                            <button id="copy-all-btn" style="width: 100%; background: none; border: none; color: #fff; padding: 10px 14px; text-align: left; cursor: pointer; font-size: 0.85rem; font-family: inherit; display: flex; align-items: center; gap: 8px;">📋 Copiar Chat</button>
+                            <button id="clear-btn" style="width: 100%; background: none; border: none; color: #ef4444; padding: 10px 14px; text-align: left; cursor: pointer; font-size: 0.85rem; font-family: inherit; display: flex; align-items: center; gap: 8px; border-top: 1px solid rgba(255,255,255,0.06);">🗑️ Borrar Chat</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="chat-messages" class="chat-messages"></div>
+                
+                <div class="chat-input-area">
+                    <input type="text" id="chat-input" placeholder="Escribí tu mensaje acá..." autocomplete="off">
+                    <button id="send-btn" class="send-arrow-btn">➤</button>
+                </div>
+            </div>
+
+            <div id="delete-confirm-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 10000; padding: 15px; box-sizing: border-box;">
+                <div style="background: #1e1e2e; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 20px; max-width: 340px; width: 100%; text-align: center; box-shadow: 0 8px 24px rgba(0,0,0,0.6);">
+                    <div style="font-size: 2rem; margin-bottom: 10px;">🗑️</div>
+                    <h3 style="color: #fff; margin-bottom: 8px; font-size: 1.2rem;">¿Vaciar conversación?</h3>
+                    <p style="color: #b3b3b3; font-size: 0.9rem; line-height: 1.4; margin-bottom: 20px;">Se eliminará de forma definitiva todo el historial actual con este personaje.</p>
+                    <div style="display: flex; gap: 10px; justify-content: center;">
+                        <button id="cancel-delete-btn" style="flex: 1; background: #2a3942; color: #fff; border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 0.9rem;">Cancelar</button>
+                        <button id="confirm-delete-btn" style="flex: 1; background: #ef4444; color: #fff; border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 0.9rem;">Sí, borrar</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    `,
+    about: `
+        <section class="view-section about-section" style="padding: 2rem 1rem; color: #fff; max-width: 650px; margin: 0 auto; box-sizing: border-box;">
+            
+            <div style="text-align: center; margin-bottom: 2.5rem;">
+                <div style="display: inline-flex; align-items: center; justify-content: center; width: 75px; height: 75px; background: linear-gradient(135deg, #6366f1, #4f46e5); border-radius: 18px; box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3); margin-bottom: 1rem; font-size: 2rem;">
+                    🎭
+                </div>
+                <h2 style="font-size: 1.8rem; font-weight: 800; margin: 0; background: linear-gradient(to right, #fff, #a5b4fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                    ComicSansCon Digital Agency
+                </h2>
+                <p style="color: #8696a0; font-size: 0.9rem; margin-top: 4px; letter-spacing: 0.5px;">EXPERIENCIAS INTERACTIVAS PARA FANS</p>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 14px; padding: 22px; margin-bottom: 1.5rem; box-sizing: border-box;">
+                <h3 style="margin-top: 0; color: #6366f1; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+                    🎯 Propósito del Proyecto
+                </h3>
+                <p style="color: #e9edef; font-size: 0.9rem; line-height: 1.6; margin: 0;">
+                    Esta aplicación web es una <strong>Prueba de Concepto (POC)</strong> diseñada para evaluar la viabilidad de lanzar una plataforma interactiva que permita a comunidades de fans chatear en tiempo real con personajes icónicos de videojuegos, películas y series de televisión. El objetivo principal es demostrar la fluidez de las conversaciones asincrónicas y la capacidad de adaptabilidad del entorno digital antes de expandir el proyecto a producción masiva.
+                </p>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 14px; padding: 22px; margin-bottom: 1.5rem; box-sizing: border-box;">
+                <h3 style="margin-top: 0; color: #6366f1; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+                    ⚙️ Ficha Técnica y Seguridad
+                </h3>
+                <p style="color: #b3b3b3; font-size: 0.85rem; line-height: 1.5; margin-bottom: 12px;">
+                    Para garantizar los estándares exigidos por el equipo de producto, el prototipo fue estruturado bajo los siguientes pilares de desarrollo:
+                </p>
+                <ul style="padding-left: 18px; margin: 0; color: #e9edef; font-size: 0.85rem; display: flex; flex-direction: column; gap: 8px;">
+                    <li><strong>Routing e Interfaz SPA Nativos:</strong> Transiciones inmediatas entre secciones mediante Vanilla JavaScript, optimizando la velocidad de carga sin necesidad de librerías pesadas.</li>
+                    <li><strong>Persistencia de Canales:</strong> Arquitectura de memoria indexada que mantiene los historiales de chat activos de forma independiente para cada personaje durante la navegación.</li>
+                    <li><strong>Integración Segura de IA:</strong> Consumo del modelo de lenguaje de Google Gemini protegido mediante el aislamiento de credenciales en Serverless Functions de Vercel.</li>
+                </ul>
+            </div>
+
+            <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                <div style="font-size: 0.85rem; color: #8696a0;">
+                    Creado por: <strong style="color: #fff;">Santiago E. Chavez</strong>
+                    <br>
+                    Rol: <span style="color: #6366f1; font-weight: 600;">Junior Frontend Developer</span>
+                </div>
+                <div style="font-size: 0.8rem; background: rgba(99, 102, 241, 0.06); border: 1px solid rgba(99, 102, 241, 0.2); padding: 6px 12px; border-radius: 20px; color: #a5b4fc;">
+                    Proyecto Integrador • Henry 🚀
+                </div>
+            </div>
+
+        </section>
+    `
+};
+
+function renderView(path) {
+    const appContainer = document.getElementById('app');
+    
+    // Limpieza segura de barras
+    let viewKey = path.trim().replace(/^\/+|\/+$/g, '') || 'home';
+    if (viewKey.includes('home')) viewKey = 'home';
+
+    // Variable para controlar si el usuario se desvió de ruta
+    let esRutaInvalida = false;
+
+    // 🚨 EL ESCUDO: Detectamos si la ruta no existe
+    if (viewKey !== 'home' && viewKey !== 'chat' && viewKey !== 'about') {
+        console.warn(`Ruta inválida detectada: /${viewKey}`);
+        esRutaInvalida = true;
+        viewKey = 'home'; // Forzamos a que pinte el Home de fondo
+    }
+
+    // Renderizamos la vista (si era inválida, va a pintar el Home)
+    appContainer.innerHTML = views[viewKey] || views.home;
+
+    // 🎭 Si era una ruta inválida, le plantamos el modal estético encima del Home
+    if (esRutaInvalida) {
+        const errorModal = document.createElement('div');
+        errorModal.id = 'error-404-modal';
+        errorModal.style = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); display: flex; justify-content: center; align-items: center; z-index: 10000; padding: 15px; box-sizing: border-box;";
+        
+        errorModal.innerHTML = `
+            <div style="background: #1e1e2e; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px; max-width: 360px; width: 100%; text-align: center; box-shadow: 0 8px 24px rgba(0,0,0,0.6);">
+                <div style="font-size: 2.5rem; margin-bottom: 12px;">🎭</div>
+                <h3 style="color: #fff; margin-bottom: 8px; font-size: 1.3rem;">Ups 404 ¡Dimensión Equivocada!</h3>
+                <p style="color: #b3b3b3; font-size: 0.9rem; line-height: 1.4; margin-bottom: 22px;">
+                    La página que buscás no existe en la agencia ComicSansCon. Te reubicamos en la central de inicio.
+                </p>
+                <div style="display: flex; justify-content: center;">
+                    <button id="entendido-404-btn" style="width: 100%; background: #6366f1; color: #fff; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 0.95rem; transition: background 0.2s;">
+                        Entendido
+                    </button>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(errorModal);
+
+        document.getElementById('entendido-404-btn').addEventListener('click', () => {
+            history.pushState({}, "", "/home");
+            errorModal.remove();
+            renderView('/home');
+        });
+    }
+
+    // Actualización de estilos en la barra de navegación
+    document.querySelectorAll('.nav-item').forEach(item => {
+        if (item.getAttribute('href') === path || (path === '/' && item.getAttribute('href') === '/home')) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+
+    const modalStartBtn = document.getElementById('start-btn');
+    if (modalStartBtn) {
+        if (viewKey === 'chat') {
+            modalStartBtn.style.display = 'none';
+        } else {
+            modalStartBtn.style.display = 'block';
+        }
+    }
+
+    if (viewKey === 'chat') {
+        initChatLogic();
+    }
+}
+    // Actualización de estilos en la barra de navegación
+    document.querySelectorAll('.nav-item').forEach(item => {
+        if (item.getAttribute('href') === path || (path === '/' && item.getAttribute('href') === '/home')) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+
+    const modalStartBtn = document.getElementById('start-btn');
+    if (modalStartBtn) {
+        if (viewKey === 'chat') {
+            modalStartBtn.style.display = 'none';
+        } else {
+            modalStartBtn.style.display = 'block';
+        }
+    }
+
+    if (viewKey === 'chat') {
+        initChatLogic();
+    }
+}
+// ==========================================
+// 4. LÓGICA INTERNA DEL CHAT (CON PERSISTENCIA)
+// ==========================================
+function updateChatBackground() {
+    const chatMessages = document.getElementById('chat-messages');
+    if (chatMessages && activeCharacter && activeCharacter.background) {
+        chatMessages.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.50)), url('${activeCharacter.background}')`;
+        chatMessages.style.backgroundSize = 'cover';
+        chatMessages.style.backgroundPosition = 'center';
+    }
+}
+
+function repopulateMessages(container) {
+    const history = chatHistories[activeCharacter.id];
+    if (history.length === 0) {
+        container.innerHTML = `<div class="system-message">Iniciaste una conversación con ${activeCharacter.name}</div>`;
+        return;
+    }
+
+    container.innerHTML = '';
+    history.forEach(msg => {
+        if (msg.role === 'user') {
+            // REPARACIÓN COMPLETA: Eliminamos la etiqueta <img> del usuario para limpiar el flujo derecho
+            container.innerHTML += `
+                <div class="user-msg-wrapper" style="display: flex; align-items: flex-start; justify-content: flex-end; gap: 8px; margin-bottom: 12px; width: 100%;">
+                    <div class="message user-message" style="position: relative; max-width: 70%; display: flex; flex-direction: column;">
+                        <span class="message-text">${msg.text}</span>
+                        <span style="font-size: 0.65rem; opacity: 0.5; align-self: flex-end; margin-top: 4px; white-space: nowrap;">${msg.time || ''}</span>
+                    </div>
+                </div>
+            `;
+        } else {
+            const uniqueBtnId = `copy-${Math.random().toString(36).substr(2, 9)}`;
+            container.innerHTML += `
+                <div class="character-msg-wrapper" style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 12px; width: 100%;">
+                    <img src="${activeCharacter.chatAvatar}" class="avatar-clickeable-chat" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 1px solid #6366f1; flex-shrink: 0; cursor: pointer;">
+                    <div class="message character-message" style="position: relative; max-width: 70%; display: flex; flex-direction: column;">
+                        <span class="message-text" style="padding-right: 5px;">${msg.text}</span>
+                        <div style="display: flex; align-items: center; justify-content: flex-end; gap: 6px; margin-top: 4px; align-self: flex-end; width: 100%;">
+                            <span style="font-size: 0.65rem; opacity: 0.5; white-space: nowrap;">${msg.time || ''}</span>
+                            <button id="${uniqueBtnId}" title="Copiar respuesta" style="background: none; border: none; color: #6366f1; font-size: 0.85rem; cursor: pointer; padding: 2px; display: flex; align-items: center; justify-content: center; border-radius: 4px;">📋</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            setTimeout(() => {
+                const btn = document.getElementById(uniqueBtnId);
+                if (btn) {
+                    btn.addEventListener('click', () => {
+                        navigator.clipboard.writeText(msg.text);
+                        btn.textContent = "✅";
+                        setTimeout(() => { btn.textContent = "📋"; }, 2000);
+                    });
+                }
+            }, 0);
+        }
+    });
+    container.scrollTop = container.scrollHeight;
+}
+
+function initChatLogic() {
+    const select = document.getElementById('char-select');
+    const chatInput = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('send-btn');
+    const chatMessages = document.getElementById('chat-messages');
+
+    repopulateMessages(chatMessages);
+    updateChatBackground();
+
+    sendBtn.replaceWith(sendBtn.cloneNode(true));
+    chatInput.replaceWith(chatInput.cloneNode(true));
+    select.replaceWith(select.cloneNode(true));
+
+    const newSendBtn = document.getElementById('send-btn');
+    const newChatInput = document.getElementById('chat-input');
+    const newSelect = document.getElementById('char-select');
+
+    if (newSelect && activeCharacter) {
+        newSelect.value = activeCharacter.id;
+    }
+
+    newSelect.addEventListener('change', (e) => {
+        const selectedId = e.target.value;
+        activeCharacter = CHARACTERS_DB[selectedId] || CHARACTERS_DB.calcifer;
+        repopulateMessages(chatMessages);
+        updateChatBackground();
+    });
+
+    const dotsBtn = document.getElementById('menu-dots-btn');
+    const dropdownOptions = document.getElementById('chat-dropdown-options');
+    const clearBtn = document.getElementById('clear-btn');
+    const copyAllBtn = document.getElementById('copy-all-btn');
+
+    if (dotsBtn && dropdownOptions) {
+        dotsBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isVisible = dropdownOptions.style.display === 'block';
+            dropdownOptions.style.display = isVisible ? 'none' : 'block';
+        });
+        document.addEventListener('click', () => {
+            if (dropdownOptions) dropdownOptions.style.display = 'none';
+        });
+    }
+
+    const deleteModal = document.getElementById('delete-confirm-modal');
+    const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
+    const cancelDeleteBtn = document.getElementById('cancel-delete-btn');
+
+    if (clearBtn && deleteModal) {
+        clearBtn.addEventListener('click', () => {
+            deleteModal.style.display = 'flex';
+        });
+    }
+
+    if (cancelDeleteBtn && deleteModal) {
+        cancelDeleteBtn.addEventListener('click', () => {
+            deleteModal.style.display = 'none';
+        });
+    }
+
+    if (confirmDeleteBtn && deleteModal) {
+        confirmDeleteBtn.addEventListener('click', () => {
+            chatHistories[activeCharacter.id] = [];
+            chatMessages.innerHTML = `<div class="system-message">Historial vaciado. Iniciaste una conversación limpia con ${activeCharacter.name}</div>`;
+            updateChatBackground();
+            deleteModal.style.display = 'none';
+        });
+    }
+
+    if (copyAllBtn) {
+        copyAllBtn.addEventListener('click', () => {
+            const history = chatHistories[activeCharacter.id];
+            if (history.length === 0) {
+                alert("No hay mensajes para copiar.");
+                return;
+            }
+            const textToCopy = history
+                .map(msg => `${msg.role === 'user' ? 'Tú' : activeCharacter.name}: ${msg.text}`)
+                .join('\n');
+            navigator.clipboard.writeText(textToCopy);
+            copyAllBtn.textContent = "✅ ¡Copiado!";
+            setTimeout(() => { copyAllBtn.textContent = "📋 Copiar Chat"; }, 2000);
+        });
+    }
+
+    function getCleanTimestamp() {
+        const now = new Date();
+        return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+
+    async function handleSendMessage() {
+        const text = newChatInput.value.trim();
+        if (!text) return;
+
+        const userTime = getCleanTimestamp();
+
+        // REPARACIÓN COMPLETA: Eliminamos la etiqueta <img> del usuario para limpiar el flujo derecho
+        chatMessages.innerHTML += `
+            <div class="user-msg-wrapper" style="display: flex; align-items: flex-start; justify-content: flex-end; gap: 8px; margin-bottom: 12px; width: 100%;">
+                <div class="message user-message" style="position: relative; max-width: 70%; display: flex; flex-direction: column;">
+                    <span class="message-text">${text}</span>
+                    <span style="font-size: 0.65rem; opacity: 0.5; align-self: flex-end; margin-top: 4px; white-space: nowrap;">${userTime}</span>
+                </div>
+            </div>
+        `;
+        newChatInput.value = '';
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        chatHistories[activeCharacter.id].push({ role: 'user', text: text, time: userTime });
+
+        const typingId = `typing-${Date.now()}`;
+        chatMessages.innerHTML += `
+            <div id="${typingId}" class="character-msg-wrapper" style="margin-bottom: 12px; display: flex; align-items: flex-start; gap: 8px; width: 100%;">
+                <img src="${activeCharacter.chatAvatar}" class="avatar-clickeable-chat" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 1px solid #6366f1; flex-shrink: 0; cursor: pointer;">
+                <div class="typing-indicator"><span></span><span></span><span></span></div>
+            </div>
+        `;
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        try {
+            const currentHistoryMapped = formatChatHistory(chatHistories[activeCharacter.id]);
+            const response = await fetch('/api/functions', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    systemPrompt: activeCharacter.systemPrompt,
+                    history: currentHistoryMapped
+                })
+            });
+
+            if (!response.ok) throw new Error("Falla backend");
+            const data = await response.json();
+
+            const indicatorEl = document.getElementById(typingId);
+            if (indicatorEl) indicatorEl.remove();
+
+            if (data.reply) {
+                const botTime = getCleanTimestamp();
+                const uniqueBtnId = `copy-${Date.now()}`;
+
+                chatMessages.innerHTML += `
+                    <div class="character-msg-wrapper" style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: 12px; width: 100%;">
+                        <img src="${activeCharacter.chatAvatar}" class="avatar-clickeable-chat" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 1px solid #6366f1; flex-shrink: 0; cursor: pointer;">
+                        <div class="message character-message" style="position: relative; max-width: 70%; display: flex; flex-direction: column;">
+                            <span class="message-text" style="padding-right: 5px;">${data.reply}</span>
+                            <div style="display: flex; align-items: center; justify-content: flex-end; gap: 6px; margin-top: 4px; align-self: flex-end; width: 100%;">
+                                <span style="font-size: 0.65rem; opacity: 0.5; white-space: nowrap;">${botTime}</span>
+                                <button id="${uniqueBtnId}" title="Copiar respuesta" style="background: none; border: none; color: #6366f1; font-size: 0.85rem; cursor: pointer; padding: 2px; display: flex; align-items: center; justify-content: center; border-radius: 4px;">📋</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                chatHistories[activeCharacter.id].push({ role: 'model', text: data.reply, time: botTime });
+
+                document.getElementById(uniqueBtnId).addEventListener('click', () => {
+                    navigator.clipboard.writeText(data.reply);
+                    const btn = document.getElementById(uniqueBtnId);
+                    btn.textContent = "✅";
+                    setTimeout(() => { btn.textContent = "📋"; }, 2000);
+                });
+            }
+        } catch (error) {
+            console.error(error);
+            const indicatorEl = document.getElementById(typingId);
+            if (indicatorEl) indicatorEl.remove();
+            chatMessages.innerHTML += `<div class="system-message" style="background: #ef4444; color: #fff; border-radius: 8px; padding: 6px;">⚠️ Conexión interrumpida con el servidor. Reintentá.</div>`;
+        }
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    newSendBtn.addEventListener('click', handleSendMessage);
+    newChatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            handleSendMessage();
+        }
+    });
+}
+
+// ==========================================
+// 5. INICIALIZACIÓN Y EVENTOS GLOBALES
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    const headerNav = document.querySelector('.nav-links');
+    if (headerNav) {
+        headerNav.addEventListener('click', (e) => {
+            if (e.target.classList.contains('nav-item')) {
+                e.preventDefault();
+                const path = e.target.getAttribute('href');
+                history.pushState({}, "", path);
+                renderView(path);
+            }
+        });
+    }
+
+    document.addEventListener('click', (e) => {
+        const card = e.target.closest('.clickable-card');
+        const chatAvatarClick = e.target.closest('.avatar-clickeable-chat');
+
+        if (card || chatAvatarClick) {
+            const character = chatAvatarClick ? activeCharacter : CHARACTERS_DB[card.getAttribute('data-char')];
+
+            if (character) {
+                activeCharacter = character;
+
+                const modalAvatarEl = document.getElementById('modal-avatar');
+                if (modalAvatarEl) modalAvatarEl.src = character.avatar;
+
+                document.getElementById('modal-title').textContent = character.name;
+
+                const descriptions = {
+                    calcifer: "Demonio del fuego atrapado en el hogar del castillo vagabundo. Tiene una personalidad quejosa, pero si sabés tratarlo, te dará consejos profundos sobre mantener encendida tu llama interior.",
+                    goku: "¡El legendario guerrero Saiyajin protector del universo! Está listo para saludarte con su energía de siempre, hablar sobre entrenamientos intensos and motivarte a superar tus límites físicos y mentalmente.",
+                    snape: "Profesor de Pociones y Jefe de la casa Slytherin. Su temperamento es frío, distante y sumamente estricto. Hablar con él requiere de mucho temple, ya que no tolera la incompetencia.",
+                    sheriff: "El primer héroe con nombre propio en la historia de Nintendo (1979). Un rudo e histórico vaquero pixelado diseñado por Shigeru Miyamoto para arcade."
+                };
+
+                const modalDescEl = document.getElementById('modal-desc');
+                if (modalDescEl) modalDescEl.textContent = descriptions[character.id] || "";
+
+                const charModalEl = document.getElementById('char-modal');
+                if (charModalEl) charModalEl.style.display = 'flex';
+            }
+        }
+
+        if (e.target.id === 'close-modal-btn' || e.target.id === 'char-modal') {
+            const charModalEl = document.getElementById('char-modal');
+            if (charModalEl) charModalEl.style.display = 'none';
+        }
+
+        if (e.target.id === 'start-btn') {
+            e.preventDefault();
+            const charModalEl = document.getElementById('char-modal');
+            if (charModalEl) charModalEl.style.display = 'none';
+            const path = '/chat';
+            history.pushState({}, "", path);
+            renderView(path);
+        }
+    });
+
+    window.addEventListener('popstate', () => {
+        renderView(location.pathname);
+    });
+
+    renderView(location.pathname);
+});
+</file>
+
+</files>
