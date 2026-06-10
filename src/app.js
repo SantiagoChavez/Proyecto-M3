@@ -17,32 +17,32 @@ const views = {
     home: `
         <section class="view-section home-section" style="padding: 1.5rem 1rem; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; box-sizing: border-box;">
             <div style="text-align: center; width: 100%; max-width: 800px; display: flex; flex-direction: column; align-items: center;">
-                <h1 style="margin-bottom: 0.5rem; font-size: 1.8rem; color: #fff; line-height: 1.2;">¡Bienvenido a ComicSansCon AI! 🎭</h1>
-                <p style="margin-bottom: 1.5rem; color: #b3b3b3; font-size: 0.95rem; max-width: 500px; line-height: 1.4;">Seleccioná un personaje para ver su perfil y entrar a la central multidimensional:</p>
+                <h1 style="margin-bottom: 0.5rem; font-size: 1.8rem; color: var(--text-color); line-height: 1.2;">¡Bienvenido a ComicSansCon AI! 🎭</h1>
+                <p style="margin-bottom: 1.5rem; color: var(--text-muted); font-size: 0.95rem; max-width: 500px; line-height: 1.4;">Seleccioná un personaje para ver su perfil y entrar a la central multidimensional:</p>
                 
                 <div class="characters-grid-responsive" style="display: grid; gap: 16px; width: 100%; max-width: 650px; margin-bottom: 1.5rem; box-sizing: border-box;">
                     <div class="clickable-card" data-char="calcifer">
                         <img src="${CHARACTERS_DB.calcifer.avatar}">
-                        <h3 style="margin: 3px 0; color: #fff; font-size: 1rem;">Calcifer</h3>
-                        <span style="font-size: 0.75rem; color: #6366f1; font-weight: bold;">Ver perfil 🔍</span>
+                        <h3 style="margin: 3px 0; color: var(--text-color); font-size: 1rem;">Calcifer</h3>
+                        <span style="font-size: 0.75rem; color: var(--primary-color); font-weight: bold;">Ver perfil 🔍</span>
                     </div>
 
                     <div class="clickable-card" data-char="goku">
                         <img src="${CHARACTERS_DB.goku.avatar}">
-                        <h3 style="margin: 3px 0; color: #fff; font-size: 1rem;">Son Goku</h3>
-                        <span style="font-size: 0.75rem; color: #6366f1; font-weight: bold;">Ver perfil 🔍</span>
+                        <h3 style="margin: 3px 0; color: var(--text-color); font-size: 1rem;">Son Goku</h3>
+                        <span style="font-size: 0.75rem; color: var(--primary-color); font-weight: bold;">Ver perfil 🔍</span>
                     </div>
 
                     <div class="clickable-card" data-char="snape">
                         <img src="${CHARACTERS_DB.snape.avatar}">
-                        <h3 style="margin: 3px 0; color: #fff; font-size: 1rem;">Severus Snape</h3>
-                        <span style="font-size: 0.75rem; color: #6366f1; font-weight: bold;">Ver perfil 🔍</span>
+                        <h3 style="margin: 3px 0; color: var(--text-color); font-size: 1rem;">Severus Snape</h3>
+                        <span style="font-size: 0.75rem; color: var(--primary-color); font-weight: bold;">Ver perfil 🔍</span>
                     </div>
 
                     <div class="clickable-card" data-char="sheriff">
                         <img src="${CHARACTERS_DB.sheriff.avatar}">
-                        <h3 style="margin: 3px 0; color: #fff; font-size: 1rem;">Sheriff Mr. Jack</h3>
-                        <span style="font-size: 0.75rem; color: #6366f1; font-weight: bold;">Ver perfil 🔍</span>
+                        <h3 style="margin: 3px 0; color: var(--text-color); font-size: 1rem;">Sheriff Mr. Jack</h3>
+                        <span style="font-size: 0.75rem; color: var(--primary-color); font-weight: bold;">Ver perfil 🔍</span>
                     </div>
                 </div>
             </div>
@@ -51,7 +51,7 @@ const views = {
     chat: `
         <section class="view-section chat-section">
             <div class="chat-container">
-                <div class="character-selector-header" style="background-color: var(--card-bg); padding: 12px 16px; border-bottom: 1px solid #222e35; display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%;">
+                <div class="character-selector-header" style="background-color: var(--card-bg); padding: 12px 16px; border-bottom: 1px solid var(--card-border); display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%;">
                     <div style="display: flex; align-items: center; gap: 8px; flex-grow: 1;">
                         <span style="font-size: 0.9rem; color: var(--text-muted); white-space: nowrap;">Canal:</span>
                         <select id="char-select" class="char-dropdown">
@@ -63,10 +63,10 @@ const views = {
                     </div>
 
                     <div class="menu-tres-puntos-container" style="position: relative;">
-                        <button id="menu-dots-btn" style="background: none; border: none; color: #fff; font-size: 1.4rem; cursor: pointer; padding: 4px 10px; border-radius: 8px; line-height: 1;">⋮</button>
-                        <div id="chat-dropdown-options" style="display: none; position: absolute; top: 110%; right: 0; background: #1e1e2e; border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); z-index: 100; min-width: 160px; overflow: hidden;">
-                            <button id="copy-all-btn" style="width: 100%; background: none; border: none; color: #fff; padding: 10px 14px; text-align: left; cursor: pointer; font-size: 0.85rem; font-family: inherit; display: flex; align-items: center; gap: 8px;">📋 Copiar Chat</button>
-                            <button id="clear-btn" style="width: 100%; background: none; border: none; color: #ef4444; padding: 10px 14px; text-align: left; cursor: pointer; font-size: 0.85rem; font-family: inherit; display: flex; align-items: center; gap: 8px; border-top: 1px solid rgba(255,255,255,0.06);">🗑️ Borrar Chat</button>
+                        <button id="menu-dots-btn" style="background: none; border: none; color: var(--text-color); font-size: 1.4rem; cursor: pointer; padding: 4px 10px; border-radius: 8px; line-height: 1;">⋮</button>
+                        <div id="chat-dropdown-options" style="display: none; position: absolute; top: 110%; right: 0; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 100; min-width: 160px; overflow: hidden;">
+                            <button id="copy-all-btn" style="width: 100%; background: none; border: none; color: var(--text-color); padding: 10px 14px; text-align: left; cursor: pointer; font-size: 0.85rem; font-family: inherit; display: flex; align-items: center; gap: 8px;">📋 Copiar Chat</button>
+                            <button id="clear-btn" style="width: 100%; background: none; border: none; color: #ef4444; padding: 10px 14px; text-align: left; cursor: pointer; font-size: 0.85rem; font-family: inherit; display: flex; align-items: center; gap: 8px; border-top: 1px solid var(--border-color);">🗑️ Borrar Chat</button>
                         </div>
                     </div>
                 </div>
@@ -93,40 +93,98 @@ const views = {
         </section>
     `,
     about: `
-        <section class="view-section about-section" style="padding: 2rem 1rem; color: #fff; max-width: 650px; margin: 0 auto; box-sizing: border-box;">
+        <section class="view-section about-section" style="padding: 2rem 1rem; color: var(--text-color); max-width: 650px; margin: 0 auto; box-sizing: border-box;">
             <div style="text-align: center; margin-bottom: 2.5rem;">
-                <div style="display: inline-flex; align-items: center; justify-content: center; width: 75px; height: 75px; background: linear-gradient(135deg, #6366f1, #4f46e5); border-radius: 18px; box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3); margin-bottom: 1rem; font-size: 2rem;">🎭</div>
-                <h2 style="font-size: 1.8rem; font-weight: 800; margin: 0; background: linear-gradient(to right, #fff, #a5b4fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">ComicSansCon Digital Agency</h2>
-                <p style="color: #8696a0; font-size: 0.9rem; margin-top: 4px; letter-spacing: 0.5px;">EXPERIENCIAS INTERACTIVAS PARA FANS</p>
+                <div style="display: inline-flex; align-items: center; justify-content: center; width: 75px; height: 75px; background: linear-gradient(135deg, #6366f1, #4f46e5); border-radius: 18px; box-shadow: var(--card-shadow); margin-bottom: 1rem; font-size: 2rem;">🎭</div>
+                <h2 style="font-size: 1.8rem; font-weight: 800; margin: 0;">ComicSansCon Digital Agency</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px; letter-spacing: 0.5px;">EXPERIENCIAS INTERACTIVAS PARA FANS</p>
             </div>
 
-            <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 14px; padding: 22px; margin-bottom: 1.5rem; box-sizing: border-box;">
-                <h3 style="margin-top: 0; color: #6366f1; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">🎯 Propósito del Proyecto</h3>
-                <p style="color: #e9edef; font-size: 0.9rem; line-height: 1.6; margin: 0;">
+            <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 22px; margin-bottom: 1.5rem; box-sizing: border-box; transition: background-color 0.35s ease, border-color 0.35s ease;">
+                <h3 style="margin-top: 0; color: var(--text-color); font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">🎯 Propósito del Proyecto</h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin: 0;">
                     Esta aplicación web es una <strong>Prueba de Concepto (POC)</strong> diseñada para evaluar la viabilidad de lanzar una plataforma interactiva que permita a comunidades de fans chatear en tiempo real con personajes icónicos de videojuegos, películas y series de televisión. El objetivo principal es demostrar la fluidez de las conversaciones asincrónicas y la capacidad de adaptabilidad del entorno digital antes de expandir el proyecto a producción masiva.
                 </p>
             </div>
 
-            <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 14px; padding: 22px; margin-bottom: 1.5rem; box-sizing: border-box;">
-                <h3 style="margin-top: 0; color: #6366f1; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">⚙️ Ficha Técnica y Seguridad</h3>
-                <p style="color: #b3b3b3; font-size: 0.85rem; line-height: 1.5; margin-bottom: 12px;">Para garantizar los estándares exigidos por el equipo de producto, el prototipo fue estruturado bajo los siguientes pilares de desarrollo:</p>
-                <ul style="padding-left: 18px; margin: 0; color: #e9edef; font-size: 0.85rem; display: flex; flex-direction: column; gap: 8px;">
+            <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 22px; margin-bottom: 1.5rem; box-sizing: border-box; transition: background-color 0.35s ease, border-color 0.35s ease;">
+                <h3 style="margin-top: 0; color: var(--text-color); font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">⚙️ Ficha Técnica y Seguridad</h3>
+                <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin-bottom: 12px;">Para garantizar los estándares exigidos por el equipo de producto, el prototipo fue estruturado bajo los siguientes pilares de desarrollo:</p>
+                <ul style="padding-left: 18px; margin: 0; color: var(--text-secondary); font-size: 0.85rem; display: flex; flex-direction: column; gap: 8px;">
                     <li><strong>Routing e Interfaz SPA Nativos:</strong> Transiciones inmediatas entre secciones mediante Vanilla JavaScript, optimizando la velocidad de carga sin necesidad de librerías pesadas.</li>
                     <li><strong>Persistencia de Canales:</strong> Arquitectura de memoria indexada que mantiene los historiales de chat activos de forma independiente para cada personaje durante la navegación.</li>
                     <li><strong>Integración Segura de IA:</strong> Consumo del modelo de lenguaje de Google Gemini protegido mediante el aislamiento de credenciales en Serverless Functions de Vercel.</li>
                 </ul>
             </div>
 
-            <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
-                <div style="font-size: 0.85rem; color: #8696a0;">
-                    Creado por: <strong style="color: #fff;">Santiago E. Chavez</strong><br>
-                    Rol: <span style="color: #6366f1; font-weight: 600;">Junior Frontend Developer</span>
+            <div style="border-top: 1px solid var(--card-border); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                <div style="font-size: 0.85rem; color: var(--text-muted);">
+                    Creado por: <strong style="color: var(--text-color);">Santiago E. Chavez</strong><br>
+                    Rol: <span style="color: var(--text-secondary); font-weight: 600;">Junior Frontend Developer</span>
                 </div>
-                <div style="font-size: 0.8rem; background: rgba(99, 102, 241, 0.06); border: 1px solid rgba(99, 102, 241, 0.2); padding: 6px 12px; border-radius: 20px; color: #a5b4fc;">Proyecto Integrador • Henry 🚀</div>
+                <div style="font-size: 0.8rem; background: var(--card-alt-bg); border: 1px solid var(--card-border); padding: 6px 12px; border-radius: 20px; color: var(--text-color);">Proyecto Integrador • Henry 🚀</div>
             </div>
         </section>
     `
 };
+
+// ==========================================
+// THEME: Light/Dark mode helpers
+// ==========================================
+function applyTheme(theme) {
+    if (!theme) return;
+    try {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+    } catch (e) {
+        console.warn('No se pudo aplicar el tema', e);
+    }
+}
+
+function initTheme() {
+    const saved = localStorage.getItem('theme');
+    if (saved) {
+        applyTheme(saved);
+        return saved;
+    }
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = prefersDark ? 'dark' : 'light';
+    applyTheme(initial);
+    return initial;
+}
+
+function attachThemeControls() {
+    const current = document.documentElement.getAttribute('data-theme') || initTheme();
+    const toggleHeader = document.getElementById('theme-toggle-header');
+
+    if (toggleHeader) {
+        toggleHeader.checked = (current === 'light');
+    }
+    updateThemeIcons(current);
+
+    if (toggleHeader) {
+        toggleHeader.replaceWith(toggleHeader.cloneNode(true)); // Limpieza defensiva de listeners acumulados
+        const newToggle = document.getElementById('theme-toggle-header');
+        
+        newToggle.addEventListener('change', (e) => {
+            const theme = e.target.checked ? 'light' : 'dark';
+            applyTheme(theme);
+            updateThemeIcons(theme);
+        });
+    }
+}
+
+function updateThemeIcons(theme) {
+    const icon = theme === 'light' ? '☀️' : '🌙';
+    const headerIcon = document.getElementById('theme-icon-header');
+    if (headerIcon) {
+        headerIcon.style.opacity = '0';
+        window.setTimeout(() => {
+            headerIcon.textContent = icon;
+            headerIcon.style.opacity = '1';
+        }, 180);
+    }
+}
 
 // ==========================================
 // 3. ENRUTADOR NATIVO SPA
@@ -146,6 +204,8 @@ function renderView(path) {
     }
 
     appContainer.innerHTML = views[viewKey] || views.home;
+
+    try { attachThemeControls(); } catch (e) { /* noop */ }
 
     if (esRutaInvalida) {
         const modalViejo = document.getElementById('error-404-modal');
@@ -353,7 +413,6 @@ function initChatLogic() {
         chatMessages.scrollTop = chatMessages.scrollHeight;
 
         try {
-            // 🛠️ RECUPERADO: Volvemos al fetch exacto del XML que andaba e interactuaba perfecto con tu API
             const response = await fetch('/api/functions', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -414,6 +473,7 @@ function initChatLogic() {
 // 5. INICIALIZACIÓN Y EVENTOS GLOBALES
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
+    try { initTheme(); } catch (e) { /* noop */ }
     const headerNav = document.querySelector('.nav-links');
     if (headerNav) {
         headerNav.addEventListener('click', (e) => {
@@ -451,12 +511,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const modalDescEl = document.getElementById('modal-desc');
                 if (modalDescEl) modalDescEl.textContent = descriptions[character.id] || "";
 
-                // ==========================================
-                // 🔥 SOLUCIÓN QUIRÚRGICA DIRECTA SOBRE EL XML:
-                // ==========================================
                 const modalStartBtn = document.getElementById('start-btn');
                 if (modalStartBtn) {
-                    // Si el click es en la burbuja del chat, el botón start-btn se oculta. Si es en la tarjeta del Home, se muestra.
                     modalStartBtn.style.display = chatAvatarClick ? 'none' : 'block';
                 }
 

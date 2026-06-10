@@ -6,6 +6,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ComicSansCon - IA Character Chat</title>
     <link rel="stylesheet" href="/styles.css">
+    <style>
+        /* Estilos del modal dinámico adaptados a las variables de tema */
+        .modal-content-box {
+            background-color: var(--card-bg);
+            border: 2px solid var(--card-border);
+            color: var(--text-color);
+            border-radius: 16px;
+            padding: 25px 20px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            box-sizing: border-box;
+            transition: background-color 0.35s ease, border-color 0.35s ease;
+        }
+        .modal-content-box p {
+            color: var(--text-secondary);
+        }
+        .modal-content-box .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+        .modal-content-box img {
+            border: 3px solid var(--card-border);
+        }
+    </style>
 </head>
 
 <body>
@@ -20,6 +53,14 @@
                 <a href="/home" id="link-home" class="nav-item">Inicio</a>
                 <a href="/chat" id="link-chat" class="nav-item">Chat</a>
                 <a href="/about" id="link-about" class="nav-item">Acerca de</a>
+                
+                <div class="theme-toggle-block">
+                    <span class="theme-icon" id="theme-icon-header" aria-hidden="true">🌙</span>
+                    <label class="theme-switch">
+                        <input type="checkbox" id="theme-toggle-header" aria-label="Alternar modo claro y oscuro">
+                        <span class="slider"></span>
+                    </label>
+                </div>
             </nav>
         </div>
     </header>
@@ -28,22 +69,17 @@
     </main>
 
     <div id="char-modal"
-        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); justify-content: center; align-items: center; z-index: 9999; padding: 15px; box-sizing: border-box;">
-        <div
-            style="background: #1e1e2e; border: 2px solid #6366f1; border-radius: 16px; padding: 25px 20px; max-width: 400px; width: 100%; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; box-sizing: border-box;">
-            <button id="close-modal-btn"
-                style="position: absolute; top: 10px; right: 15px; background: none; border: none; color: #b3b3b3; font-size: 1.8rem; cursor: pointer;">&times;</button>
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.65); backdrop-filter: blur(5px); justify-content: center; align-items: center; z-index: 9999; padding: 15px; box-sizing: border-box;">
+        <div class="modal-content-box">
+            <button id="close-modal-btn" class="close-btn">&times;</button>
 
             <img id="modal-avatar" src=""
-                style="width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 3px solid #6366f1; margin: 0 auto 15px auto; display: block;">
+                style="width: 90px; height: 90px; border-radius: 50%; object-fit: cover; margin: 0 auto 15px auto; display: block;">
 
-            <h2 id="modal-title" style="color: #fff; margin-bottom: 8px; font-size: 1.5rem;"></h2>
-            <p id="modal-desc"
-                style="color: #b3b3b3; font-size: 0.9rem; line-height: 1.4; margin-bottom: 20px; text-align: left;"></p>
+            <h2 id="modal-title" style="margin-bottom: 8px; font-size: 1.5rem;"></h2>
+            <p id="modal-desc" style="font-size: 0.9rem; line-height: 1.4; margin-bottom: 20px; text-align: left;"></p>
 
-            <button id="start-btn" class="btn-primary"
-                style="width: 100%; padding: 12px 20px; font-size: 1rem; cursor: pointer; font-weight: bold;">¡Elegir y
-                Chatear! 🚀</button>
+            <button id="start-btn" class="btn-primary" style="width: 100%; padding: 12px 20px; font-size: 1rem; font-weight: bold;">¡Elegir y Chatear! 🚀</button>
         </div>
     </div>
 
