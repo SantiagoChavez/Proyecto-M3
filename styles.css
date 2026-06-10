@@ -1,18 +1,60 @@
 /* ==========================================
-   VARIABLES Y ESTILOS BASE
+   VARIABLES Y ESTILOS BASE (MODO OSCURO)
    ========================================== */
 :root {
     --primary-color: #6366f1;
     --primary-hover: #4f46e5;
     --bg-color: #0f172a;
     --card-bg: #1e293b;
+    --card-alt-bg: rgba(15, 23, 42, 0.75);
+    --card-border: #334155;
+    --card-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+    --hero-border: #334155;
+    --border-color: #222e35;
     --text-color: #f8fafc;
     --text-muted: #94a3b8;
+    --text-secondary: #cbd5e1;
+    --input-bg: #1f2c34;
+    --input-border: #2a3942;
+    --input-text: #e9edef;
+    --chat-bg: #0b141a;
+    --chat-overlay: rgba(11, 20, 26, 0.85);
     --user-msg: #005c4b;
     --char-msg: #202c33;
+    --message-system-bg: #182229;
+    --message-system-color: #8696a0;
     --max-width: 1200px;
-    /* FIX PROFESOR: Ancho máximo del contenido del header y del chat centrado */
     --max-width-content: 900px; 
+}
+
+/* ==========================================
+   LIGHT THEME OVERRIDES (EQUILIBRIO Y ALTA LEGIBILIDAD)
+   ========================================== */
+[data-theme="light"] {
+    --bg-color: #f4efe2;             /* Fondo crema mate relajante */
+    --card-bg: #e3dac9;              /* Bloques arena medio suave */
+    --card-alt-bg: #d7cdba;          
+    --card-border: #c8bca6;
+    --card-shadow: 0 8px 24px rgba(67, 54, 43, 0.08);
+    --hero-border: #c8bca6;
+    --border-color: #c8bca6;
+    
+    /* Tipografías unificadas en Café Tabaco profundo */
+    --text-color: #43362b;           
+    --text-secondary: #5c4c3e;       
+    --text-muted: #736254;           
+    --primary-color: #43362b;        
+
+    --input-bg: #fdfbf7;
+    --input-border: #c8bca6;
+    --input-text: #43362b;
+
+    --chat-bg: #f4efe2;              
+    --chat-overlay: rgba(244, 239, 226, 0.93); 
+    --user-msg: #e3dac9;             
+    --char-msg: #ffffff;             
+    --message-system-bg: #e3dac9;    
+    --message-system-color: #43362b;
 }
 
 * {
@@ -30,6 +72,56 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden; 
+    transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+.theme-toggle-block {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.theme-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+    font-size: 1rem;
+    transition: opacity 0.25s ease;
+    opacity: 1;
+}
+
+.theme-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+.theme-switch input { display: none; }
+.theme-switch .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #374151;
+  transition: 0.2s;
+  border-radius: 999px;
+}
+[data-theme="light"] .theme-switch .slider {
+  background-color: var(--text-muted);
+}
+.theme-switch .slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  top: 4px;
+  background-color: #fbf0e3;
+  transition: 0.2s;
+  border-radius: 50%;
+}
+.theme-switch input:checked + .slider:before {
+  transform: translateX(20px);
 }
 
 #app {
@@ -43,7 +135,6 @@ body {
     min-height: 0; 
 }
 
-/* Control de Scroll Independiente para Vistas SPA (About y Home) */
 .view-section {
     width: 100%;
     flex: 1;
@@ -60,24 +151,24 @@ body {
 .view-section::-webkit-scrollbar-thumb { background-color: rgba(255, 255, 255, 0.1); border-radius: 10px; }
 
 /* ==========================================
-   ESTILOS DEL HEADER (ALINEACIÓN CENTRADA Y FLUIDA)
+   ESTILOS DEL HEADER
    ========================================== */
 .main-header {
     background-color: var(--card-bg);
     padding: 0.8rem 1.5rem; 
     display: flex;
-    justify-content: center; /* Centra el bloque de contenido en PC */
+    justify-content: center; 
     align-items: center;
-    border-bottom: 1px solid #334155;
+    border-bottom: 1px solid var(--card-border);
     flex-shrink: 0; 
+    transition: background-color 0.35s ease, border-color 0.35s ease;
 }
 
-/* Contenedor interno alineado simétricamente con el cuerpo de la app */
 .header-content {
     width: 100%;
-    max-width: var(--max-width-content); /* Se planta en 900px en PC */
+    max-width: var(--max-width-content); 
     display: flex;
-    justify-content: space-between; /* Logo a la izquierda, menú a la derecha */
+    justify-content: space-between; 
     align-items: center;
     gap: 15px;
 }
@@ -92,8 +183,13 @@ body {
     gap: 6px;
 }
 
+[data-theme="light"] .logo {
+    color: var(--text-color);
+}
+
 .nav-links {
     display: flex;
+    align-items: center;
     gap: 1.2rem; 
 }
 
@@ -114,8 +210,13 @@ body {
     font-weight: bold;
 }
 
+[data-theme="light"] .nav-links .nav-item.active {
+    color: var(--text-color);
+    border-bottom: 2px solid var(--text-color);
+}
+
 /* ==========================================
-   ESTILOS DEL HOME (DISEÑO BASE GRILLA)
+   ESTILOS DEL HOME
    ========================================== */
 .home-section {
     flex: 1;
@@ -125,33 +226,30 @@ body {
     padding: 1rem;
 }
 
-.hero-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 1rem;
-    padding: 1.5rem;
-    background-color: var(--card-bg);
-    border-radius: 12px;
-    border: 1px solid #334155;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    width: 100%;
-}
-
 .characters-grid-responsive {
     display: grid;
     width: 100%;
 }
 
 .clickable-card {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: 12px;
     padding: 16px;
     text-align: center;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background-color 0.35s ease, border-color 0.35s ease, transform 0.2s ease, color 0.35s ease;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+    box-shadow: var(--card-shadow);
+}
+
+[data-theme="light"] .clickable-card {
+    background-color: var(--card-bg);
+    border-color: var(--card-border);
 }
 
 .clickable-card img {
@@ -160,23 +258,31 @@ body {
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid var(--primary-color);
-    margin-bottom: 8px;
+    margin: 0 auto 8px auto;
     transition: transform 0.2s ease;
+}
+
+[data-theme="light"] .clickable-card img {
+    border-color: var(--text-color);
+}
+
+.clickable-card h3 {
+    color: var(--text-color);
+}
+
+.clickable-card span {
+    font-size: 0.75rem; 
+    color: var(--primary-color); 
+    font-weight: bold;
 }
 
 .clickable-card:hover {
     transform: translateY(-4px);
     border-color: var(--primary-color);
-    background-color: rgba(255, 255, 255, 0.08);
-}
-
-.warning-text {
-    color: #ef4444; 
-    font-size: 0.9rem;
 }
 
 /* ==========================================
-   ESTILOS DEL CHAT (INTERNOS Y CONTENEDORES)
+   ESTILOS DEL CHAT
    ========================================== */
 .chat-section {
     flex: 1;
@@ -192,11 +298,13 @@ body {
     flex: 1; 
     width: 100%;
     max-width: 100%;
-    background-color: #0b141a; 
-    border: 1px solid #222e35;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     overflow: hidden;
     min-height: 0; 
+    box-shadow: var(--card-shadow);
+    transition: background-color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
 .chat-messages {
@@ -211,15 +319,15 @@ body {
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
-    background-color: rgba(11, 20, 26, 0.85); 
+    background-color: var(--chat-overlay); 
     background-blend-mode: multiply; 
+    transition: background-color 0.35s ease;
 }
 
 .chat-messages > :first-child {
     margin-top: auto;
 }
 
-/* Globitos de mensajes */
 .message {
     padding: 8px 12px;
     border-radius: 8px;
@@ -231,14 +339,18 @@ body {
 
 .user-message {
     background-color: var(--user-msg);
-    color: #e9edef;
+    color: var(--input-text);
     align-self: flex-end;
     border-top-right-radius: 0px;
 }
 
+[data-theme="light"] .user-message {
+    color: var(--text-color);
+}
+
 .system-message {
-    background-color: #182229;
-    color: #8696a0;
+    background-color: var(--message-system-bg);
+    color: var(--message-system-color);
     align-self: center;
     text-align: center;
     font-size: 0.8rem;
@@ -263,16 +375,10 @@ body {
     max-width: 100%; 
 }
 
-.character-msg-wrapper img {
-    cursor: pointer;
-    transition: transform 0.2s ease;
+[data-theme="light"] .character-message {
+    color: #000000;
 }
 
-.character-msg-wrapper img:hover {
-    transform: scale(1.08);
-}
-
-/* ANIMACIÓN: INDICADOR ANIMADO DE FLUJO ("ESCRIBIENDO...") */
 .typing-indicator {
     display: flex;
     align-items: center;
@@ -301,39 +407,41 @@ body {
     40% { transform: scale(1.0); }
 }
 
-/* Área de entrada de texto */
 .chat-input-area {
     display: flex;
     align-items: center;
     gap: 10px;
     padding: 12px;
-    background-color: #202c33;
-    border-top: 1px solid #222e35;
+    background-color: var(--input-bg);
+    border-top: 1px solid var(--border-color);
     flex-shrink: 0; 
+    transition: background-color 0.35s ease, border-color 0.35s ease;
 }
 
 .chat-input-area input {
     flex: 1;
     padding: 11px 16px;
-    background-color: #1f2c34;
-    border: 1px solid #2a3942;
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
     border-radius: 8px; 
-    color: #e9edef;
+    color: var(--input-text);
     font-size: 0.95rem;
     outline: none;
-    transition: all 0.2s ease;
+    transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease;
+}
+
+.chat-input-area input::placeholder {
+    color: var(--text-muted);
 }
 
 .chat-input-area input:focus {
     border-color: var(--primary-color);
-    background-color: #2a3942;
 }
 
-/* BOTÓN DE ENVIAR GRADIENTE CIRCULAR PREMIUM */
 .send-arrow-btn {
     width: 42px;
     height: 42px;
-    background: linear-gradient(135deg, var(--primary-color), #4f46e5);
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
     color: white;
     border: none;
     border-radius: 50%; 
@@ -348,23 +456,26 @@ body {
     flex-shrink: 0;
 }
 
+[data-theme="light"] .send-arrow-btn {
+    background: var(--card-bg);
+    color: var(--text-color);
+    box-shadow: none;
+}
+
 .send-arrow-btn:hover {
-    background: linear-gradient(135deg, #7577f2, var(--primary-hover));
-    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.45);
     transform: translateY(-2px) rotate(-5deg);
 }
 
 .send-arrow-btn:active {
     transform: translateY(1px) scale(0.92);
-    box-shadow: 0 2px 6px rgba(99, 102, 241, 0.2);
 }
 
 /* ==========================================
-   BOTONES Y ELEMENTOS REUTILIZABLES
+   COMPONENTES GLOBALES Y REUTILIZABLES
    ========================================== */
 .btn-primary {
     padding: 10px 20px;
-    background-color: var(--primary-color);
+    background-color: #6366f1;
     color: white;
     border: none;
     border-radius: 20px; 
@@ -374,8 +485,9 @@ body {
     transition: background-color 0.2s ease;
 }
 
-.btn-primary:hover {
-    background-color: var(--primary-hover);
+[data-theme="light"] .btn-primary {
+    background-color: var(--card-alt-bg);
+    color: var(--text-color);
 }
 
 .main-footer {
@@ -384,215 +496,56 @@ body {
     padding: 1rem;
     font-size: 0.8rem;
     color: var(--text-muted);
-    border-top: 1px solid #334155;
+    border-top: 1px solid var(--card-border);
     flex-shrink: 0; 
 }
 
-/* ==========================================
-   SELECTOR DROPDOWN PREMIUM (TUNED)
-   ========================================== */
 .char-dropdown {
-    -webkit-appearance: none; /* Elimina la flecha nativa en Chrome, Safari y Opera */
-    -moz-appearance: none;    /* Elimina la flecha nativa en Firefox */
-    appearance: none;         /* Elimina la flecha nativa estándar */
-    
-    background-color: #1f2c34;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236366f1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: var(--input-bg);
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2343362b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 12px center;
     background-size: 16px;
-    
-    color: #e9edef;
-    border: 1px solid #2a3942;
-    padding: 8px 36px 8px 12px; /* Espacio a la derecha para no pisar la nueva flecha */
-    border-radius: 8px; /* Redondeado idéntico al de tus inputs principales */
+    color: var(--input-text);
+    border: 1px solid var(--input-border);
+    padding: 8px 36px 8px 12px;
+    border-radius: 8px;
     outline: none;
     font-size: 0.95rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-}
-
-/* Efecto focus y hover sincronizado con la identidad visual */
-.char-dropdown:hover {
-    border-color: var(--primary-color);
-    background-color: #2a3942;
-}
-
-.char-dropdown:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
-}
-
-/* Estilos para las opciones de adentro del menú desplegable */
-.char-dropdown option {
-    background-color: #1e293b;
-    color: #f8fafc;
-    padding: 10px;
 }
 
 /* ==========================================
-   MEDIA QUERIES INTEGRALES (MOBILE-FIRST ABSOLUTO Y NATIVO)
+   MEDIA QUERIES (MOBILE-FIRST FLUIDO)
    ========================================== */
-
-/* --- 1. SMARTPHONES Y CELULARES (Hasta 599px - S8 / iPhone) --- */
 @media (max-width: 599px) {
-    /* FIX PROFESOR: Ocultamos el texto largo, dejando solo la máscara grande */
-    .logo-text {
-        display: none;
-    }
-    
-    .logo-emoji {
-        font-size: 1.6rem;
-    }
-
-    .header-content {
-        padding: 0 4px;
-    }
-    
-    .nav-links {
-        gap: 0.8rem;
-    }
-    
-    .nav-item {
-        font-size: 0.85rem;
-    }
-    
-    #app {
-        padding: 4px;
-    }
-    
-    .home-section .characters-grid-responsive {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-    }
-    
-    .clickable-card {
-        padding: 12px;
-    }
-    
-    .clickable-card img {
-        width: 60px;
-        height: 60px;
-    }
-
-    .chat-container {
-        border-radius: 6px;
-    }
+    .logo-text { display: none; }
+    .logo-emoji { font-size: 1.6rem; }
+    .nav-links { gap: 0.6rem; }
+    .nav-item { font-size: 0.85rem; }
+    .theme-toggle-block { margin-left: 5px; }
+    .home-section .characters-grid-responsive { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .clickable-card img { width: 60px; height: 60px; }
 }
 
-/* --- 2. TABLETS ESTÁNDAR Y PANTALLAS CHICAS (De 600px a 767px - Nest Hub) --- */
 @media (min-width: 600px) and (max-width: 767px) {
-    .header-content {
-        max-width: 100%;
-        padding: 0 10px; 
-    }
-
-    .logo {
-        font-size: 1.2rem; 
-    }
-    
-    .nav-item {
-        font-size: 1rem; 
-        padding: 4px 6px;
-    }
-    
-    .home-section .characters-grid-responsive {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px; 
-        max-width: 580px; 
-    }
-    
-    .clickable-card {
-        padding: 18px;
-    }
-    
-    .clickable-card img {
-        width: 80px; 
-        height: 80px;
-    }
-
-    .chat-container {
-        max-width: 90%; 
-        height: 72vh;
-        margin: 15px auto;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-    }
+    .home-section .characters-grid-responsive { grid-template-columns: repeat(2, 1fr); gap: 16px; max-width: 580px; }
+    .clickable-card img { width: 80px; height: 80px; }
+    .chat-container { max-width: 90%; height: 72vh; margin: 15px auto; }
 }
 
-/* --- 3. TABLETS GRANDES Y LAPTOPS COMPACTAS (De 768px a 1023px - ¡iPod Pro / Surface 7!) --- */
-/* REPARACIÓN: Escalamos proporcionalmente fuentes y contenedores para alta densidad */
 @media (min-width: 768px) and (max-width: 1023px) {
-    .header-content {
-        max-width: 100%;
-        padding: 0 20px; /* Aire simétrico en extremos del cuerpo */
-    }
-
-    .logo {
-        font-size: 1.4rem; 
-    }
-    
-    .nav-item {
-        font-size: 1.15rem; 
-        padding: 6px 12px;
-    }
-    
-    /* Forzamos 4 columnas fluidas y balanceadas en la grilla del Home */
-    .home-section .characters-grid-responsive {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 16px; 
-        max-width: 850px; 
-    }
-    
-    .clickable-card {
-        padding: 16px;
-    }
-    
-    .clickable-card h3 {
-        font-size: 1.05rem;
-    }
-    
-    .clickable-card img {
-        width: 75px; 
-        height: 75px;
-    }
-
-    /* Caja de chat con escalado ideal para pantallas de buen tamaño */
-    .chat-container {
-        max-width: 800px; 
-        height: 75vh;
-        margin: 20px auto;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
-    }
-    
-    .main-footer {
-        font-size: 0.95rem;
-        padding: 1.5rem;
-    }
+    .home-section .characters-grid-responsive { grid-template-columns: repeat(4, 1fr); gap: 16px; max-width: 850px; }
+    .chat-container { max-width: var(--max-width-content); height: 75vh; margin: 20px auto; }
 }
 
-/* --- 4. MONITORES GRANDES Y PC DESKTOP (Desde 1024px en adelante) --- */
 @media (min-width: 1024px) {
-    .home-section .characters-grid-responsive {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
-        max-width: var(--max-width-content); 
-    }
-
-    .clickable-card {
-        padding: 20px;
-    }
-
-    .clickable-card img {
-        width: 75px;
-        height: 75px;
-    }
-
-    .chat-container {
-        max-width: var(--max-width-content); 
-        height: 70vh;
-        margin: 20px auto;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    }
+    .home-section .characters-grid-responsive { grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: var(--max-width-content); }
+    .chat-container { max-width: var(--max-width-content); height: 70vh; margin: 20px auto; }
 }
+

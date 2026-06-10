@@ -14,6 +14,15 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [2.2.1] - 2026-06-10
+### Added
+- **Tema claro refinado:** Nuevo esquema visual para modo claro con paleta crema y bloques café/tabaco, variables CSS nuevas (`--light-box-text`, `--light-box-muted`), y control visual de tema (toggle) accesible desde el header y la vista de chat.
+
+### Fixed
+- **Alineación y cohesión visual:** Alineación exacta del contenido del `header` con el ancho central del body, ajuste de posición del interruptor de tema dentro del menú, y forzado de colores en `header`/`footer`/`clickable-card` en modo claro para mantener coherencia visual.
+- **Documentación interna:** Comentarios del archivo `styles.css` traducidos al español para mantener consistencia en el equipo.
+
+
 ## [2.1.0] - 2026-06-08
 ### Added
 - **Persistencia de Canales Independiente:** Arquitectura de memoria indexada por ID de personaje que mantiene los historiales de chat activos de forma aislada al navegar por la SPA.

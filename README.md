@@ -130,3 +130,13 @@ En cumplimiento con los lineamientos de la entrega, se detalla el uso estratégi
 - **Casos Borde de Testing (Edge Cases):** La IA sirvió de apoyo para estructurar escenarios defensivos rigurosos en `src/test/utils.test.js`, cubriendo el comportamiento del mapeador de flujos ante datos corruptos (`null`, `undefined` o estructuras inválidas), garantizando que el sistema sea tolerante a fallas frente a los stakeholders.
 
 ---
+
+## 📝 Cambios recientes (2026-06-10)
+
+- **Tema claro refinado:** Se aplicó un nuevo esquema visual para el modo claro con fondo crema y bloques en tonos café/tabaco para reducir el contraste y la fatiga visual. Se añadieron variables CSS internas (`--light-box-text`, `--light-box-muted`) para controlar el color de texto dentro de los bloques (header, tarjetas, footer).
+
+- **Alineación del header y toggle:** El contenido del `header` ahora se alinea exactamente con el ancho central del body y el interruptor de tema (toggle) fue posicionado dentro de la barra de navegación con separación estética para una experiencia consistente entre vistas.
+
+- **Forzado de colores en modo claro:** Se garantizó que `header`, `footer` y las `clickable-card` respeten las variables del modo claro para mantener coherencia visual entre los componentes.
+
+- **Documentación y accesibilidad:** Comentarios en `styles.css` fueron traducidos al español; la preferencia de tema se persiste en `localStorage` y el icono de tema se actualiza con una transición suave al alternar.
