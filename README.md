@@ -8,6 +8,8 @@ El propósito de este prototipo es evaluar la viabilidad técnica y la experienc
 
 ## 👥 Descripción de los Personajes Integrados
 
+El proyecto se inició con un único personaje elegido: **Calcifer**. El primer prototipo se creó con Calcifer mockeado para validar la experiencia conversacional y luego se escaló a una arquitectura multipersonaje con soporte de IA y despliegue en Vercel.
+
 La plataforma cuenta con una central multidimensional de canales independientes donde cada entidad posee una personalidad, directivas y contexto único:
 
 ### 1. Calcifer 🔥
@@ -38,15 +40,15 @@ La plataforma cuenta con una central multidimensional de canales independientes 
 
 ## 📸 Galería de la Aplicación (POC en Acción)
 
-### Vista Principal (Home - Selector de Personajes)
-Representación responsiva de la grilla de selección en formato adaptable.
+### Vista Principal (Home - Selector de Personajes) - PC
+Representación responsiva de la grilla de selección en formato adaptable para escritorio.
 ![Home Desktop](assets/captura-home.png)
 
-### Central de Chat Multicanal (Persistencia Activa)
-Interfaz de conversación con burbujas asimétricas, timestamps e indicador dinámico de escritura.
+### Central de Chat Multicanal (Persistencia Activa) - Tablet
+Interfaz de conversación con burbujas asimétricas, timestamps e indicador dinámico de escritura en vista tablet.
 ![Chat View](assets/captura-chat.png)
 
-### Versión Mobile (Responsive Adaptado)
+### Versión Mobile (Responsive Adaptado) - Móvil
 Maquetación optimizada para smartphones (ocultado de cadenas de texto extensas y logo adaptativo).
 ![Mobile View](assets/captura-mobile.png)
 
